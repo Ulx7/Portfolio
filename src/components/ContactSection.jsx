@@ -55,7 +55,7 @@ export const ContactSection = () => {
                                 </span>
                             </div>
 
-                            <h2 className="text-5xl md:text-7xl font-black text-white leading-tight">
+                            <h2 className="text-5xl md:text-7xl font-black text-foreground dark:text-white leading-tight">
                                 Let's build <br />
                                 <span className="text-primary italic font-light">together.</span>
                             </h2>
@@ -65,12 +65,12 @@ export const ContactSection = () => {
                         <div className="space-y-8 pt-8">
                             <div className="group transition-all">
                                 <p className="text-[10px] uppercase tracking-[0.3em] text-gray-500 font-bold mb-2">Location</p>
-                                <p className="text-xl text-white font-medium">Helsinki, Finland</p>
+                                <p className="text-xl text-foreground dark:text-white font-medium">Helsinki, Finland</p>
                             </div>
 
                             <div className="group transition-all">
                                 <p className="text-[10px] uppercase tracking-[0.3em] text-gray-500 font-bold mb-2">Email</p>
-                                <a href="mailto:castelloulises1420@gmail.com" className="text-xl text-white font-medium hover:text-primary transition-colors border-b border-white/10 hover:border-primary pb-1">
+                                <a href="mailto:castelloulises1420@gmail.com" className="text-xl text-foreground dark:text-white font-medium hover:text-primary transition-colors border-b border-white/10 hover:border-primary pb-1">
                                     castelloulises1420@gmail.com
                                 </a>
                             </div>
@@ -81,7 +81,7 @@ export const ContactSection = () => {
                                     href="https://linkedin.com/in/ulysse-castello"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="p-3 bg-white/5 rounded-full hover:bg-primary/20 hover:text-primary transition-all border border-white/5"
+                                    className="p-3 bg-white/5 dark:bg-white/5 rounded-full hover:bg-primary/20 hover:text-primary transition-all border border-white/5"
                                 >
                                     <FaLinkedin size={20} />
                                 </a>
@@ -102,24 +102,24 @@ export const ContactSection = () => {
                         {/* Brillo de fondo para el formulario */}
                         <div className="absolute -inset-4 bg-primary/10 blur-3xl rounded-full opacity-20" />
 
-                        <div className="relative bg-[#0f172a]/50 backdrop-blur-xl p-8 md:p-12 rounded-[2.5rem] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
-                            <h3 className="text-2xl font-bold mb-8 text-white">Send a message</h3>
+                        <div className="relative bg-[#0f172a]/50 dark:bg-[#0f172a]/50 backdrop-blur-xl p-8 md:p-12 rounded-[2.5rem] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+                            <h3 className="text-2xl font-bold mb-8 text-foreground dark:text-white">Send a message</h3>
 
                             <form onSubmit={handleSubmit} className="space-y-6 text-left">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div className="space-y-2">
                                         <label className="text-[10px] uppercase tracking-widest font-black text-gray-500 ml-1">Name</label>
-                                        <input type="text" name="name" required className="w-full px-6 py-4 rounded-2xl border border-white/5 bg-black/40 text-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all placeholder:text-gray-700" placeholder="John Doe" />
+                                        <input type="text" name="name" required className="w-full px-6 py-4 rounded-2xl border border-white/5 bg-black/40 text-foreground dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all placeholder:text-gray-700" placeholder="John Doe" />
                                     </div>
                                     <div className="space-y-2">
                                         <label className="text-[10px] uppercase tracking-widest font-black text-gray-500 ml-1">Email</label>
-                                        <input type="email" name="email" required className="w-full px-6 py-4 rounded-2xl border border-white/5 bg-black/40 text-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all placeholder:text-gray-700" placeholder="john@example.com" />
+                                        <input type="email" name="email" required className="w-full px-6 py-4 rounded-2xl border border-white/5 bg-black/40 text-foreground dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all placeholder:text-gray-700" placeholder="john@example.com" />
                                     </div>
                                 </div>
 
                                 <div className="space-y-2">
                                     <label className="text-[10px] uppercase tracking-widest font-black text-gray-500 ml-1">Message</label>
-                                    <textarea name="message" rows="4" required className="w-full px-6 py-4 rounded-2xl border border-white/5 bg-black/40 text-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all resize-none placeholder:text-gray-700" placeholder="Tell me about your project..." />
+                                    <textarea name="message" rows="4" required className="w-full px-6 py-4 rounded-2xl border border-white/5 bg-black/40 text-foreground dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all resize-none placeholder:text-gray-700" placeholder="Tell me about your project..." />
                                 </div>
 
                                 <button

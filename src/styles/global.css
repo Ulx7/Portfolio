@@ -145,13 +145,27 @@
 }
 
 @utility star {
-  @apply absolute rounded-full bg-white;
-  box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.4);
+  @apply absolute rounded-full;
+  background: rgba(100,116,139,0.55); /* slate-500 soft for light mode */
+  box-shadow: 0 0 8px 1px rgba(100,116,139,0.12);
+  transition: background 300ms, box-shadow 300ms, opacity 300ms;
+}
+
+:is(.dark) .star {
+  background: rgba(255,255,255,0.95);
+  box-shadow: 0 0 10px 2px rgba(255,255,255,0.4);
 }
 
 @utility meteor {
-  @apply absolute bg-linear-to-r from-white via-white to-transparent rounded-full;
-  box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.3);
+  @apply absolute rounded-full;
+  background: linear-gradient(to right, rgba(147,197,253,0.6), transparent);
+  box-shadow: 0 0 10px 5px rgba(147,197,253,0.18);
+  transition: background 300ms, box-shadow 300ms, opacity 300ms;
+}
+
+:is(.dark) .meteor {
+  background: linear-gradient(to right, rgba(255,255,255,0.85), transparent);
+  box-shadow: 0 0 10px 5px rgba(255,255,255,0.3);
 }
 
 #root {

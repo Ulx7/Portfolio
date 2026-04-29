@@ -281,7 +281,7 @@ export const ProjectsSection = () => {
   }, [selectedProject, expandedImage]);
 
   return (
-    <section id="projects" className="py-32 px-4 bg-[#030712] text-white relative min-h-screen">
+    <section id="projects" className="py-32 px-4 dark:bg-[#030712] bg-transparent dark:text-white text-foreground relative min-h-screen">
       <div className="container mx-auto max-w-6xl relative z-10">
         <header className="mb-20 text-center">
           <h2 className="text-4xl md:text-6xl font-black text-white leading-tight">

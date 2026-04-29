@@ -14,20 +14,20 @@ export const HeroSection = () => {
 
                     {/* TÍTULO: Usamos un leading más ajustado y pesos diferenciados */}
                     <h1 className="text-5xl md:text-8xl font-black tracking-tighter leading-[1.1]">
-                        <span className="opacity-0 animate-fade-in block text-white/90 text-4xl md:text-6xl font-medium mb-2">
+                        <span className="opacity-0 animate-fade-in block text-foreground/70 dark:text-white/90 text-4xl md:text-6xl font-medium mb-2">
                             Hi, I'm
                         </span>
                         <span className="text-primary opacity-0 animate-fade-in-delay-1 inline-block drop-shadow-[0_0_15px_rgba(139,92,246,0.3)]">
                             Ulysse
                         </span>
-                        <span className="text-white ml-3 opacity-0 animate-fade-in-delay-2 inline-block">
+                        <span className="ml-3 opacity-0 animate-fade-in-delay-2 inline-block text-foreground dark:text-white">
                             Castello
                         </span>
                     </h1>
 
                     {/* PÁRRAFO: Reducimos un poco el ancho para que no sea tan largo y sea más elegante */}
                     <p className="text-base md:text-lg text-muted-foreground max-w-xl mx-auto opacity-0 animate-fade-in-delay-3 leading-relaxed font-light">
-                        Building the future, one project at a time. I navigate between <span className="text-white/80 font-medium">logic and data</span> to bring digital ideas to life.
+                        Building the future, one project at a time. I navigate between <span className="text-foreground/80 dark:text-white/80 font-medium">logic and data</span> to bring digital ideas to life.
                     </p>
 
                     {/* BOTONES: Añadimos un poco más de personalidad */}
@@ -39,7 +39,7 @@ export const HeroSection = () => {
                         <a
                             href="/tu-cv.pdf"
                             download
-                            className="group flex items-center justify-center gap-2 px-8 py-3 rounded-full border border-white/10 bg-white/[0.03] hover:bg-white/[0.08] hover:border-white/20 transition-all duration-300 w-full sm:w-auto text-white/90 font-medium backdrop-blur-sm"
+                            className="group flex items-center justify-center gap-2 px-8 py-3 rounded-full border border-gray-200/10 bg-white/0 dark:bg-white/[0.03] hover:dark:bg-white/[0.08] hover:dark:border-white/20 transition-all duration-300 w-full sm:w-auto text-foreground dark:text-white/90 font-medium"
                         >
                             <FileDown size={18} className="group-hover:translate-y-0.5 transition-transform" />
                             Download CV

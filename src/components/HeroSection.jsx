@@ -33,7 +33,7 @@ export const HeroSection = () => {
                         </a>
 
                         <a
-                            href="/CV.pdf"
+                            href="/Ulysse_Castello_CV.pdf"
                             download="Ulysse_Castello_CV.pdf"
                             className="group flex items-center justify-center gap-2 px-8 py-3 rounded-full border border-gray-200/10 bg-white/0 dark:bg-white/[0.03] hover:dark:bg-white/[0.08] hover:dark:border-white/20 transition-all duration-300 w-full sm:w-auto text-foreground dark:text-white/90 font-medium"
                         >

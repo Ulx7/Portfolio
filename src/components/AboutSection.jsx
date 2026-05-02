@@ -15,7 +15,6 @@ export const AboutSection = () => {
 
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start">
                     
-                    {/* COLUMNA IZQUIERDA: BIOGRAFÍA */}
                     <div className="lg:col-span-7 space-y-10">
                         <div className="space-y-6">
                             <h3 className="text-2xl md:text-3xl font-bold text-foreground/90 dark:text-white/90 leading-tight">
@@ -36,7 +35,6 @@ export const AboutSection = () => {
                             </div>
                         </div>
 
-                        {/* Botones con más espacio */}
                         <div className="flex flex-wrap gap-5 pt-4">
                             <a href="#contact" className="cosmic-button flex items-center gap-2">
                                 <Mail size={18} />
@@ -45,7 +43,6 @@ export const AboutSection = () => {
                         </div>
                     </div>
 
-                    {/* COLUMNA DERECHA: CERTIFICACIONES */}
                     <div className="lg:col-span-5">
                         <div className="flex items-center gap-3 mb-8">
                             <GraduationCap className="text-primary" size={28} />

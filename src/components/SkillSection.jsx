@@ -54,7 +54,6 @@ export const SkillSection = () => {
                     <div className="h-1.5 w-24 bg-primary mx-auto rounded-full opacity-80" />
                 </div>
 
-                {/* Filtros */}
                 <div className="flex flex-wrap justify-center gap-4 mb-20">
                     {categories.map(cat => (
                         <button

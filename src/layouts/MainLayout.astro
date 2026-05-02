@@ -3,13 +3,25 @@ import '../styles/global.css';
 const { title = "Portfolio" } = Astro.props;
 ---
 
-<html lang="es">
+<html lang="es" class="dark">
   <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
-    <title>{title}</title>
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <script is:inline>
+      const theme = (() => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme');
+        }
+        return 'dark';
+      })();
+    
+      if (theme === 'light') {
+        document.documentElement.classList.remove('dark');
+      } else {
+        document.documentElement.classList.add('dark');
+      }
+    </script>
   </head>
-  <body class="bg-background">
-    <slot /> </body>
+  <body class="bg-slate-50 dark:bg-[#030712] transition-colors duration-300">
+    <slot />
+  </body>
 </html>

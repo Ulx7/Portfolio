@@ -146,7 +146,7 @@
 
 @utility star {
   @apply absolute rounded-full;
-  background: rgba(100,116,139,0.55); /* slate-500 soft for light mode */
+  background: rgba(100,116,139,0.55); 
   box-shadow: 0 0 8px 1px rgba(100,116,139,0.12);
   transition: background 300ms, box-shadow 300ms, opacity 300ms;
 }
@@ -176,24 +176,34 @@
 }
 
 ::-webkit-scrollbar {
-  width: 8px; /* Ancho de la barra vertical */
-  height: 8px; /* Alto de la barra horizontal */
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0d0d12; /* Un color casi negro que combine con tu fondo espacial */
+  background: #0d0d12; 
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #5b21b6; /* Un color morado (puedes usar el violet-800 de Tailwind) */
-  border-radius: 10px; /* Bordes redondeados para que se vea moderna */
+  background: #5b21b6; 
+  border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #7c3aed; /* Un morado un poco más brillante */
+  background: #7c3aed; 
 }
 
 * {
   scrollbar-width: thin;
   scrollbar-color: #5b21b6 #0d0d12;
+}
+
+@layer base {
+  body {
+    @apply bg-slate-50 text-slate-900 transition-colors duration-300;
+  }
+  
+  .dark body {
+    @apply bg-[#030712] text-white;
+  }
 }

@@ -41,7 +41,6 @@ import RealEstate2 from "../images/RealEstate2.jpeg";
 import RealEstate3 from "../images/RealEstate3.jpeg";
 
 const techIcons = {
-  // Frontend & Tools
   "Astro": <SiAstro size={14} />,
   "React": <FaReact size={14} />,
   "Tailwind CSS": <SiTailwindcss size={14} />,
@@ -405,7 +404,6 @@ export const ProjectsSection = () => {
                   </div>
                 </div>
                 <div className="flex flex-wrap gap-4 pt-6 border-t border-white/5">
-                  {/* 1. ACCIÓN PRINCIPAL: Live Website (Destacado con tu color primario) */}
                   {selectedProject.links.demo && (
                     <a
                       href={selectedProject.links.demo}
@@ -417,7 +415,6 @@ export const ProjectsSection = () => {
                     </a>
                   )}
 
-                  {/* 2. GITHUB GENERAL (Diseño elegante en escala de grises) */}
                   {selectedProject.links.github && (
                     <a
                       href={selectedProject.links.github}
@@ -429,7 +426,6 @@ export const ProjectsSection = () => {
                     </a>
                   )}
 
-                  {/* 3. FRONT/BACK (Mismo estilo que GitHub para mantener orden) */}
                   {selectedProject.links.frontend && (
                     <a href={selectedProject.links.frontend} target="_blank" rel="noopener noreferrer" className="flex-1 min-w-[200px] py-4 bg-white/5 border border-white/10 text-white/90 text-center rounded-2xl font-bold hover:bg-white/10 transition-all flex items-center justify-center gap-2">
                       <FaGithub size={18} /> Front-end Code
@@ -441,7 +437,6 @@ export const ProjectsSection = () => {
                     </a>
                   )}
 
-                  {/* 4. DOCUMENTACIÓN (Elegante y profesional, sin el rojo) */}
                   {selectedProject.links.download && (
                     <a
                       href={selectedProject.links.download}

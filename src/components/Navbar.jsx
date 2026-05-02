@@ -23,7 +23,6 @@ export const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Bloqueo de scroll profesional
   useEffect(() => {
     if (isMenuOpen) {
       document.body.style.overflow = "hidden";
@@ -37,7 +36,7 @@ export const Navbar = () => {
   return (
     <nav
       className={cn(
-        "fixed w-full top-0 left-0 transition-all duration-500 ease-in-out z-[999]", // Z-index muy alto
+        "fixed w-full top-0 left-0 transition-all duration-500 ease-in-out z-[999]",
         isScrolled 
           ? "py-3 bg-background/80 backdrop-blur-lg border-b border-white/5 shadow-xl" 
           : "py-6 bg-transparent"
@@ -51,7 +50,6 @@ export const Navbar = () => {
           </span>
         </a>
 
-        {/* Desktop Nav */}
         <div className="hidden md:flex items-center space-x-10">
           {navItems.map((item, key) => (
             <a
@@ -68,7 +66,6 @@ export const Navbar = () => {
           </div>
         </div>
 
-        {/* Mobile Toggle - Z-index por encima del overlay */}
         <button
           onClick={() => setIsMenuOpen((prev) => !prev)}
           className="md:hidden p-2 text-foreground z-[1001] relative"
@@ -77,7 +74,6 @@ export const Navbar = () => {
           {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
 
-        {/* Mobile Nav Overlay - Fondo 100% Sólido */}
         <div
           className={cn(
             "fixed inset-0 min-h-screen w-full bg-background z-[1000] flex flex-col items-center justify-center transition-all duration-500 ease-in-out",
@@ -86,10 +82,8 @@ export const Navbar = () => {
               : "opacity-0 pointer-events-none"
           )}
         >
-          {/* Refuerzo de opacidad para eliminar el "ruido" del fondo */}
           <div className="absolute inset-0 bg-background" />
 
-          {/* Menu Items */}
           <div className="relative z-10 flex flex-col space-y-8 text-center items-center">
             {navItems.map((item, key) => (
               <a
@@ -103,7 +97,6 @@ export const Navbar = () => {
             ))}
           </div>
 
-          {/* Theme Toggle - Fijo abajo */}
           <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10">
             <ThemeToggle />
           </div>

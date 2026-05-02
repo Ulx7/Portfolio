@@ -59,7 +59,7 @@ export const ContactSection = () => {
                         <div className="space-y-8 pt-8">
                             <div className="group">
                                 <p className="text-[10px] uppercase tracking-[0.3em] text-slate-400 dark:text-gray-500 font-bold mb-2">Location</p>
-                                <p className="text-xl text-slate-800 dark:text-white font-medium">Uruguay</p>
+                                <p className="text-xl text-slate-800 dark:text-white font-medium">Helsinki, Finland</p>
                             </div>
 
                             <div className="group">

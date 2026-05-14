@@ -29,7 +29,7 @@ export const AboutSection = () => {
                                     I'm currently focused on merging logic with data-driven insights.
                                 </p>
                                 <p className="italic border-l-2 border-primary/40 pl-6 py-2 bg-white/[0.02] dark:bg-white/[0.02]">
-                                    "What motivates me most is the opportunity to work on projects that address 
+                                    "What motivates me the most is the opportunity to work on projects that address 
                                     real-world issues while pushing the boundaries of innovation."
                                 </p>
                             </div>

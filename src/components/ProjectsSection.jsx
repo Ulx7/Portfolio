@@ -355,7 +355,7 @@ export const ProjectsSection = () => {
               <div className="flex-1 overflow-y-auto p-8 md:p-12 space-y-12 bg-[#0f172a] custom-scrollbar-minimal">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {selectedProject.images.map((img, i) => (
-                    <div key={i} className="relative group overflow-hidden rounded-3xl cursor-zoom-in">
+                    <div key={i} className="relative group overflow-hidden rounded-3xl cursor-pointer">
                       <img
                         src={img}
                         className="w-full aspect-video object-cover border border-white/5 shadow-2xl transition-transform duration-500 group-hover:scale-105"
@@ -460,7 +460,7 @@ export const ProjectsSection = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setExpandedImage(null)}
-            className="fixed inset-0 z-[20000] bg-black/95 backdrop-blur-sm flex items-center justify-center p-4 md:p-12 cursor-zoom-out"
+            className="fixed inset-0 z-[20000] bg-black/95 backdrop-blur-sm flex items-center justify-center p-4 md:p-12 cursor-default"
           >
             <button
               onClick={() => setExpandedImage(null)}
@@ -476,8 +476,7 @@ export const ProjectsSection = () => {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="max-w-full max-h-full rounded-2xl shadow-2xl object-contain border border-white/10"
-              onClick={(e) => e.stopPropagation()}
+              className="max-w-full max-h-full rounded-2xl shadow-2xl object-contain border border-white/10 cursor-pointer"
             />
           </motion.div>
         )}

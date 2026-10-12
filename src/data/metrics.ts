@@ -1,37 +1,55 @@
-export interface Metric {
-  id: string;
-  badge: string;
-  title: string;
-  subtitle: string;
-  period?: string;
-  description: string;
-  hasDiplomaAction?: boolean;
+export interface LanguageItem {
+  language: string;
+  level: string;
 }
 
-export const metrics: Metric[] = [
+export interface EditorialCredential {
+  id: string;
+  category: string;
+  headline?: string;
+  details?: string;
+  languageItems?: LanguageItem[];
+  actionType?: "diplomas" | "certificates";
+  actionLabel?: string;
+  hasDiplomaAction?: boolean;
+  title?: string;
+  subtitle?: string;
+  badge?: string;
+  period?: string;
+  description?: string;
+}
+
+export const credentials: EditorialCredential[] = [
   {
-    id: "eu-citizen",
-    badge: "EU",
-    title: "EU Citizen",
-    subtitle: "Work Authorization",
-    period: "Worldwide",
-    description: "Full working rights with immediate relocation availability worldwide (No visa sponsorship required).",
+    id: "status-location",
+    category: "Status & Location",
+    headline: "EU Citizen · Berlin, Germany",
+    details: "Immediate worldwide relocation & open to remote roles.",
   },
   {
-    id: "berlin-hub",
-    badge: "DE",
-    title: "Berlin Tech Hub",
-    subtitle: "Location",
-    period: "Berlin, Germany",
-    description: "Based in Berlin, Germany. Open to worldwide remote and on-site engineering roles.",
-  },
-  {
-    id: "ort-degrees",
-    badge: "ORT",
-    title: "Universidad ORT Uruguay",
-    subtitle: "Academic Formation",
-    period: "Montevideo",
-    description: "Triple Degree in IT Analyst, Systems Analyst & Web Development.",
+    id: "education",
+    category: "Education",
+    headline: "Universidad ORT Uruguay",
+    details: "Triple Degree: IT Analyst, Systems Analyst & Web Developer.",
+    actionType: "diplomas",
+    actionLabel: "View Diplomas",
     hasDiplomaAction: true,
   },
+  {
+    id: "languages",
+    category: "Languages",
+    languageItems: [
+      { language: "Spanish", level: "Native" },
+      { language: "English", level: "Professional Working Proficiency" },
+      { language: "German", level: "Elementary" },
+    ],
+    actionType: "certificates",
+    actionLabel: "View Certificates",
+  },
 ];
+
+// Compatibility exports
+export type CredentialRow = EditorialCredential;
+export type Metric = EditorialCredential;
+export const credentialRows = credentials;
+export const metrics = credentials;

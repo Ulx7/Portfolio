@@ -11,7 +11,7 @@ export const ImpactNumbers: React.FC = () => {
           <div key={metric.id} className="notification-card">
             <div className="notification-inner">
               <div className="notification-icon-wrapper">
-                <div className="notification-badge">{metric.badge}</div>
+                <div className="notification-badge">{metric.badge || "•"}</div>
               </div>
               <div className="notification-content">
                 <div className="notification-header">

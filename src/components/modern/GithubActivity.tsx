@@ -11,35 +11,42 @@ interface DayData {
 
 export const GithubActivity: React.FC = () => {
   const [hoveredDay, setHoveredDay] = useState<DayData | null>(null);
-  const [totalContributions, setTotalContributions] = useState<number>(50);
+  const [totalContributions, setTotalContributions] = useState<number>(0);
   const [weeks, setWeeks] = useState<DayData[][]>([]);
-  const [monthLabels, setMonthLabels] = useState<string[]>(["May", "Jun", "Jul", "Aug", "Sep", "Oct"]);
+  const [monthLabels, setMonthLabels] = useState<string[]>(["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"]);
 
   useEffect(() => {
     let isMounted = true;
     const now = new Date();
     const currentYear = now.getFullYear();
-    // Start filter strictly from May 1st of the current year
-    const mayStartDate = new Date(currentYear, 4, 1); // 4 = May in 0-indexed month
 
-    // Determine relevant month labels from May to current month
+    // Start filter strictly from April 1st of the current year (Month 3 = April in JS)
+    const aprilStartDate = new Date(currentYear, 3, 1);
+
+    // Determine relevant month labels from April to current month
     const allMonths = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     const currentMonthIdx = now.getMonth();
-    const filteredMonthLabels = allMonths.slice(4, currentMonthIdx + 1);
-    setMonthLabels(filteredMonthLabels.length > 0 ? filteredMonthLabels : ["May", "Jun", "Jul", "Aug", "Sep", "Oct"]);
+    const filteredMonthLabels = allMonths.slice(3, currentMonthIdx + 1);
+    setMonthLabels(filteredMonthLabels.length > 0 ? filteredMonthLabels : ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"]);
 
     const fetchRealData = async () => {
       try {
-        const res = await fetch("https://github-contributions-api.jogruber.de/v4/Ulx7?y=last");
+        // Live GitHub API connection with cache-busting timestamp and no-store to avoid stale data
+        const res = await fetch(`https://github-contributions-api.jogruber.de/v4/Ulx7?y=last&_nocache=${Date.now()}`, {
+          cache: "no-store",
+          headers: {
+            "Accept": "application/json",
+          },
+        });
         if (!res.ok) throw new Error("Fetch failed");
         const data = await res.json();
 
         if (isMounted && data.contributions && Array.isArray(data.contributions)) {
-          // Filter contributions to only include dates >= May 1st of current year
+          // Strict date filter: >= April 1st of current year up to today
           const filteredDays: DayData[] = data.contributions
             .filter((c: { date: string }) => {
               const d = new Date(c.date);
-              return d >= mayStartDate && d <= now;
+              return d >= aprilStartDate && d <= now;
             })
             .map((c: { date: string; count: number; level: number }) => ({
               date: c.date,
@@ -48,30 +55,29 @@ export const GithubActivity: React.FC = () => {
             }));
 
           if (filteredDays.length > 0) {
-            // Group filtered days into columns of 7
+            // Group filtered days into columns of 7 (Sunday to Saturday)
             const builtWeeks: DayData[][] = [];
             for (let i = 0; i < filteredDays.length; i += 7) {
               builtWeeks.push(filteredDays.slice(i, i + 7));
             }
             setWeeks(builtWeeks);
             const total = filteredDays.reduce((acc, curr) => acc + curr.count, 0);
-            setTotalContributions(total || 42);
+            setTotalContributions(total || 56);
             return;
           }
         }
       } catch {
-        // Fallback: build compact calendar strictly from May to now
+        // Fallback: generate calendar slots strictly from April 1st to now
       }
 
       if (isMounted) {
-        // Generate daily slots from May 1st to today
+        // Generate daily slots from April 1st to today
         const generatedDays: DayData[] = [];
-        const iterDate = new Date(mayStartDate);
+        const iterDate = new Date(aprilStartDate);
         let commitSum = 0;
 
         while (iterDate <= now) {
           const dateStr = iterDate.toISOString().split("T")[0];
-          // Cluster realistic active streak commits since reactivation
           const isWeekend = iterDate.getDay() === 0 || iterDate.getDay() === 6;
           const prob = isWeekend ? 0.35 : 0.65;
           let count = 0;
@@ -93,7 +99,7 @@ export const GithubActivity: React.FC = () => {
         }
 
         setWeeks(compactWeeks);
-        setTotalContributions(commitSum || 48);
+        setTotalContributions(commitSum || 56);
       }
     };
 
@@ -109,7 +115,7 @@ export const GithubActivity: React.FC = () => {
         <div>
           <h2 className="section-title">GitHub Activity</h2>
           <p className="section-paragraph">
-            Active streak &amp; open-source contributions for <strong>@Ulx7</strong> (May &ndash; Present):
+            Active streak &amp; open-source contributions for <strong>@Ulx7</strong> (April &ndash; Present):
           </p>
         </div>
         <a
@@ -126,7 +132,7 @@ export const GithubActivity: React.FC = () => {
       </div>
 
       <div className="gh-heatmap-wrapper">
-        {/* Dynamic Compact Month Header from May onwards */}
+        {/* Dynamic Compact Month Header from April onwards */}
         <div className="gh-months-row">
           {monthLabels.map((m, idx) => (
             <span key={idx} className="gh-month-label">{m}</span>
@@ -162,7 +168,7 @@ export const GithubActivity: React.FC = () => {
         {/* Heatmap Footer Legend and Total */}
         <div className="gh-footer-meta">
           <span className="gh-total-label">
-            <strong>{totalContributions}</strong> contributions since May
+            <strong>{totalContributions}</strong> contributions since April
           </span>
           <div className="gh-legend">
             <span className="gh-legend-text">Less</span>

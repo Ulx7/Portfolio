@@ -33,62 +33,68 @@ export const ContactSection: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const handleCopyEmail = () => {
-    navigator.clipboard.writeText(profile.email);
+  const handleCopyEmail = (e?: React.MouseEvent) => {
+    if (e) {
+      e.preventDefault();
+    }
+    navigator.clipboard.writeText("castelloulises1420@gmail.com");
     setCopied(true);
-    setTimeout(() => setCopied(false), 2200);
+    setTimeout(() => setCopied(false), 2400);
   };
 
   return (
     <section id="contact" className="section contact-editorial-section">
       <h2 className="section-title">Get in Touch</h2>
 
+      {/* Llamado a la acción editorial destacado */}
+      <h3 className="contact-editorial-cta">
+        Let&apos;s build something exceptional together
+      </h3>
+
+      {/* Párrafo de apoyo */}
       <p className="contact-editorial-desc">
-        Have a project in mind, an engineering opportunity, or want to discuss software and data systems? My inbox is always open.
+        Have an engineering opportunity, a data challenge, or want to discuss systems architecture? Feel free to reach out directly.
       </p>
 
-      {/* Main Interactive Email Row */}
-      <div className="contact-email-hero-row">
+      {/* Tarjeta interactiva de correo: Franja sutil y elegante */}
+      <div className="contact-email-bar">
         <a
           href={`mailto:${profile.email}`}
-          className="contact-main-email-link"
-          aria-label={`Send an email to ${profile.email}`}
+          className="contact-bar-email-link"
+          aria-label={`Send email to ${profile.email}`}
         >
-          <span className="contact-email-text">{profile.email}</span>
-          <ArrowUpRight size={18} className="contact-email-arrow" aria-hidden="true" />
+          <span className="contact-bar-email-text">{profile.email}</span>
+          <ArrowUpRight size={17} className="contact-bar-email-arrow" aria-hidden="true" />
         </a>
 
-        {/* Discreet Copy Button with Micro-Tooltip */}
-        <div className="contact-copy-wrapper">
-          <button
-            type="button"
-            onClick={handleCopyEmail}
-            className="contact-discreet-copy-btn"
-            title="Copy email to clipboard"
-            aria-label="Copy email address"
-          >
-            {copied ? (
+        <button
+          type="button"
+          onClick={handleCopyEmail}
+          className={`contact-bar-copy-btn ${copied ? "copied" : ""}`}
+          title="Copy email to clipboard"
+          aria-label="Copy email address to clipboard"
+        >
+          {copied ? (
+            <>
               <Check size={13} className="copy-icon-success" />
-            ) : (
+              <span>Copied! ✓</span>
+            </>
+          ) : (
+            <>
               <Copy size={13} className="copy-icon-idle" />
-            )}
-            <span className="copy-btn-label">{copied ? "Copied!" : "Copy"}</span>
-          </button>
-
-          {copied && (
-            <span className="copy-micro-toast" role="status" aria-live="polite">
-              Copied!
-            </span>
+              <span>Copy</span>
+            </>
           )}
-        </div>
+        </button>
       </div>
 
-      {/* Subtle Separation & Metadata Single Line */}
+      {/* Pie de página: Footer integrado con línea horizontal */}
       <div className="contact-editorial-footer-row">
         <div className="contact-meta-location">
-          <span className="active-status-pulse-dot" title="Available for opportunities" />
+          <span className="contact-status-dot" aria-hidden="true" />
           <span className="location-clock-text">
-            Berlin, Germany &middot; <span className="live-clock-digits">{berlinTime || "CEST"}</span>
+            Available for new roles &middot; Berlin, Germany &middot;{" "}
+            <span className="live-clock-digits">{berlinTime || "CEST"}</span>
           </span>
         </div>
 

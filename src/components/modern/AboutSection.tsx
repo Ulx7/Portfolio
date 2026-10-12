@@ -1,55 +1,88 @@
 import React, { useState } from "react";
-import { metrics } from "../../data/metrics";
+import { credentials } from "../../data/metrics";
 import { DiplomasModal } from "./DiplomasModal";
-import { ArrowUpRight } from "lucide-react";
+import { CertificatesModal } from "./CertificatesModal";
 
 export const AboutSection: React.FC = () => {
   const [showDiplomasModal, setShowDiplomasModal] = useState<boolean>(false);
+  const [showCertificatesModal, setShowCertificatesModal] = useState<boolean>(false);
 
   return (
-    <section id="about" className="section">
+    <section id="about" className="section credentials-section">
       <h2 className="section-title">Credentials &amp; Education</h2>
 
-      {/* 3 Impact Cards */}
-      <div className="milestones-stack">
-        {metrics.map((m) => (
-          <div key={m.id} className="milestone-card">
-            <div className="milestone-badge-box">
-              <span className="milestone-badge">{m.badge}</span>
+      {/* Asymmetric 2-column editorial layout */}
+      <div className="credentials-editorial-layout">
+        {credentials.map((item) => (
+          <div key={item.id} className="credential-editorial-entry">
+            <div className="credential-left-col">
+              <span className="credential-category-label">{item.category}</span>
             </div>
 
-            <div className="milestone-body">
-              <div className="milestone-header">
-                <span className="milestone-heading">
-                  <strong className="milestone-title">{m.title}</strong>
-                  <span className="milestone-sep">&middot;</span>
-                  <span className="milestone-sub">{m.subtitle}</span>
-                </span>
-              </div>
-              <p className="milestone-desc">{m.description}</p>
+            <div className="credential-right-col">
+              {item.languageItems ? (
+                /* Languages block: 3 clean lines of plain text with single general action link */
+                <div className="credential-languages-block">
+                  <div className="credential-languages-list">
+                    {item.languageItems.map((lang, idx) => (
+                      <p key={idx} className="credential-language-line">
+                        <strong className="lang-name">{lang.language}</strong>
+                        <span className="credential-dash"> &mdash; </span>
+                        <span className="lang-level">{lang.level}</span>
+                      </p>
+                    ))}
+                  </div>
 
-              {/* Sutil y elegante enlace de texto para ver diplomas */}
-              {m.hasDiplomaAction && (
-                <div className="milestone-action-row">
-                  <button
-                    type="button"
-                    onClick={() => setShowDiplomasModal(true)}
-                    className="view-diplomas-link"
-                    aria-label="View university diplomas and certification records"
-                  >
-                    <span>View Diplomas</span>
-                    <ArrowUpRight size={13} className="diploma-arrow-icon" />
-                  </button>
+                  {item.actionType === "certificates" && (
+                    <div className="credential-action-container">
+                      <button
+                        type="button"
+                        onClick={() => setShowCertificatesModal(true)}
+                        className="view-diplomas-inline-link"
+                        aria-label="View official language certificates"
+                      >
+                        <span>{item.actionLabel || "View Certificates"}</span>
+                        <span className="inline-arrow" aria-hidden="true">↗</span>
+                      </button>
+                    </div>
+                  )}
                 </div>
+              ) : (
+                /* Editorial text row for Status & Location and Education */
+                <p className="credential-editorial-text">
+                  <strong className="credential-headline">{item.headline}</strong>
+                  {item.details && (
+                    <>
+                      <span className="credential-dash"> &mdash; </span>
+                      <span className="credential-details">{item.details}</span>
+                    </>
+                  )}
+                  {item.actionType === "diplomas" && (
+                    <button
+                      type="button"
+                      onClick={() => setShowDiplomasModal(true)}
+                      className="view-diplomas-inline-link"
+                      aria-label="View official university diplomas"
+                    >
+                      <span>{item.actionLabel || "View Diplomas"}</span>
+                      <span className="inline-arrow" aria-hidden="true">↗</span>
+                    </button>
+                  )}
+                </p>
               )}
             </div>
           </div>
         ))}
       </div>
 
-      {/* Diplomas Modal Viewer */}
+      {/* Independent University Diplomas Modal */}
       {showDiplomasModal && (
         <DiplomasModal onClose={() => setShowDiplomasModal(false)} />
+      )}
+
+      {/* Independent Language Certifications Modal */}
+      {showCertificatesModal && (
+        <CertificatesModal onClose={() => setShowCertificatesModal(false)} />
       )}
     </section>
   );

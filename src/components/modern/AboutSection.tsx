@@ -20,35 +20,24 @@ export const AboutSection: React.FC = () => {
             </div>
 
             <div className="credential-right-col">
-              {item.languageItems ? (
-                /* Languages block: 3 clean lines of plain text with single general action link */
-                <div className="credential-languages-block">
-                  <div className="credential-languages-list">
-                    {item.languageItems.map((lang, idx) => (
-                      <p key={idx} className="credential-language-line">
-                        <strong className="lang-name">{lang.language}</strong>
-                        <span className="credential-dash"> &mdash; </span>
-                        <span className="lang-level">{lang.level}</span>
-                      </p>
-                    ))}
-                  </div>
-
+              {item.id === "languages" ? (
+                <p className="credential-editorial-text">
+                  <span className="credential-details">
+                    Spanish (Native) &middot; English (Professional working proficiency) &middot; German (Elementary proficiency).
+                  </span>
                   {item.actionType === "certificates" && (
-                    <div className="credential-action-container">
-                      <button
-                        type="button"
-                        onClick={() => setShowCertificatesModal(true)}
-                        className="view-diplomas-inline-link"
-                        aria-label="View official language certificates"
-                      >
-                        <span>{item.actionLabel || "View Certificates"}</span>
-                        <span className="inline-arrow" aria-hidden="true">↗</span>
-                      </button>
-                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setShowCertificatesModal(true)}
+                      className="view-diplomas-inline-link"
+                      aria-label="View official language certificates"
+                    >
+                      <span>{item.actionLabel || "View certificates"}</span>
+                      <span className="inline-arrow" aria-hidden="true">↗</span>
+                    </button>
                   )}
-                </div>
+                </p>
               ) : (
-                /* Editorial text row for Status & Location and Education */
                 <p className="credential-editorial-text">
                   <strong className="credential-headline">{item.headline}</strong>
                   {item.details && (
@@ -62,9 +51,9 @@ export const AboutSection: React.FC = () => {
                       type="button"
                       onClick={() => setShowDiplomasModal(true)}
                       className="view-diplomas-inline-link"
-                      aria-label="View official university diplomas"
+                      aria-label="View official university certificates"
                     >
-                      <span>{item.actionLabel || "View Diplomas"}</span>
+                      <span>{item.actionLabel || "View certificates"}</span>
                       <span className="inline-arrow" aria-hidden="true">↗</span>
                     </button>
                   )}

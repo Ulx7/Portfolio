@@ -67,6 +67,8 @@ textarea:focus {
   color: #a1a1aa;
   font-family: var(--font-sans);
   overflow-x: hidden;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 /* Isolate all buttons, inputs and form controls from retro leaks */
@@ -90,8 +92,8 @@ textarea:focus {
   left: 0;
   right: 0;
   width: 100%;
-  z-index: 100;
-  background-color: rgba(12, 12, 12, 0.75);
+  z-index: 50;
+  background-color: rgba(12, 12, 12, 0.8);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: none !important;
@@ -197,33 +199,97 @@ textarea:focus {
   transform: scale(1.1);
 }
 
-/* Minimalist fine-line 4-quadrant Windows icon button (18px) */
+/* --- Windows XP Mode button & Discovery Tooltip --- */
+.nav-xp-btn-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .nav-windows-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   background: transparent !important;
   border: none !important;
-  color: #888888;
   cursor: pointer;
-  transition: color 200ms ease, transform 200ms ease;
+  transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1), filter 220ms ease, opacity 200ms ease;
   padding: 0 !important;
   min-width: unset !important;
   min-height: unset !important;
   box-shadow: none !important;
+  opacity: 0.88;
+}
+
+.xp-flag-svg {
+  display: block;
+  width: 19px;
+  height: 19px;
+  transition: transform 220ms ease;
 }
 
 .nav-windows-btn:hover {
-  color: #f97316;
-  transform: scale(1.1);
+  opacity: 1;
+  transform: scale(1.15);
+  filter: drop-shadow(0 0 6px rgba(0, 164, 239, 0.5)) drop-shadow(0 0 10px rgba(242, 80, 34, 0.4));
+  animation: xp-hover-pulse 1.8s infinite ease-in-out;
 }
 
-.windows-svg {
-  display: block;
-  width: 18px;
-  height: 18px;
+@keyframes xp-hover-pulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 5px rgba(0, 164, 239, 0.4)) drop-shadow(0 0 8px rgba(242, 80, 34, 0.3));
+  }
+  50% {
+    filter: drop-shadow(0 0 8px rgba(127, 186, 0, 0.6)) drop-shadow(0 0 12px rgba(255, 185, 0, 0.5));
+  }
+}
+
+/* Floating discovery tooltip */
+.xp-tooltip {
+  position: absolute;
+  top: calc(100% + 9px);
+  right: -6px;
+  background: rgba(18, 18, 22, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  color: #f4f4f5;
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  padding: 5px 11px;
+  border-radius: 6px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.04);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-4px);
+  transition: opacity 180ms ease, transform 180ms ease, visibility 180ms;
+  z-index: 105;
+}
+
+.xp-tooltip::before {
+  content: "";
+  position: absolute;
+  top: -4px;
+  right: 12px;
+  width: 7px;
+  height: 7px;
+  background: rgba(18, 18, 22, 0.95);
+  border-left: 1px solid rgba(255, 255, 255, 0.12);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  transform: rotate(45deg);
+}
+
+.nav-xp-btn-wrapper:hover .xp-tooltip,
+.nav-xp-btn-wrapper:focus-within .xp-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
 }
 
 /* Compact central column matching Cleo's website (max-width: 700px) */
@@ -237,12 +303,14 @@ textarea:focus {
   padding-right: 1.5rem;
   padding-bottom: 5rem;
   background: transparent !important;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .main-content {
   width: 100%;
-  padding-top: 90px;
-  /* pt-24 / padding-top: 90px to prevent navbar overlap */
+  padding-top: 5.5rem;
+  /* pt-24 / 5.5rem to prevent fixed navbar from overlapping header */
   background: transparent !important;
 }
 
@@ -1096,7 +1164,7 @@ textarea:focus {
   grid-template-columns: 130px 1fr;
   gap: 1.5rem;
   align-items: baseline;
-  padding: 1rem 0;
+  padding: 1.1rem 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.04);
 }
 
@@ -1105,28 +1173,34 @@ textarea:focus {
     grid-template-columns: 1fr;
     gap: 0.35rem;
     padding: 0.85rem 0;
+    align-items: flex-start;
   }
 }
 
 .credential-left-col {
   display: flex;
   align-items: baseline;
+  padding-top: 0;
+  margin: 0;
 }
 
 .credential-category-label {
-  font-size: 12px;
-  font-weight: 500;
-  color: #71717a;
+  font-size: 14px; /* text-sm */
+  font-weight: 400;
+  line-height: 1.62;
+  color: #71717a; /* text-neutral-500 */
   letter-spacing: -0.01em;
 }
 
 .credential-right-col {
   display: flex;
   flex-direction: column;
+  padding-top: 0;
+  margin: 0;
 }
 
 .credential-editorial-text {
-  font-size: 13.5px;
+  font-size: 14px;
   line-height: 1.62;
   color: #a1a1aa;
   margin: 0;
@@ -1150,13 +1224,13 @@ textarea:focus {
 .view-diplomas-inline-link {
   display: inline-flex;
   align-items: center;
-  gap: 3px;
+  gap: 4px;
   background: transparent !important;
   border: none !important;
   padding: 0 !important;
   margin-left: 8px;
   color: #ff7a45 !important;
-  font-size: 13px !important;
+  font-size: 13.5px !important;
   font-weight: 500 !important;
   cursor: pointer;
   text-decoration: none;
@@ -1172,7 +1246,7 @@ textarea:focus {
 }
 
 .view-diplomas-inline-link .inline-arrow {
-  font-size: 12px;
+  font-size: 13px;
   transition: transform 0.15s ease;
 }
 
@@ -1184,21 +1258,22 @@ textarea:focus {
 .credential-languages-block {
   display: flex;
   flex-direction: column;
-  gap: 8px;
   width: 100%;
 }
 
 .credential-languages-list {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 0.35rem;
 }
 
 .credential-language-line {
-  font-size: 13.5px;
-  line-height: 1.6;
+  font-size: 14px;
+  line-height: 1.62;
   color: #a1a1aa;
   margin: 0;
+  display: flex;
+  align-items: baseline;
 }
 
 .lang-name {
@@ -1210,8 +1285,57 @@ textarea:focus {
   color: #a1a1aa;
 }
 
+/* Continuous micro-stars background container */
+.dot-grid-canvas {
+  position: fixed !important;
+  inset: 0 !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  pointer-events: none !important;
+  z-index: 0 !important;
+}
+
+/* Languages credential layout & flush link alignment (no margin/padding left) */
+.credential-languages-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  width: 100%;
+}
+
+.credential-languages-action {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-start;
+  width: 100%;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.credential-languages-cert-link {
+  margin: 0 !important;
+  margin-left: 0 !important;
+  padding: 0 !important;
+  padding-left: 0 !important;
+  display: inline-flex !important;
+  align-self: flex-start !important;
+}
+
+/* Integrated action container compatibility */
 .credential-action-container {
-  margin-top: 4px;
+  margin-top: 0.75rem; /* mt-3 */
+  padding-top: 0.5rem; /* pt-2 */
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .credential-action-container {
+    justify-content: flex-end; /* md:justify-end */
+  }
 }
 
 .credential-action-container .view-diplomas-inline-link {

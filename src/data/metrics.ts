@@ -32,19 +32,21 @@ export const credentials: EditorialCredential[] = [
     headline: "Universidad ORT Uruguay",
     details: "Triple Degree: IT Analyst, Systems Analyst & Web Developer.",
     actionType: "diplomas",
-    actionLabel: "View Diplomas",
+    actionLabel: "View certificates",
     hasDiplomaAction: true,
   },
   {
     id: "languages",
     category: "Languages",
+    headline: "Spanish (Native) · English (Professional working proficiency) · German (Elementary proficiency).",
+    details: "Spanish (Native) · English (Professional working proficiency) · German (Elementary proficiency).",
     languageItems: [
       { language: "Spanish", level: "Native" },
-      { language: "English", level: "Professional Working Proficiency" },
-      { language: "German", level: "Elementary" },
+      { language: "English", level: "Professional working proficiency" },
+      { language: "German", level: "Elementary proficiency" },
     ],
     actionType: "certificates",
-    actionLabel: "View Certificates",
+    actionLabel: "View certificates",
   },
 ];
 

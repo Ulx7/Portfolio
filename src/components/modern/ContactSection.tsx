@@ -93,7 +93,7 @@ export const ContactSection: React.FC = () => {
         <div className="contact-meta-location">
           <span className="contact-status-dot" aria-hidden="true" />
           <span className="location-clock-text">
-            Available for new roles &middot; Berlin, Germany &middot;{" "}
+            Available for new challenges &amp; projects &middot; Berlin, Germany &middot;{" "}
             <span className="live-clock-digits">{berlinTime || "CEST"}</span>
           </span>
         </div>

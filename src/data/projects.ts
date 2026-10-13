@@ -34,7 +34,8 @@ export const projects: Project[] = [
     badge: "In Development",
     isComingSoon: true,
     shortDescription: "Mobile and web application currently in active product design and core architecture development.",
-    image: "/vivi-logo.jpg",
+    image: "/projects/vivi.png",
+    images: ["/projects/vivi.png"],
     technologies: ["React", "TypeScript", "Tailwind CSS", "Product Design"],
     color: "#f97316",
     year: "2025"
@@ -51,8 +52,8 @@ export const projects: Project[] = [
       "Headless CMS integration with real-time schema validation",
       "Responsive typography and fluid botanical catalog layout"
     ],
-    image: "/projects/vivero.jpeg",
-    images: ["/projects/vivero.jpeg"],
+    image: "/projects/vivero.png",
+    images: ["/projects/vivero.png"],
     technologies: ["Astro", "React", "Sanity CMS", "Tailwind CSS"],
     githubUrl: "https://github.com/Ulx7",
     liveUrl: "https://ulysse-dev.vercel.app/#projects",
@@ -71,8 +72,8 @@ export const projects: Project[] = [
       "Distributed map-reduce computations with PySpark DataFrames",
       "Advanced player profiling algorithms and tactical clusters"
     ],
-    image: "/projects/bigdata.jpeg",
-    images: ["/projects/bigdata.jpeg"],
+    image: "/projects/bigdata.png",
+    images: ["/projects/bigdata.png"],
     technologies: ["Python", "PySpark", "Pandas", "Apache Hive", "Hadoop"],
     githubUrl: "https://github.com/Ulx7",
     color: "#6366f1",
@@ -90,8 +91,8 @@ export const projects: Project[] = [
       "Role-based access control (RBAC) for notaries, agents, and auditors",
       "Automated dossier verification pipelines"
     ],
-    image: "/projects/realestate.jpeg",
-    images: ["/projects/realestate.jpeg"],
+    image: "/projects/realestate.png",
+    images: ["/projects/realestate.png"],
     technologies: ["Java", "Spring Boot", "React", "SQL Server"],
     githubUrl: "https://github.com/Ulx7",
     color: "#3b82f6",

@@ -105,7 +105,7 @@ export const CertificatesModal: React.FC<CertificatesModalProps> = ({ onClose, i
               </div>
               <h3 className="cert-pending-title">German Language Certification</h3>
               <p className="cert-pending-desc">
-                Current level: <strong>Elementary (A2)</strong>. Official certificate has not been uploaded yet and will be added upon completion.
+                Current level: <strong>Elementary proficiency</strong>. Official certificate has not been uploaded yet and will be added upon completion.
               </p>
             </div>
           ) : (

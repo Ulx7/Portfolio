@@ -21,7 +21,7 @@ export const ProjectsGrid: React.FC = () => {
               >
                 <div className="project-img project-img-vivi">
                   <img
-                    src="/vivi-logo.jpg"
+                    src={project.image || "/projects/vivi.png"}
                     alt={project.title}
                     className="vivi-cover-image"
                     loading="lazy"

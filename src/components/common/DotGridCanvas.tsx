@@ -76,10 +76,19 @@ export const DotGridCanvas: React.FC = () => {
 
     setupAndDraw();
 
-    window.addEventListener("resize", setupAndDraw);
+    let resizeTimer: ReturnType<typeof setTimeout> | null = null;
+    const handleResize = () => {
+      if (resizeTimer) clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        setupAndDraw();
+      }, 150);
+    };
+
+    window.addEventListener("resize", handleResize, { passive: true });
 
     return () => {
-      window.removeEventListener("resize", setupAndDraw);
+      if (resizeTimer) clearTimeout(resizeTimer);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
@@ -89,10 +98,11 @@ export const DotGridCanvas: React.FC = () => {
       className="dot-grid-canvas"
       style={{
         position: "fixed",
+        inset: 0,
         top: 0,
         left: 0,
-        width: "100%",
-        height: "100%",
+        width: "100vw",
+        height: "100vh",
         pointerEvents: "none",
         zIndex: 0,
       }}

@@ -14,9 +14,18 @@ export const skillCategories: SkillCategory[] = [
       { name: "C#" },
       { name: "Java" },
       { name: "Python" },
-      { name: "JavaScript" },
       { name: "TypeScript" },
+      { name: "JavaScript" },
       { name: "HTML/CSS" },
+    ],
+  },
+  {
+    name: "Backend & Systems",
+    skills: [
+      { name: ".NET Core (C#)" },
+      { name: "Spring Boot (Java)" },
+      { name: "Node.js" },
+      { name: "REST APIs / Microservices" },
     ],
   },
   {
@@ -29,21 +38,12 @@ export const skillCategories: SkillCategory[] = [
     ],
   },
   {
-    name: "Backend & Runtimes",
-    skills: [
-      { name: "Spring Boot" },
-      { name: ".NET Core" },
-      { name: "Node.js" },
-    ],
-  },
-  {
     name: "Data & Cloud Infrastructure",
     skills: [
+      { name: "SQL (SQL Server & MySQL)" },
+      { name: "MongoDB" },
       { name: "PySpark" },
       { name: "Pandas" },
-      { name: "SQL Server" },
-      { name: "MongoDB" },
-      { name: "MySQL" },
       { name: "Apache Hive" },
       { name: "Azure" },
       { name: "AWS Cloud" },

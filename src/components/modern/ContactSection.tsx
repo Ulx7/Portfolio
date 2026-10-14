@@ -48,12 +48,12 @@ export const ContactSection: React.FC = () => {
 
       {/* Llamado a la acción editorial destacado */}
       <h3 className="contact-editorial-cta">
-        Let&apos;s build something exceptional together
+        Let&apos;s build something great together
       </h3>
 
       {/* Párrafo de apoyo */}
       <p className="contact-editorial-desc">
-        Have an engineering opportunity, a data challenge, or want to discuss systems architecture? Feel free to reach out directly.
+        I am actively seeking full-time software engineering opportunities and freelance projects. Whether you are looking for a full-stack developer, support across your stack, or someone to build reliable backend systems, I&apos;m ready to jump in, adapt quickly, and contribute from day one. Let&apos;s connect.
       </p>
 
       {/* Tarjeta interactiva de correo: Franja sutil y elegante */}
@@ -93,33 +93,9 @@ export const ContactSection: React.FC = () => {
         <div className="contact-meta-location">
           <span className="contact-status-dot" aria-hidden="true" />
           <span className="location-clock-text">
-            Available for new challenges &amp; projects &middot; Berlin, Germany &middot;{" "}
+            Available for full-time roles &amp; projects &middot; Berlin, Germany &middot;{" "}
             <span className="live-clock-digits">{berlinTime || "CEST"}</span>
           </span>
-        </div>
-
-        <div className="contact-plain-social-links">
-          <a
-            href={profile.linkedin}
-            target="_blank"
-            rel="noreferrer"
-            className="editorial-plain-link"
-          >
-            <span>LinkedIn</span>
-            <ArrowUpRight size={12} className="plain-arrow" />
-          </a>
-
-          <span className="social-sep">&middot;</span>
-
-          <a
-            href={profile.github}
-            target="_blank"
-            rel="noreferrer"
-            className="editorial-plain-link"
-          >
-            <span>GitHub</span>
-            <ArrowUpRight size={12} className="plain-arrow" />
-          </a>
         </div>
       </div>
     </section>

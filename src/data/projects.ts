@@ -1,29 +1,58 @@
+export interface WhatItDoesItem {
+  bold: string;
+  text: string;
+}
+
+export interface FeatureItem {
+  title: string;
+  description?: string;
+}
+
+export interface ProjectLink {
+  label: string;
+  url: string;
+  type?: "external" | "download";
+}
+
+export interface ArchitectureDecision {
+  title: string;
+  explanation: string;
+}
+
 export interface Project {
   id: string;
   title: string;
   tag: "Client" | "Academic" | "Personal";
-  badge?: string;
+  category: string;
+  categoryKicker: string;
+  contextObjective: string;
+  keyFeatures: (string | FeatureItem)[];
+  technologies: string[];
+  links: ProjectLink[];
   shortDescription: string;
+  image: string;
+  images: string[];
+  isComingSoon?: boolean;
+  githubUrl?: string;
+  liveUrl?: string;
+  documentUrl?: string;
+  frontendUrl?: string;
+  backendUrl?: string;
+  color?: string;
+  year?: string;
+  // Compatibility properties
+  badge?: string;
+  kicker?: string;
+  subtitle?: string;
+  synthesis?: string;
   overview?: string;
   architecture?: string;
   highlights?: string[];
-  image?: string;
-  images?: string[];
-  technologies: string[];
-  githubUrl?: string;
-  liveUrl?: string;
-  isComingSoon?: boolean;
-  // Compatibility properties
-  category?: string;
-  contextBadge?: string;
-  statusBadge?: string;
-  problemStatement?: string;
+  whatItDoes?: WhatItDoesItem[];
+  architectureDecisions?: ArchitectureDecision[];
   fullDescription?: string;
-  keyHighlights?: string[];
   metrics?: string;
   featured?: boolean;
-  color?: string;
-  year?: string;
 }
 
 export const projects: Project[] = [
@@ -31,12 +60,23 @@ export const projects: Project[] = [
     id: "vivi",
     title: "Vivi",
     tag: "Personal",
-    badge: "In Development",
-    isComingSoon: true,
+    category: "PERSONAL · IN DEVELOPMENT",
+    categoryKicker: "PERSONAL · IN DEVELOPMENT",
+    badge: "⚡ Personal Venture · In Development",
+    contextObjective: "Mobile and web application currently in active product design and core architecture development.",
+    keyFeatures: [
+      "Distraction-Free Focus Workflow",
+      "Zero-Latency Local State Pipelines",
+      "Keyboard-First Desktop Navigation",
+      "Fluid Gesture Control on Mobile"
+    ],
+    technologies: ["React", "TypeScript", "Tailwind CSS", "Product Design"],
+    links: [],
     shortDescription: "Mobile and web application currently in active product design and core architecture development.",
+    fullDescription: "Mobile and web application currently in active product design and core architecture development.",
     image: "/projects/vivi.png",
     images: ["/projects/vivi.png"],
-    technologies: ["React", "TypeScript", "Tailwind CSS", "Product Design"],
+    isComingSoon: true,
     color: "#f97316",
     year: "2025"
   },
@@ -44,19 +84,39 @@ export const projects: Project[] = [
     id: "vivero-belgrano",
     title: "Vivero Belgrano Norte",
     tag: "Client",
-    shortDescription: "A high-performance digital catalog bridging traditional botany with modern, magazine-style editorial design.",
-    overview: "Traditional botanical catalogs suffered from slow load times, bloated WordPress plugins, and difficult inventory updates across hundreds of exotic plant varieties. Vivero Belgrano Norte was engineered as an ultra-fast digital publication that blends botanical cataloging with editorial elegance.",
-    architecture: "Static site generation with Astro for zero-runtime JavaScript overhead, paired with React islands for interactive search/filters and Sanity Headless CMS for real-time editorial publishing.",
-    highlights: [
-      "Sub-second TTFB with globally distributed Edge CDN caching",
-      "Headless CMS integration with real-time schema validation",
-      "Responsive typography and fluid botanical catalog layout"
+    category: "COMMERCIAL CLIENT WORK",
+    categoryKicker: "COMMERCIAL CLIENT WORK",
+    badge: "🌱 Commercial Client Work",
+    contextObjective: "Built with a focus on Visual Storytelling and Atomic Design, this platform provides a seamless, high-end experience for discovering botanical species. The project prioritizes clean aesthetics and technical efficiency through a decoupled headless architecture.",
+    keyFeatures: [
+      {
+        title: "Headless CMS",
+        description: "Sanity.io integration for professional content management."
+      },
+      {
+        title: "Atomic Design",
+        description: "Modular component system styled with Tailwind CSS JIT."
+      },
+      {
+        title: "Editorial UI",
+        description: "Premium glassmorphism and earth-tone design tokens."
+      },
+      {
+        title: "Edge Deployment",
+        description: "Optimized via Vercel Edge Functions for global performance."
+      }
     ],
+    technologies: ["Astro", "React", "Sanity CMS", "Tailwind CSS", "Vercel"],
+    links: [
+      { label: "Live Demo", url: "https://ulysse-dev.vercel.app/#projects", type: "external" },
+      { label: "Source Code", url: "https://github.com/Ulx7", type: "external" }
+    ],
+    shortDescription: "Built with a focus on Visual Storytelling and Atomic Design, this platform provides a seamless, high-end experience for discovering botanical species.",
+    fullDescription: "Built with a focus on Visual Storytelling and Atomic Design, this platform provides a seamless, high-end experience for discovering botanical species. The project prioritizes clean aesthetics and technical efficiency through a decoupled headless architecture.",
     image: "/projects/vivero.png",
-    images: ["/projects/vivero.png"],
-    technologies: ["Astro", "React", "Sanity CMS", "Tailwind CSS"],
-    githubUrl: "https://github.com/Ulx7",
+    images: ["/projects/vivero.png", "/projects/vivero.jpeg"],
     liveUrl: "https://ulysse-dev.vercel.app/#projects",
+    githubUrl: "https://github.com/Ulx7",
     color: "#10b981",
     year: "2025"
   },
@@ -64,17 +124,27 @@ export const projects: Project[] = [
     id: "football-bigdata",
     title: "Big Data: Professional Football Analytics",
     tag: "Academic",
-    shortDescription: "Distributed data processing architecture handling massive historical sports datasets with PySpark, Hadoop, and Hive.",
-    overview: "Analyzing granular match events (passes, pressure zones, xG) across multiple European football leagues generates millions of semi-structured records that overwhelm standard relational queries. Developed as the final degree project for the IT Analyst degree.",
-    architecture: "Multi-stage Big Data pipeline utilizing Apache Hadoop HDFS for raw event ingestion, Apache Hive for schema-on-read cataloging, and PySpark for distributed transformations and metric computations.",
-    highlights: [
-      "10,000+ match events aggregated and normalized",
-      "Distributed map-reduce computations with PySpark DataFrames",
-      "Advanced player profiling algorithms and tactical clusters"
+    category: "CAPSTONE PROJECT · UNIVERSIDAD ORT URUGUAY",
+    categoryKicker: "CAPSTONE PROJECT · UNIVERSIDAD ORT URUGUAY",
+    badge: "🏛️ Capstone — Universidad ORT Uruguay",
+    contextObjective: "A comprehensive technical case study analyzing over 1.7M professional football records. This research involved developing a full ETL pipeline to process massive datasets, validating 8 critical business inquiries through a comparative performance study between Pandas and PySpark.",
+    keyFeatures: [
+      "Scoring Efficiency (Goals/Matches ratio)",
+      "Net Spend & Transfer Balance Analysis",
+      "Global Nationality Distribution (Heatmaps)",
+      "League Comparison: Premier League vs Eredivisie",
+      "Market Value Evolution (Case Study: FC Barcelona)"
     ],
+    technologies: ["Python (Pandas)", "PySpark", "Apache Hive", "ETL Pipelines", "Tableau", "Data Modeling"],
+    links: [
+      { label: "Download Document", url: "https://github.com/Ulx7", type: "download" },
+      { label: "Source Code", url: "https://github.com/Ulx7", type: "external" }
+    ],
+    shortDescription: "A comprehensive technical case study analyzing over 1.7M professional football records using PySpark and Pandas ETL pipelines.",
+    fullDescription: "A comprehensive technical case study analyzing over 1.7M professional football records. This research involved developing a full ETL pipeline to process massive datasets, validating 8 critical business inquiries through a comparative performance study between Pandas and PySpark.",
     image: "/projects/bigdata.png",
-    images: ["/projects/bigdata.png"],
-    technologies: ["Python", "PySpark", "Pandas", "Apache Hive", "Hadoop"],
+    images: ["/projects/bigdata.png", "/projects/bigdata.jpeg"],
+    documentUrl: "https://github.com/Ulx7",
     githubUrl: "https://github.com/Ulx7",
     color: "#6366f1",
     year: "2024"
@@ -83,57 +153,107 @@ export const projects: Project[] = [
     id: "real-estate-system",
     title: "Real Estate Management System",
     tag: "Academic",
-    shortDescription: "Enterprise management platform digitizing property records, contracts, and notary client dossiers with Spring Boot and React.",
-    overview: "Paper-based property deeds, fragmented title verifications, and unindexed notary records caused regulatory compliance risks and transaction delays for real estate firms.",
-    architecture: "Layered Spring Boot microservice architecture adhering to Domain-Driven Design (DDD), Spring Security JWT authentication, Hibernate/JPA ORM with MS SQL Server, and a reactive React admin dashboard.",
-    highlights: [
-      "End-to-end audit trail for legal contract signatures",
-      "Role-based access control (RBAC) for notaries, agents, and auditors",
-      "Automated dossier verification pipelines"
+    category: "CAPSTONE PROJECT · UNIVERSIDAD ORT URUGUAY",
+    categoryKicker: "CAPSTONE PROJECT · UNIVERSIDAD ORT URUGUAY",
+    badge: "🏛️ Capstone — Universidad ORT Uruguay",
+    contextObjective: "This Capstone Project involved the full digitalization of a traditional firm. I developed a robust internal management system for contracts and clients using Spring Boot, and a public-facing property catalog using React and Tailwind CSS, all deployed on AWS infrastructure.",
+    keyFeatures: [
+      "Automated PDF receipt generation and email notifications.",
+      "Integrated property filtering and real-time WhatsApp contact.",
+      "Complete Software Development Life Cycle (SDLC) documentation.",
+      "Secure database architecture for legal and real estate records."
     ],
-    image: "/projects/realestate.png",
-    images: ["/projects/realestate.png"],
-    technologies: ["Java", "Spring Boot", "React", "SQL Server"],
+    technologies: ["Java", "Spring Boot", "React", "AWS Cloud", "SQL Server", "Tailwind CSS"],
+    links: [
+      { label: "Download Document", url: "https://github.com/Ulx7", type: "download" },
+      { label: "Source Code", url: "https://github.com/Ulx7", type: "external" }
+    ],
+    shortDescription: "Full digitalization of a real estate firm featuring a Spring Boot backend, React public catalog, and AWS deployment.",
+    fullDescription: "This Capstone Project involved the full digitalization of a traditional firm. I developed a robust internal management system for contracts and clients using Spring Boot, and a public-facing property catalog using React and Tailwind CSS, all deployed on AWS infrastructure.",
+    image: "/projects/realstate.png",
+    images: ["/projects/realstate.png", "/projects/realestate.png"],
+    documentUrl: "https://github.com/Ulx7",
     githubUrl: "https://github.com/Ulx7",
     color: "#3b82f6",
     year: "2024"
   },
   {
-    id: "hotel-management",
-    title: "Hotel Management System",
-    tag: "Academic",
-    shortDescription: "Centralized property management system with C# ASP.NET Core Web API and transactional SQL Server.",
-    overview: "Booking collisions, unsynchronized housekeeping states, and manual invoice calculations created friction during peak seasonal occupancy.",
-    architecture: "C# / ASP.NET Core Web API with Entity Framework Core, structured Repository pattern, SQL Server transactional locking for zero-overbooking guarantees, and an ASP.NET MVC management client.",
-    highlights: [
-      "ACID transactional consistency for concurrent reservations",
-      "Comprehensive RESTful endpoints with OpenAPI/Swagger docs",
-      "Automated folio generation and billing reconciliation"
-    ],
-    image: "/projects/hotel.jpeg",
-    images: ["/projects/hotel.jpeg"],
-    technologies: ["C#", ".NET Core", "SQL Server", "ASP.NET MVC"],
-    githubUrl: "https://github.com/Ulx7",
-    color: "#ec4899",
-    year: "2023"
-  },
-  {
     id: "roulette-simulator",
     title: "Roulette Game Engine",
     tag: "Academic",
-    shortDescription: "Casino roulette simulation implementing strict Object-Oriented Design and GoF design patterns in Java.",
-    overview: "Simulating complex stateful casino betting rules with real-time probability payouts requires decoupling game rules, user bankroll state, and random generation mechanics.",
-    architecture: "Strict Gang of Four (GoF) design patterns implementation: State pattern for betting phases, Observer pattern for wheel payout broadcasts, and Factory pattern for polymorph bet types.",
-    highlights: [
-      "Rigorous unit testing covering 100% of game outcome edge cases",
-      "Decoupled MVC architecture supporting CLI and GUI renderers",
-      "Monte Carlo bankroll risk probability analysis"
+    category: "UNIVERSIDAD ORT URUGUAY",
+    categoryKicker: "UNIVERSIDAD ORT URUGUAY",
+    badge: "🏛️ Degree Project — Universidad ORT Uruguay",
+    contextObjective: "A complete casino logic implementation focusing on Object-Oriented Programming (OOP) excellence and clean architecture. The system simulates a real-world roulette environment with multiple players and automated dealer logic.",
+    keyFeatures: [
+      {
+        title: "Design Patterns",
+        description: "Implementation of Facade, Singleton, and Observer."
+      },
+      {
+        title: "Behavioral Logic",
+        description: "Used Strategy and Template Method for algorithm variants."
+      },
+      {
+        title: "Core OOP",
+        description: "Advanced use of Inheritance, Polymorphism, and Interfaces."
+      },
+      {
+        title: "Reliability",
+        description: "Integrated Exception Handling to manage runtime errors."
+      }
     ],
-    image: "/projects/ruleta.jpeg",
-    images: ["/projects/ruleta.jpeg"],
-    technologies: ["Java", "Design Patterns", "MVC Architecture"],
+    technologies: ["Java", "Design Patterns", "MVC Architecture", "UML Modeling"],
+    links: [
+      { label: "Source Code", url: "https://github.com/Ulx7", type: "external" }
+    ],
+    shortDescription: "A complete casino logic implementation focusing on Object-Oriented Programming (OOP) excellence and clean architecture.",
+    fullDescription: "A complete casino logic implementation focusing on Object-Oriented Programming (OOP) excellence and clean architecture. The system simulates a real-world roulette environment with multiple players and automated dealer logic.",
+    image: "/projects/ruleta.png",
+    images: ["/projects/ruleta.png", "/projects/ruleta.jpeg"],
     githubUrl: "https://github.com/Ulx7",
     color: "#f59e0b",
+    year: "2023"
+  },
+  {
+    id: "hotel-management",
+    title: "Hotel Management System",
+    tag: "Academic",
+    category: "PROGRAMACIÓN 3 · UNIVERSIDAD ORT URUGUAY",
+    categoryKicker: "PROGRAMACIÓN 3 · UNIVERSIDAD ORT URUGUAY",
+    badge: "🏛️ Degree Project — Universidad ORT Uruguay",
+    contextObjective: "This project implements a cabin reservation system for a hotel management suite. It was developed in two main parts: a robust Web API acting as the business logic engine and a Model-View-Controller (MVC) web application for user interaction.",
+    keyFeatures: [
+      {
+        title: "Web API & MVC",
+        description: "Developed a dual-system client-server architecture."
+      },
+      {
+        title: "Entity Framework",
+        description: "Used as the primary ORM for efficient SQL mapping."
+      },
+      {
+        title: "Clean Architecture",
+        description: "Organized code into Domain, Application, and Infrastructure layers."
+      },
+      {
+        title: "Dependency Injection",
+        description: "Implemented to manage class lifecycles and decoupling."
+      }
+    ],
+    technologies: ["C#", ".NET Core", "ASP.NET Web API", "SQL Server", "Entity Framework"],
+    links: [
+      { label: "Front-end Code", url: "https://github.com/Ulx7", type: "external" },
+      { label: "Back-end Code", url: "https://github.com/Ulx7", type: "external" }
+    ],
+    shortDescription: "Cabin reservation system with C# ASP.NET Web API and MVC web application following clean architecture.",
+    fullDescription: "This project implements a cabin reservation system for a hotel management suite. It was developed in two main parts: a robust Web API acting as the business logic engine and a Model-View-Controller (MVC) web application for user interaction.",
+    image: "/projects/hotel.png",
+    images: ["/projects/hotel.png", "/projects/hotel.jpeg"],
+    frontendUrl: "https://github.com/Ulx7",
+    backendUrl: "https://github.com/Ulx7",
+    githubUrl: "https://github.com/Ulx7",
+    color: "#ec4899",
     year: "2023"
   }
 ];

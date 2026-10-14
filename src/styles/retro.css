@@ -12,31 +12,11 @@
   overflow: hidden;
   font-family: var(--font-xp);
   user-select: none;
-  background: linear-gradient(
-    180deg,
-    #3a87e8 0%,
-    #5aa6f5 35%,
-    #82c3f8 50%,
-    #7bb53c 51%,
-    #5a9e2d 65%,
-    #41801f 100%
-  );
+  background-color: #245edb;
+  background-image: url("/bliss.jpg");
   background-size: cover;
   background-position: center;
-}
-
-/* Simulated Bliss Rolling Green Hills & Clouds */
-.xp-desktop::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 90% 45% at 50% 100%, #52a832 0%, #3e8a21 60%, transparent 100%),
-    radial-gradient(ellipse 70% 35% at 20% 90%, #68be3f 0%, transparent 80%),
-    radial-gradient(ellipse 70% 35% at 80% 92%, #5db236 0%, transparent 80%),
-    radial-gradient(ellipse 60% 20% at 30% 25%, rgba(255, 255, 255, 0.45) 0%, transparent 70%),
-    radial-gradient(ellipse 50% 18% at 75% 30%, rgba(255, 255, 255, 0.35) 0%, transparent 70%);
-  pointer-events: none;
+  background-repeat: no-repeat;
 }
 
 /* Top Right Mode Switcher Banner in XP mode */

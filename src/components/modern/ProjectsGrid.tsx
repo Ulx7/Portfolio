@@ -16,7 +16,7 @@ export const ProjectsGrid: React.FC = () => {
             return (
               <div
                 key={project.id}
-                className="project-card project-card-disabled"
+                className="project-card project-card-disabled pointer-events-none"
                 aria-disabled="true"
               >
                 <div className="project-img project-img-vivi">
@@ -55,6 +55,20 @@ export const ProjectsGrid: React.FC = () => {
                   alt={project.title}
                   loading="lazy"
                   className="proj-image"
+                  onError={(e) => {
+                    const target = e.currentTarget;
+                    if (project.id === "real-estate-system") {
+                      if (!target.src.includes("realstate.png")) {
+                        target.src = "/projects/realstate.png";
+                      } else if (!target.src.includes("realestate.png")) {
+                        target.src = "/projects/realestate.png";
+                      }
+                    } else if (project.id === "vivero-belgrano") {
+                      if (!target.src.includes("vivero.png")) {
+                        target.src = "/projects/vivero.png";
+                      }
+                    }
+                  }}
                 />
               </div>
 

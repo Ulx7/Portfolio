@@ -4,7 +4,6 @@ import { DesktopIcon } from "./DesktopIcon";
 import { WindowFrame } from "./WindowFrame";
 import { Taskbar } from "./Taskbar";
 import { StartMenu } from "./StartMenu";
-import { ModeSwitcher } from "../common/ModeSwitcher";
 
 import { InternetExplorerWindow } from "./windows/InternetExplorerWindow";
 import { ProjectsExplorerWindow } from "./windows/ProjectsExplorerWindow";
@@ -35,11 +34,6 @@ export const Desktop: React.FC = () => {
 
   return (
     <div className="xp-desktop" onClick={handleDesktopClick}>
-      {/* Floating Mode Switcher in top right corner */}
-      <div className="xp-top-switcher">
-        <ModeSwitcher />
-      </div>
-
       {/* Desktop Shortcuts Column */}
       <div className="desktop-shortcuts-grid">
         {desktopShortcuts.map((item) => (

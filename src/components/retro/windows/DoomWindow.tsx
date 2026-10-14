@@ -27,8 +27,8 @@ export const DoomWindow: React.FC = () => {
             </div>
 
             <div className="doom-briefing">
-              <p>Experiencia retro integrada en Windows XP.</p>
-              <p className="doom-keys-tip">Controles: Flechas de dirección / W,A,S,D para moverte, Ctrl / Espacio para disparar.</p>
+              <p>Retro gaming experience integrated in Windows XP.</p>
+              <p className="doom-keys-tip">Controls: Arrow keys / W,A,S,D to move, Ctrl / Space to fire.</p>
             </div>
 
             <button
@@ -36,7 +36,7 @@ export const DoomWindow: React.FC = () => {
               className="doom-start-btn"
             >
               <Play size={18} className="inline mr-2" />
-              INICIAR DOOM (MS-DOS EMULATOR)
+              LAUNCH DOOM (MS-DOS EMULATOR)
             </button>
           </div>
         ) : (

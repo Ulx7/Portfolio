@@ -5,14 +5,14 @@ import confetti from "canvas-confetti";
 
 export const ContactMsnWindow: React.FC = () => {
   const [from, setFrom] = useState("");
-  const [subject, setSubject] = useState("Oportunidad de Colaboración / Consulta de Proyecto");
+  const [subject, setSubject] = useState("Collaboration Opportunity / Project Inquiry");
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
 
   const handleSend = (e: React.FormEvent) => {
     e.preventDefault();
     if (!from || !message) {
-      alert("Por favor complete su dirección de remitente y mensaje.");
+      alert("Please fill in your sender email and message.");
       return;
     }
 
@@ -81,7 +81,7 @@ export const ContactMsnWindow: React.FC = () => {
             <input
               type="email"
               required
-              placeholder="tu_email@ejemplo.com"
+              placeholder="your_email@example.com"
               value={from}
               onChange={(e) => setFrom(e.target.value)}
               className="outlook-input"
@@ -106,7 +106,7 @@ export const ContactMsnWindow: React.FC = () => {
           <textarea
             rows={8}
             required
-            placeholder="Escriba su mensaje para Ulysse Castello aquí..."
+            placeholder="Type your message for Ulysse Castello here..."
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             className="outlook-textarea"
@@ -116,7 +116,7 @@ export const ContactMsnWindow: React.FC = () => {
         {status === "sent" && (
           <div className="outlook-success-banner">
             <Check size={16} className="text-green-600 inline mr-2" />
-            <span>Mensaje enviado correctamente a la bandeja de Ulysse ({profile.email}).</span>
+            <span>Message sent successfully to Ulysse's inbox ({profile.email}).</span>
           </div>
         )}
       </form>

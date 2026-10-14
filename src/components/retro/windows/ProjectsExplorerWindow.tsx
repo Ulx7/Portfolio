@@ -98,7 +98,7 @@ export const ProjectsExplorerWindow: React.FC = () => {
                   rel="noreferrer"
                   className="detail-launch-btn"
                 >
-                  <span>Ver en GitHub</span>
+                  <span>View on GitHub</span>
                   <ExternalLink size={12} />
                 </a>
               )}

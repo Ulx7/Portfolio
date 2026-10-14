@@ -75,7 +75,7 @@ export const WindowFrame: React.FC<WindowFrameProps> = ({ id, children }) => {
               e.stopPropagation();
               minimizeWindow(id);
             }}
-            title="Minimizar"
+            title="Minimize"
           />
           <button
             aria-label={win.isMaximized ? "Restore" : "Maximize"}
@@ -83,7 +83,7 @@ export const WindowFrame: React.FC<WindowFrameProps> = ({ id, children }) => {
               e.stopPropagation();
               toggleMaximize(id);
             }}
-            title={win.isMaximized ? "Restaurar" : "Maximizar"}
+            title={win.isMaximized ? "Restore" : "Maximize"}
           />
           <button
             aria-label="Close"
@@ -91,7 +91,7 @@ export const WindowFrame: React.FC<WindowFrameProps> = ({ id, children }) => {
               e.stopPropagation();
               closeWindow(id);
             }}
-            title="Cerrar"
+            title="Close"
           />
         </div>
       </div>

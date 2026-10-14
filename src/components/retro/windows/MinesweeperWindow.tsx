@@ -198,7 +198,7 @@ export const MinesweeperWindow: React.FC = () => {
           <button
             className="minesweeper-face-btn"
             onClick={initGame}
-            title="Reiniciar juego"
+            title="Restart game"
           >
             {getFaceEmoji()}
           </button>

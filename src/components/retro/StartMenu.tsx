@@ -3,7 +3,7 @@ import { profile } from "../../data/profile";
 import { useWindowManager, type WindowId } from "../../context/WindowManagerContext";
 import { useThemeMode } from "../../context/ThemeModeContext";
 import { XpIcon } from "./XpIcon";
-import { LogOut, Power, ChevronRight, HelpCircle, Settings, HardDrive, FileText } from "lucide-react";
+import { Power, ChevronRight, HelpCircle, Settings, HardDrive, FileText } from "lucide-react";
 
 export const StartMenu: React.FC = () => {
   const { startMenuOpen, openWindow, closeStartMenu } = useWindowManager();
@@ -34,7 +34,7 @@ export const StartMenu: React.FC = () => {
             <XpIcon name="ie" size={32} />
             <div className="start-item-text">
               <strong className="item-title">Internet Explorer</strong>
-              <span className="item-sub">Ver Portfolio Web</span>
+              <span className="item-sub">View Portfolio Web</span>
             </div>
           </div>
 
@@ -42,7 +42,7 @@ export const StartMenu: React.FC = () => {
             <XpIcon name="mail" size={32} />
             <div className="start-item-text">
               <strong className="item-title">E-mail (Outlook Express)</strong>
-              <span className="item-sub">Enviar mensaje a Ulysse</span>
+              <span className="item-sub">Send message to Ulysse</span>
             </div>
           </div>
 
@@ -128,21 +128,7 @@ export const StartMenu: React.FC = () => {
             closeStartMenu();
             toggleMode();
           }}
-          title="Cambiar al Modo Moderno"
-        >
-          <LogOut size={16} className="text-orange-500" />
-          <span>Cambiar a Modo Moderno</span>
-        </button>
-
-        <button
-          className="start-footer-btn"
-          onClick={() => {
-            closeStartMenu();
-            if (confirm("¿Deseas cerrar el modo Windows XP y volver al portfolio moderno?")) {
-              toggleMode();
-            }
-          }}
-          title="Cerrar sesión"
+          title="Turn Off Computer and return to Modern Portfolio"
         >
           <Power size={16} className="text-red-500" />
           <span>Turn Off Computer</span>

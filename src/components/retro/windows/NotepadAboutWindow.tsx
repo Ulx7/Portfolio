@@ -3,50 +3,53 @@ import { profile } from "../../../data/profile";
 
 export const NotepadAboutWindow: React.FC = () => {
   const initialText = `=====================================================
-  ULYSSE CASTELLO - CURRICULUM VITAE & PERFIL TÉCNICO
+  ULYSSE CASTELLO - CURRICULUM VITAE & TECHNICAL PROFILE
 =====================================================
 
-Nombre: ${profile.name}
-Rol: ${profile.role}
-Ubicación actual: Berlin, Germany
-Estado: ${profile.status}
+Name: ${profile.name}
+Role: ${profile.role}
+Current Location: Berlin, Germany
+Status: ${profile.status}
 Email: ${profile.email}
 GitHub: ${profile.github}
 LinkedIn: ${profile.linkedin}
 
 -----------------------------------------------------
-1. PRESENTACIÓN
+1. SUMMARY
 -----------------------------------------------------
 ${profile.bio}
 
 "${profile.secondaryBio}"
 
 -----------------------------------------------------
-2. FORMACIÓN UNIVERSITARIA & CERTIFICACIONES
+2. UNIVERSITY EDUCATION & DEGREES
 -----------------------------------------------------
-* Analista TI - Universidad ORT Uruguay
-* Analista de Sistemas - Universidad ORT Uruguay
-* Desarrollo Web - Universidad ORT Uruguay
+* IT Analyst Degree - Universidad ORT Uruguay
+* Analyst Programmer Degree - Universidad ORT Uruguay
+* Web Developer Certificate - Universidad ORT Uruguay
 
 -----------------------------------------------------
-3. ÁREAS DE ESPECIALIZACIÓN
+3. CORE TECHNICAL EXPERTISE
 -----------------------------------------------------
-- Full-Stack Web Development:
-  Arquitectura orientada a servicios, React, Astro, Next.js,
-  Spring Boot (Java), .NET Core (C#).
+- Backend Architecture & Systems:
+  Service-oriented architecture, Java (Spring Boot),
+  .NET Core (C#), REST APIs, Microservices.
 
-- Big Data & Data Analytics:
-  Procesamiento distribuido con PySpark, Hadoop, Hive,
-  análisis de series de datos con Pandas & Python.
+- Big Data & Data Pipelines:
+  Distributed data processing with PySpark, Hadoop, Hive,
+  data pipelines and analytics with Pandas & Python.
 
-- Persistencia & Bases de Datos:
-  SQL Server, MySQL, MongoDB, diseño relacional y NoSQL.
+- Persistence & Databases:
+  SQL Server, MySQL, MongoDB, relational modeling and NoSQL.
+
+- Frontend & Full-Stack:
+  React, TypeScript, Astro, Tailwind CSS.
 
 -----------------------------------------------------
-4. NOTAS
+4. SYSTEM NOTES
 -----------------------------------------------------
-Archivo guardado en C:\\Documents and Settings\\Ulysse\\Desktop\\About_Ulysse.txt
-Para contacto directo, utilice el programa Outlook Express o envíe un email.
+File saved at C:\\Documents and Settings\\Ulysse\\Desktop\\About_Ulysse.txt
+For direct contact, use Outlook Express or send an email.
 `;
 
   const [text, setText] = useState(initialText);

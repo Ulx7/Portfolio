@@ -17,7 +17,7 @@ export const TerminalSkillsWindow: React.FC = () => {
           <p>Microsoft Windows XP [Version 5.1.2600]</p>
           <p>(C) Copyright 1985-2001 Microsoft Corp.</p>
           <br />
-          <p>Escribe <strong className="cmd-highlight">help</strong> para ver los comandos disponibles.</p>
+          <p>Type <strong className="cmd-highlight">help</strong> to see available commands.</p>
         </div>
       )
     }
@@ -41,15 +41,15 @@ export const TerminalSkillsWindow: React.FC = () => {
       case "help":
         output = (
           <div className="cmd-help-block">
-            <p>COMANDOS DISPONIBLES EN ESTE SISTEMA:</p>
-            <p>  <span className="cmd-cmd">help</span>       - Muestra esta lista de comandos</p>
-            <p>  <span className="cmd-cmd">skills</span>     - Lista el stack técnico completo</p>
-            <p>  <span className="cmd-cmd">projects</span>   - Lista los proyectos destacados</p>
-            <p>  <span className="cmd-cmd">whoami</span>     - Muestra el perfil del desarrollador</p>
-            <p>  <span className="cmd-cmd">contact</span>    - Muestra los datos de contacto y email</p>
-            <p>  <span className="cmd-cmd">clear / cls</span>- Limpia la pantalla de la consola</p>
-            <p>  <span className="cmd-cmd">date</span>       - Muestra la fecha y hora actual</p>
-            <p>  <span className="cmd-cmd">matrix</span>     - Activa el modo Matrix</p>
+            <p>AVAILABLE SYSTEM COMMANDS:</p>
+            <p>  <span className="cmd-cmd">help</span>       - Displays this list of commands</p>
+            <p>  <span className="cmd-cmd">skills</span>     - Lists complete technical stack</p>
+            <p>  <span className="cmd-cmd">projects</span>   - Lists featured projects</p>
+            <p>  <span className="cmd-cmd">whoami</span>     - Displays developer profile</p>
+            <p>  <span className="cmd-cmd">contact</span>    - Displays contact info and email</p>
+            <p>  <span className="cmd-cmd">clear / cls</span>- Clears the console screen</p>
+            <p>  <span className="cmd-cmd">date</span>       - Displays current system date and time</p>
+            <p>  <span className="cmd-cmd">matrix</span>     - Activates Matrix mode</p>
           </div>
         );
         break;
@@ -57,10 +57,10 @@ export const TerminalSkillsWindow: React.FC = () => {
       case "whoami":
         output = (
           <div>
-            <p>Usuario: {profile.name}</p>
-            <p>Rol: {profile.role}</p>
-            <p>Ubicación: {profile.location}</p>
-            <p>Graduación: Universidad ORT Uruguay</p>
+            <p>User: {profile.name}</p>
+            <p>Role: {profile.role}</p>
+            <p>Location: {profile.location}</p>
+            <p>Education: Universidad ORT Uruguay</p>
           </div>
         );
         break;
@@ -68,7 +68,7 @@ export const TerminalSkillsWindow: React.FC = () => {
       case "skills":
         output = (
           <div>
-            <p className="cmd-header">STACK TÉCNICO REGISTRADO:</p>
+            <p className="cmd-header">REGISTERED TECHNICAL STACK:</p>
             {skillCategories.map((cat) => (
               <div key={cat.name} style={{ marginBottom: 6 }}>
                 <span className="cmd-cat">[{cat.name}]:</span>{" "}
@@ -82,14 +82,14 @@ export const TerminalSkillsWindow: React.FC = () => {
       case "projects":
         output = (
           <div>
-            <p className="cmd-header">PROYECTOS EN REPOSITORIO:</p>
+            <p className="cmd-header">REPOSITORY PROJECTS:</p>
             {projects.map((p, i) => (
               <div key={p.id} style={{ marginBottom: 6 }}>
                 <p>
                   {i + 1}. <strong className="cmd-highlight">{p.title}</strong> [{p.category}]
                 </p>
                 <p style={{ color: "#9ca3af" }}>{p.shortDescription}</p>
-                <p style={{ color: "#6ee7b7" }}>Tecnologías: {p.technologies.join(", ")}</p>
+                <p style={{ color: "#6ee7b7" }}>Technologies: {p.technologies.join(", ")}</p>
               </div>
             ))}
           </div>
@@ -102,21 +102,21 @@ export const TerminalSkillsWindow: React.FC = () => {
             <p>Email: {profile.email}</p>
             <p>LinkedIn: {profile.linkedin}</p>
             <p>GitHub: {profile.github}</p>
-            <p>Ubicación: {profile.location}</p>
+            <p>Location: {profile.location}</p>
           </div>
         );
         break;
 
       case "date":
-        output = <p>Fecha del sistema: {new Date().toLocaleString()}</p>;
+        output = <p>System date: {new Date().toLocaleString()}</p>;
         break;
 
       case "matrix":
         output = (
           <div style={{ color: "#00ff66" }}>
-            <p>Despertando en la Matrix...</p>
+            <p>Waking up in the Matrix...</p>
             <p>01010101 01001100 01011001 01010011 01010011 01000101</p>
-            <p>Conexión establecida con Berlin, Alemania.</p>
+            <p>Connection established with Berlin, Germany.</p>
           </div>
         );
         break;
@@ -130,7 +130,7 @@ export const TerminalSkillsWindow: React.FC = () => {
       default:
         output = (
           <p style={{ color: "#f87171" }}>
-            '{cmd}' no se reconoce como un comando interno o externo. Escribe 'help'.
+            '{cmd}' is not recognized as an internal or external command. Type 'help'.
           </p>
         );
     }

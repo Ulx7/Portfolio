@@ -1,9 +1,8 @@
 import React from "react";
 import { useWindowManager, type WindowId } from "../../context/WindowManagerContext";
-import { useThemeMode } from "../../context/ThemeModeContext";
 import { useClock } from "../../hooks/useClock";
 import { XpIcon } from "./XpIcon";
-import { Volume2, Sparkles } from "lucide-react";
+import { Volume2 } from "lucide-react";
 
 export const Taskbar: React.FC = () => {
   const {
@@ -16,7 +15,6 @@ export const Taskbar: React.FC = () => {
     openWindow
   } = useWindowManager();
 
-  const { toggleMode } = useThemeMode();
   const time = useClock();
 
   const openWindows = Object.values(windows).filter((w) => w.isOpen);
@@ -94,17 +92,8 @@ export const Taskbar: React.FC = () => {
 
       {/* System Tray (Notification Area) */}
       <div className="xp-system-tray">
-        <button
-          className="tray-mode-switcher-btn"
-          onClick={toggleMode}
-          title="Cambiar al Modo Moderno (Cleo)"
-        >
-          <Sparkles size={12} className="inline mr-1" />
-          <span>Modo Moderno</span>
-        </button>
-
         <div className="tray-icons">
-          <span className="tray-icon" title="Volumen: 100%">
+          <span className="tray-icon" title="Volume: 100%">
             <Volume2 size={13} />
           </span>
         </div>

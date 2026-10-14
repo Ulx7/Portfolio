@@ -1,15 +1,32 @@
-import React, { useState } from "react";
-import { Play, Volume2, Maximize2 } from "lucide-react";
+import React, { useState, useRef, useEffect } from "react";
+import { Play } from "lucide-react";
 
 export const DoomWindow: React.FC = () => {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [fullscreen, setFullscreen] = useState(false);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
 
-  // High quality lightweight public web DOS embed for Doom shareware
-  const doomUrl = "https://dos.zone/player/?bundleUrl=https%3A%2F%2Fcdn.dos.zone%2Fcustom%2Fdos%2Fdoom.jsdos";
+  // Classic authentic DOOM (Aleksei Ross build)
+  const doomUrl = "https://ross.aleksei.digital/98/DoomJS/index-jsdos.html";
+
+  const handleLaunch = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    e.currentTarget.blur();
+    setIsPlaying(true);
+  };
+
+  useEffect(() => {
+    if (isPlaying) {
+      // Direct focus to the game iframe so keystrokes (Space, Arrows, Ctrl) go directly into DOOM
+      const timer = setTimeout(() => {
+        iframeRef.current?.focus();
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [isPlaying]);
 
   return (
-    <div className={`doom-window-layout ${fullscreen ? "fullscreen-doom" : ""}`}>
+    <div className="doom-window-layout">
+      {/* Menubar */}
       <div className="ie-menubar">
         <span>Game</span>
         <span>Sound</span>
@@ -18,6 +35,7 @@ export const DoomWindow: React.FC = () => {
         <span>Help</span>
       </div>
 
+      {/* Main Viewport */}
       <div className="doom-viewport-container">
         {!isPlaying ? (
           <div className="doom-splash-screen">
@@ -27,43 +45,43 @@ export const DoomWindow: React.FC = () => {
             </div>
 
             <div className="doom-briefing">
-              <p>Retro gaming experience integrated in Windows XP.</p>
-              <p className="doom-keys-tip">Controls: Arrow keys / W,A,S,D to move, Ctrl / Space to fire.</p>
+              <p className="doom-desc">Classic retro gaming experience integrated into Windows XP.</p>
+              <p className="doom-keys-tip">
+                Controls: W,A,S,D / Arrow keys to move • Ctrl / Left Click to fire • Space to open doors.
+              </p>
             </div>
 
             <button
-              onClick={() => setIsPlaying(true)}
+              onMouseDown={(e) => e.preventDefault()}
+              onClick={handleLaunch}
               className="doom-start-btn"
             >
               <Play size={18} className="inline mr-2" />
-              LAUNCH DOOM (MS-DOS EMULATOR)
+              START GAME
             </button>
           </div>
         ) : (
           <div className="doom-iframe-wrapper">
             <iframe
+              ref={iframeRef}
               src={doomUrl}
-              title="DOOM Game Player"
+              title="DOOM 95 Game Player"
               className="doom-iframe"
-              allow="autoplay; fullscreen; gamepad"
+              allow="autoplay; fullscreen; gamepad; keyboard"
+              allowFullScreen
+              sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals"
             />
           </div>
         )}
       </div>
 
+      {/* Bottom Status Bar */}
       <div className="status-bar">
-        <div className="status-bar-field">
-          {isPlaying ? "Running DOOM.EXE in DOSBox emulator" : "Ready to launch"}
+        <div className="status-bar-field" style={{ flex: 1 }}>
+          {isPlaying ? "Running DOOM.EXE in DOSBox emulator • Click game to play" : "Ready to launch"}
         </div>
-        <div className="status-bar-field" style={{ width: 100 }}>
-          <Volume2 size={12} className="inline mr-1" /> Sound 22kHz
-        </div>
-        <div
-          className="status-bar-field"
-          style={{ width: 80, cursor: "pointer" }}
-          onClick={() => setFullscreen(!fullscreen)}
-        >
-          <Maximize2 size={12} className="inline mr-1" /> View
+        <div className="status-bar-field" style={{ width: 140 }}>
+          Sound 22kHz • MS-DOS
         </div>
       </div>
     </div>

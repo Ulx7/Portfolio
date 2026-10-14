@@ -22,6 +22,7 @@ export const useDraggable = (
       if ((e.target as HTMLElement).closest(".title-bar-controls")) return;
 
       isDragging.current = true;
+      document.body.classList.add("is-window-dragging");
       dragStartOffset.current = {
         x: e.clientX - position.x,
         y: e.clientY - position.y
@@ -38,6 +39,7 @@ export const useDraggable = (
 
       const onMouseUp = () => {
         isDragging.current = false;
+        document.body.classList.remove("is-window-dragging");
         window.removeEventListener("mousemove", onMouseMove);
         window.removeEventListener("mouseup", onMouseUp);
       };
@@ -56,6 +58,7 @@ export const useDraggable = (
       if (!touch) return;
 
       isDragging.current = true;
+      document.body.classList.add("is-window-dragging");
       dragStartOffset.current = {
         x: touch.clientX - position.x,
         y: touch.clientY - position.y
@@ -74,6 +77,7 @@ export const useDraggable = (
 
       const onTouchEnd = () => {
         isDragging.current = false;
+        document.body.classList.remove("is-window-dragging");
         window.removeEventListener("touchmove", onTouchMove);
         window.removeEventListener("touchend", onTouchEnd);
       };

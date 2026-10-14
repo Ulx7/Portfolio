@@ -71,24 +71,30 @@ export const WindowFrame: React.FC<WindowFrameProps> = ({ id, children }) => {
         <div className="title-bar-controls">
           <button
             aria-label="Minimize"
+            onMouseDown={(e) => e.preventDefault()}
             onClick={(e) => {
               e.stopPropagation();
+              (e.currentTarget as HTMLButtonElement).blur();
               minimizeWindow(id);
             }}
             title="Minimize"
           />
           <button
             aria-label={win.isMaximized ? "Restore" : "Maximize"}
+            onMouseDown={(e) => e.preventDefault()}
             onClick={(e) => {
               e.stopPropagation();
+              (e.currentTarget as HTMLButtonElement).blur();
               toggleMaximize(id);
             }}
             title={win.isMaximized ? "Restore" : "Maximize"}
           />
           <button
             aria-label="Close"
+            onMouseDown={(e) => e.preventDefault()}
             onClick={(e) => {
               e.stopPropagation();
+              (e.currentTarget as HTMLButtonElement).blur();
               closeWindow(id);
             }}
             title="Close"

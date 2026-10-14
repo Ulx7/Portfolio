@@ -141,6 +141,28 @@ export const XpIcon: React.FC<XpIconProps> = ({ name, size = 32, className = "" 
         </svg>
       );
 
+    case "pinball":
+      return (
+        <svg
+          width={size}
+          height={size}
+          viewBox="0 0 48 48"
+          fill="none"
+          className={className}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect x="8" y="6" width="32" height="36" rx="4" fill="#0B132B" stroke="#3A506B" strokeWidth="2" />
+          <path d="M12 12L24 8L36 12V36L24 40L12 36V12Z" fill="#1C2541" />
+          <path d="M16 32L21 34L19 36L14 34Z" fill="#E63946" />
+          <path d="M32 32L27 34L29 36L34 34Z" fill="#E63946" />
+          <circle cx="24" cy="18" r="4" fill="#F4A261" stroke="#E76F51" strokeWidth="1.5" />
+          <circle cx="17" cy="22" r="3" fill="#E9C46A" />
+          <circle cx="31" cy="22" r="3" fill="#E9C46A" />
+          <circle cx="27" cy="28" r="4" fill="#CBD5E1" stroke="#94A3B8" strokeWidth="1" />
+          <circle cx="26" cy="27" r="1.5" fill="#FFFFFF" />
+        </svg>
+      );
+
     case "my-computer":
       return (
         <svg

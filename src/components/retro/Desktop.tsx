@@ -12,6 +12,7 @@ import { TerminalSkillsWindow } from "./windows/TerminalSkillsWindow";
 import { ContactMsnWindow } from "./windows/ContactMsnWindow";
 import { MinesweeperWindow } from "./windows/MinesweeperWindow";
 import { DoomWindow } from "./windows/DoomWindow";
+import { PinballWindow } from "./windows/PinballWindow";
 
 interface ShortcutItem {
   id: WindowId | "recycle-bin";
@@ -20,32 +21,43 @@ interface ShortcutItem {
 }
 
 const DESKTOP_SHORTCUTS: ShortcutItem[] = [
+  // Column 1: Portfolio Apps & System
   { id: "ie", title: "Internet Explorer", iconName: "ie" },
   { id: "projects", title: "My Projects", iconName: "folder" },
   { id: "about", title: "About_Ulysse.txt", iconName: "notepad" },
   { id: "cmd", title: "Command Prompt", iconName: "cmd" },
   { id: "contact", title: "Outlook Express", iconName: "mail" },
+  { id: "recycle-bin", title: "Recycle Bin", iconName: "recycle-bin" },
+
+  // Column 2: Retro Games
   { id: "minesweeper", title: "Minesweeper", iconName: "bomb" },
   { id: "doom", title: "DOOM (1993)", iconName: "game" },
-  { id: "recycle-bin", title: "Recycle Bin", iconName: "recycle-bin" }
+  { id: "pinball", title: "3D Pinball", iconName: "pinball" }
 ];
 
-const STORAGE_KEY = "xp_desktop_icon_positions_v1";
+const STORAGE_KEY = "xp_desktop_icon_positions_v2";
 
 const getDefaultPositions = (): Record<string, Position> => {
   const positions: Record<string, Position> = {};
   const iconHeight = 84;
-  const colWidth = 86;
+  const colWidth = 90;
   const startX = 14;
   const startY = 14;
-  const windowH = typeof window !== "undefined" ? window.innerHeight : 768;
-  const maxRows = Math.max(2, Math.floor((windowH - 34 - startY) / iconHeight));
 
-  DESKTOP_SHORTCUTS.forEach((item, index) => {
-    const col = Math.floor(index / maxRows);
-    const row = index % maxRows;
-    positions[item.id] = {
-      x: startX + col * colWidth,
+  // Column 1 items (Apps & Recycle Bin)
+  const col1 = ["ie", "projects", "about", "cmd", "contact", "recycle-bin"];
+  col1.forEach((id, row) => {
+    positions[id] = {
+      x: startX,
+      y: startY + row * iconHeight
+    };
+  });
+
+  // Column 2 items (Games)
+  const col2 = ["minesweeper", "doom", "pinball"];
+  col2.forEach((id, row) => {
+    positions[id] = {
+      x: startX + colWidth,
       y: startY + row * iconHeight
     };
   });
@@ -177,6 +189,10 @@ export const Desktop: React.FC = () => {
 
         <WindowFrame id="doom">
           <DoomWindow />
+        </WindowFrame>
+
+        <WindowFrame id="pinball">
+          <PinballWindow />
         </WindowFrame>
       </div>
 

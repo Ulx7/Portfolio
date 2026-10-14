@@ -83,6 +83,13 @@ export const StartMenu: React.FC = () => {
             </div>
           </div>
 
+          <div className="start-item" onClick={() => handleLaunch("pinball")}>
+            <XpIcon name="pinball" size={30} />
+            <div className="start-item-text">
+              <span className="item-title">3D Pinball Space Cadet</span>
+            </div>
+          </div>
+
           <div className="all-programs-bar">
             <span>All Programs</span>
             <ChevronRight size={14} className="all-programs-arrow" />

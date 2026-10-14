@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useCallback, useRef } from "react";
 
-export type WindowId = "ie" | "projects" | "about" | "cmd" | "contact" | "minesweeper" | "doom";
+export type WindowId = "ie" | "projects" | "about" | "cmd" | "contact" | "minesweeper" | "doom" | "pinball";
 
 export interface WindowState {
   id: WindowId;
@@ -106,6 +106,17 @@ const DEFAULT_WINDOWS: Record<WindowId, WindowState> = {
     zIndex: 4,
     position: { x: 100, y: 50 },
     size: { width: 700, height: 520 }
+  },
+  pinball: {
+    id: "pinball",
+    title: "3D Pinball for Windows - Space Cadet",
+    iconName: "pinball",
+    isOpen: false,
+    isMinimized: false,
+    isMaximized: false,
+    zIndex: 4,
+    position: { x: 140, y: 40 },
+    size: { width: 620, height: 500 }
   }
 };
 

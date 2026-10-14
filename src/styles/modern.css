@@ -2032,3 +2032,11 @@ textarea:focus {
   color: #444444;
   user-select: none;
 }
+
+/* Prevent nested frames by hiding retro triggers inside iframe */
+.is-embedded .nav-xp-btn-wrapper,
+.is-embedded .footer-xp-btn,
+.is-embedded .mode-switcher-container,
+.is-embedded .xp-mode-trigger {
+  display: none !important;
+}

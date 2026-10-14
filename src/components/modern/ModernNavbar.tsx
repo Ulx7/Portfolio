@@ -5,7 +5,7 @@ import { Mail } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "../common/SocialIcons";
 
 export const ModernNavbar: React.FC = () => {
-  const { toggleMode } = useThemeMode();
+  const { toggleMode, isEmbedded } = useThemeMode();
   const [activeSection, setActiveSection] = useState("home");
   const activeSectionRef = useRef("home");
   const isManualScrollRef = useRef(false);
@@ -166,49 +166,51 @@ export const ModernNavbar: React.FC = () => {
           </a>
 
           {/* Botón Retro Windows XP con bandera ondeada y tooltip de descubrimiento */}
-          <div className="nav-xp-btn-wrapper">
-            <button
-              type="button"
-              onClick={toggleMode}
-              className="nav-windows-btn xp-mode-trigger"
-              aria-label="Viaja al pasado · Windows XP Mode"
-            >
-              <svg
-                width={19}
-                height={19}
-                viewBox="0 0 24 24"
-                fill="none"
-                className="xp-flag-svg"
-                aria-hidden="true"
+          {!isEmbedded && (
+            <div className="nav-xp-btn-wrapper">
+              <button
+                type="button"
+                onClick={toggleMode}
+                className="nav-windows-btn xp-mode-trigger"
+                aria-label="Viaja al pasado · Windows XP Mode"
               >
-                {/* Cuadrante superior izquierdo (Rojo) */}
-                <path
-                  d="M 3 5.2 C 5.8 4.2, 8.4 5.9, 11 4.8 L 11 11.3 C 8.4 12.4, 5.8 10.7, 3 11.7 Z"
-                  fill="#F25022"
-                />
-                {/* Cuadrante superior derecho (Verde) */}
-                <path
-                  d="M 12.6 4.5 C 15.2 3.4, 18.4 5.2, 21 4.2 L 21 10.7 C 18.4 11.7, 15.2 9.9, 12.6 11.0 Z"
-                  fill="#7FBA00"
-                />
-                {/* Cuadrante inferior izquierdo (Azul) */}
-                <path
-                  d="M 3 12.7 C 5.8 11.7, 8.4 13.4, 11 12.3 L 11 18.8 C 8.4 19.9, 5.8 18.2, 3 19.2 Z"
-                  fill="#00A4EF"
-                />
-                {/* Cuadrante inferior derecho (Amarillo) */}
-                <path
-                  d="M 12.6 12.0 C 15.2 10.9, 18.4 12.7, 21 11.7 L 21 18.2 C 18.4 19.2, 15.2 17.4, 12.6 18.5 Z"
-                  fill="#FFB900"
-                />
-              </svg>
-            </button>
+                <svg
+                  width={19}
+                  height={19}
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  className="xp-flag-svg"
+                  aria-hidden="true"
+                >
+                  {/* Cuadrante superior izquierdo (Rojo) */}
+                  <path
+                    d="M 3 5.2 C 5.8 4.2, 8.4 5.9, 11 4.8 L 11 11.3 C 8.4 12.4, 5.8 10.7, 3 11.7 Z"
+                    fill="#F25022"
+                  />
+                  {/* Cuadrante superior derecho (Verde) */}
+                  <path
+                    d="M 12.6 4.5 C 15.2 3.4, 18.4 5.2, 21 4.2 L 21 10.7 C 18.4 11.7, 15.2 9.9, 12.6 11.0 Z"
+                    fill="#7FBA00"
+                  />
+                  {/* Cuadrante inferior izquierdo (Azul) */}
+                  <path
+                    d="M 3 12.7 C 5.8 11.7, 8.4 13.4, 11 12.3 L 11 18.8 C 8.4 19.9, 5.8 18.2, 3 19.2 Z"
+                    fill="#00A4EF"
+                  />
+                  {/* Cuadrante inferior derecho (Amarillo) */}
+                  <path
+                    d="M 12.6 12.0 C 15.2 10.9, 18.4 12.7, 21 11.7 L 21 18.2 C 18.4 19.2, 15.2 17.4, 12.6 18.5 Z"
+                    fill="#FFB900"
+                  />
+                </svg>
+              </button>
 
-            {/* Tooltip flotante refinado */}
-            <div className="xp-tooltip" role="tooltip">
-              <span className="xp-tooltip-text">Viaja al pasado &middot; Windows XP Mode</span>
+              {/* Tooltip flotante refinado */}
+              <div className="xp-tooltip" role="tooltip">
+                <span className="xp-tooltip-text">Viaja al pasado &middot; Windows XP Mode</span>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </header>

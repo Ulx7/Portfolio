@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useCallback, useRef } from "react";
 
-export type WindowId = "ie" | "projects" | "about" | "cmd" | "contact" | "minesweeper" | "doom" | "pinball";
+export type WindowId = "ie" | "projects" | "about" | "cmd" | "contact" | "minesweeper" | "doom" | "pinball" | "paint" | "winamp";
 
 export interface WindowState {
   id: WindowId;
@@ -117,6 +117,28 @@ const DEFAULT_WINDOWS: Record<WindowId, WindowState> = {
     zIndex: 4,
     position: { x: 140, y: 40 },
     size: { width: 620, height: 500 }
+  },
+  paint: {
+    id: "paint",
+    title: "untitled - Paint",
+    iconName: "paint",
+    isOpen: false,
+    isMinimized: false,
+    isMaximized: false,
+    zIndex: 6,
+    position: { x: 180, y: 70 },
+    size: { width: 720, height: 530 }
+  },
+  winamp: {
+    id: "winamp",
+    title: "Winamp",
+    iconName: "winamp",
+    isOpen: false,
+    isMinimized: false,
+    isMaximized: false,
+    zIndex: 15,
+    position: { x: 220, y: 80 },
+    size: { width: 275, height: 116 }
   }
 };
 

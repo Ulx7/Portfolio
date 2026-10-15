@@ -69,6 +69,20 @@ export const StartMenu: React.FC = () => {
             </div>
           </div>
 
+          <div className="start-item" onClick={() => handleLaunch("paint")}>
+            <XpIcon name="paint" size={30} />
+            <div className="start-item-text">
+              <span className="item-title">Paint</span>
+            </div>
+          </div>
+
+          <div className="start-item" onClick={() => handleLaunch("winamp")}>
+            <XpIcon name="winamp" size={30} />
+            <div className="start-item-text">
+              <span className="item-title">Winamp</span>
+            </div>
+          </div>
+
           <div className="start-item" onClick={() => handleLaunch("minesweeper")}>
             <XpIcon name="bomb" size={30} />
             <div className="start-item-text">

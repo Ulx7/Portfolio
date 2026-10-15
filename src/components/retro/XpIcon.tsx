@@ -6,7 +6,51 @@ interface XpIconProps {
   className?: string;
 }
 
+const XP_ICON_MAP: Record<string, string> = {
+  ie: "/icons/xp/ie.png",
+  folder: "/icons/xp/folder.png",
+  notepad: "/icons/xp/notepad.png",
+  cmd: "/icons/xp/cmd.png",
+  mail: "/icons/xp/mail.png",
+  bomb: "/icons/xp/minesweeper.png",
+  minesweeper: "/icons/xp/minesweeper.png",
+  game: "/icons/xp/doom.png",
+  doom: "/icons/xp/doom.png",
+  pinball: "/icons/xp/pinball.png",
+  paint: "/icons/xp/paint.png",
+  winamp: "/icons/xp/winamp.png",
+  "my-computer": "/icons/xp/my-computer.png",
+  "recycle-bin": "/icons/xp/recycle-bin.png",
+};
+
 export const XpIcon: React.FC<XpIconProps> = ({ name, size = 32, className = "" }) => {
+  const [imgError, setImgError] = React.useState(false);
+  const iconPath = XP_ICON_MAP[name];
+
+  if (iconPath && !imgError) {
+    return (
+      <img
+        src={iconPath}
+        alt={name}
+        width={size}
+        height={size}
+        className={className}
+        style={{
+          width: `${size}px`,
+          height: `${size}px`,
+          objectFit: "contain",
+          display: "inline-block",
+          imageRendering: "auto",
+          userSelect: "none",
+          pointerEvents: "none",
+          flexShrink: 0,
+        }}
+        draggable={false}
+        onError={() => setImgError(true)}
+      />
+    );
+  }
+
   switch (name) {
     case "ie":
       return (
@@ -160,6 +204,32 @@ export const XpIcon: React.FC<XpIconProps> = ({ name, size = 32, className = "" 
           <circle cx="31" cy="22" r="3" fill="#E9C46A" />
           <circle cx="27" cy="28" r="4" fill="#CBD5E1" stroke="#94A3B8" strokeWidth="1" />
           <circle cx="26" cy="27" r="1.5" fill="#FFFFFF" />
+        </svg>
+      );
+
+    case "paint":
+      return (
+        <svg
+          width={size}
+          height={size}
+          viewBox="0 0 48 48"
+          fill="none"
+          className={className}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M24 6C13.5 6 6 13.5 6 24C6 34.5 13.5 42 24 42C26.5 42 28.5 40 28.5 37.5C28.5 36.3 28 35.2 27.2 34.4C26.4 33.6 26 32.5 26 31.5C26 29 28 27 30.5 27H35C39.5 27 43 23.5 43 19C43 11.8 34.5 6 24 6Z"
+            fill="#FEF3C7"
+            stroke="#D97706"
+            strokeWidth="2"
+          />
+          <circle cx="14" cy="18" r="3" fill="#EF4444" />
+          <circle cx="21" cy="13" r="3" fill="#F59E0B" />
+          <circle cx="29" cy="13" r="3" fill="#10B981" />
+          <circle cx="36" cy="18" r="3" fill="#3B82F6" />
+          <circle cx="16" cy="27" r="3" fill="#8B5CF6" />
+          <path d="M22 36L38 10L42 12L25 39L22 36Z" fill="#B45309" />
+          <path d="M20 38L22 36L25 39L21 42C19.5 43 18 41 20 38Z" fill="#1E293B" />
         </svg>
       );
 

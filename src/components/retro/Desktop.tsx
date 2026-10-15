@@ -13,6 +13,8 @@ import { ContactMsnWindow } from "./windows/ContactMsnWindow";
 import { MinesweeperWindow } from "./windows/MinesweeperWindow";
 import { DoomWindow } from "./windows/DoomWindow";
 import { PinballWindow } from "./windows/PinballWindow";
+import { PaintWindow } from "./windows/PaintWindow";
+import { WinampPlayer } from "./WinampPlayer";
 
 interface ShortcutItem {
   id: WindowId | "recycle-bin";
@@ -26,16 +28,18 @@ const DESKTOP_SHORTCUTS: ShortcutItem[] = [
   { id: "projects", title: "My Projects", iconName: "folder" },
   { id: "about", title: "About_Ulysse.txt", iconName: "notepad" },
   { id: "cmd", title: "Command Prompt", iconName: "cmd" },
+  { id: "paint", title: "Paint", iconName: "paint" },
   { id: "contact", title: "Outlook Express", iconName: "mail" },
   { id: "recycle-bin", title: "Recycle Bin", iconName: "recycle-bin" },
 
-  // Column 2: Retro Games
+  // Column 2: Music & Retro Games
+  { id: "winamp", title: "Winamp", iconName: "winamp" },
   { id: "minesweeper", title: "Minesweeper", iconName: "bomb" },
   { id: "doom", title: "DOOM (1993)", iconName: "game" },
   { id: "pinball", title: "3D Pinball", iconName: "pinball" }
 ];
 
-const STORAGE_KEY = "xp_desktop_icon_positions_v2";
+const STORAGE_KEY = "xp_desktop_icon_positions_v6";
 
 const getDefaultPositions = (): Record<string, Position> => {
   const positions: Record<string, Position> = {};
@@ -45,7 +49,7 @@ const getDefaultPositions = (): Record<string, Position> => {
   const startY = 14;
 
   // Column 1 items (Apps & Recycle Bin)
-  const col1 = ["ie", "projects", "about", "cmd", "contact", "recycle-bin"];
+  const col1 = ["ie", "projects", "about", "cmd", "paint", "contact", "recycle-bin"];
   col1.forEach((id, row) => {
     positions[id] = {
       x: startX,
@@ -53,8 +57,8 @@ const getDefaultPositions = (): Record<string, Position> => {
     };
   });
 
-  // Column 2 items (Games)
-  const col2 = ["minesweeper", "doom", "pinball"];
+  // Column 2 items (Winamp & Games)
+  const col2 = ["winamp", "minesweeper", "doom", "pinball"];
   col2.forEach((id, row) => {
     positions[id] = {
       x: startX + colWidth,
@@ -183,6 +187,10 @@ export const Desktop: React.FC = () => {
           <ContactMsnWindow />
         </WindowFrame>
 
+        <WindowFrame id="paint">
+          <PaintWindow />
+        </WindowFrame>
+
         <WindowFrame id="minesweeper">
           <MinesweeperWindow />
         </WindowFrame>
@@ -194,6 +202,9 @@ export const Desktop: React.FC = () => {
         <WindowFrame id="pinball">
           <PinballWindow />
         </WindowFrame>
+
+        {/* Winamp Modular Player */}
+        <WinampPlayer />
       </div>
 
       {/* Start Menu */}

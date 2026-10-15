@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useCallback, useRef } from "react";
 
-export type WindowId = "ie" | "projects" | "about" | "cmd" | "contact" | "minesweeper" | "doom" | "pinball" | "paint" | "winamp";
+export type WindowId = "ie" | "projects" | "about" | "cmd" | "contact" | "minesweeper" | "doom" | "pinball" | "paint" | "winamp" | "spider" | "display" | "system";
 
 export interface WindowState {
   id: WindowId;
@@ -139,6 +139,39 @@ const DEFAULT_WINDOWS: Record<WindowId, WindowState> = {
     zIndex: 15,
     position: { x: 220, y: 80 },
     size: { width: 275, height: 116 }
+  },
+  spider: {
+    id: "spider",
+    title: "Spider Solitaire",
+    iconName: "spider",
+    isOpen: false,
+    isMinimized: false,
+    isMaximized: false,
+    zIndex: 9,
+    position: { x: 120, y: 40 },
+    size: { width: 780, height: 560 }
+  },
+  display: {
+    id: "display",
+    title: "Display Properties",
+    iconName: "display",
+    isOpen: false,
+    isMinimized: false,
+    isMaximized: false,
+    zIndex: 10,
+    position: { x: 160, y: 60 },
+    size: { width: 440, height: 505 }
+  },
+  system: {
+    id: "system",
+    title: "System Properties",
+    iconName: "system",
+    isOpen: false,
+    isMinimized: false,
+    isMaximized: false,
+    zIndex: 10,
+    position: { x: 180, y: 50 },
+    size: { width: 440, height: 495 }
   }
 };
 

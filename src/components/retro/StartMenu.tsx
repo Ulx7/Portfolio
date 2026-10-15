@@ -104,6 +104,13 @@ export const StartMenu: React.FC = () => {
             </div>
           </div>
 
+          <div className="start-item" onClick={() => handleLaunch("spider")}>
+            <XpIcon name="spider" size={30} />
+            <div className="start-item-text">
+              <span className="item-title">Spider Solitaire</span>
+            </div>
+          </div>
+
           <div className="all-programs-bar">
             <span>All Programs</span>
             <ChevronRight size={14} className="all-programs-arrow" />
@@ -122,19 +129,29 @@ export const StartMenu: React.FC = () => {
             <span>My Projects</span>
           </div>
 
-          <div className="right-item">
+          <div className="right-item" onClick={() => handleLaunch("system")}>
             <XpIcon name="my-computer" size={20} />
             <span>My Computer</span>
           </div>
 
           <div className="start-divider"></div>
 
-          <div className="right-item">
+          <div className="right-item" onClick={() => handleLaunch("system")}>
+            <XpIcon name="my-computer" size={20} />
+            <span>System Properties</span>
+          </div>
+
+          <div className="right-item" onClick={() => handleLaunch("display")}>
+            <XpIcon name="display" size={20} />
+            <span>Display Properties</span>
+          </div>
+
+          <div className="right-item" onClick={() => handleLaunch("display")}>
             <Settings size={20} className="text-blue-700" />
             <span>Control Panel</span>
           </div>
 
-          <div className="right-item">
+          <div className="right-item" onClick={() => handleLaunch("system")}>
             <HelpCircle size={20} className="text-blue-700" />
             <span>Help and Support</span>
           </div>

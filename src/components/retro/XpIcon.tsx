@@ -19,8 +19,11 @@ const XP_ICON_MAP: Record<string, string> = {
   pinball: "/icons/xp/pinball.png",
   paint: "/icons/xp/paint.png",
   winamp: "/icons/xp/winamp.png",
+  spider: "/icons/xp/spider.png",
   "my-computer": "/icons/xp/my-computer.png",
+  system: "/icons/xp/my-computer.png",
   "recycle-bin": "/icons/xp/recycle-bin.png",
+  display: "/icons/xp/display.ico",
 };
 
 export const XpIcon: React.FC<XpIconProps> = ({ name, size = 32, className = "" }) => {
@@ -265,6 +268,59 @@ export const XpIcon: React.FC<XpIconProps> = ({ name, size = 32, className = "" 
           <line x1="20" y1="18" x2="20" y2="32" stroke="#FFFFFF" strokeWidth="1.5" />
           <line x1="24" y1="18" x2="24" y2="32" stroke="#FFFFFF" strokeWidth="1.5" />
           <line x1="28" y1="18" x2="28" y2="32" stroke="#FFFFFF" strokeWidth="1.5" />
+        </svg>
+      );
+
+    case "spider":
+      return (
+        <svg
+          width={size}
+          height={size}
+          viewBox="0 0 48 48"
+          fill="none"
+          className={className}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          {/* Card background */}
+          <rect x="10" y="8" width="28" height="34" rx="3" fill="#FFFFFF" stroke="#000000" strokeWidth="1.5" />
+          {/* Card header / spade */}
+          <text x="14" y="20" fill="#000000" fontSize="12" fontWeight="bold">♠</text>
+          {/* Spider hanging */}
+          <line x1="24" y1="8" x2="24" y2="24" stroke="#444444" strokeWidth="1" />
+          <circle cx="24" cy="27" r="4" fill="#111111" />
+          {/* Spider legs */}
+          <path d="M20 25L16 23M20 27L15 28M20 29L16 32" stroke="#111111" strokeWidth="1.2" strokeLinecap="round" />
+          <path d="M28 25L32 23M28 27L33 28M28 29L32 32" stroke="#111111" strokeWidth="1.2" strokeLinecap="round" />
+        </svg>
+      );
+
+    case "display":
+      return (
+        <svg width={size} height={size} viewBox="0 0 32 32" fill="none" className={className}>
+          <rect x="3" y="4" width="26" height="18" rx="2" fill="#d4d0c8" stroke="#716f64" strokeWidth="1.5" />
+          <rect x="5" y="6" width="22" height="14" rx="1" fill="#000000" />
+          <rect x="6" y="7" width="20" height="12" fill="#245edb" />
+          <path d="M6 13 Q 12 9, 18 15 T 26 13 L 26 19 L 6 19 Z" fill="#4ade80" />
+          <path d="M12 22 L 20 22 L 22 27 L 10 27 Z" fill="#b0aba0" stroke="#716f64" strokeWidth="1" />
+          <rect x="8" y="27" width="16" height="2" rx="1" fill="#807c72" />
+        </svg>
+      );
+
+    case "my-computer":
+    case "system":
+      return (
+        <svg width={size} height={size} viewBox="0 0 32 32" fill="none" className={className}>
+          {/* CRT Monitor */}
+          <rect x="4" y="3" width="24" height="18" rx="2" fill="#dcd7c9" stroke="#716f64" strokeWidth="1.2" />
+          <rect x="6" y="5" width="20" height="14" fill="#1e3a8a" />
+          <path d="M6 12 Q 12 8, 16 14 T 26 12 L 26 19 L 6 19 Z" fill="#22c55e" />
+          {/* Monitor stand */}
+          <path d="M13 21 H19 L20 25 H12 Z" fill="#b0aba0" stroke="#716f64" strokeWidth="1" />
+          <rect x="9" y="25" width="14" height="2" rx="1" fill="#807c72" />
+          {/* Tower chassis */}
+          <rect x="21" y="11" width="8" height="17" rx="1" fill="#d4d0c8" stroke="#555555" strokeWidth="1" />
+          <rect x="23" y="13" width="4" height="2" fill="#475569" />
+          <circle cx="25" cy="24" r="1" fill="#22c55e" />
         </svg>
       );
 

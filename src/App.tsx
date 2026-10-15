@@ -1,5 +1,6 @@
 import React from "react";
 import { ThemeModeProvider, useThemeMode } from "./context/ThemeModeContext";
+import { WallpaperProvider } from "./context/WallpaperContext";
 import { WindowManagerProvider } from "./context/WindowManagerContext";
 import { ModernView } from "./components/modern/ModernView";
 import { Desktop } from "./components/retro/Desktop";
@@ -20,9 +21,11 @@ const PortfolioContent: React.FC = () => {
 export function App() {
   return (
     <ThemeModeProvider>
-      <WindowManagerProvider>
-        <PortfolioContent />
-      </WindowManagerProvider>
+      <WallpaperProvider>
+        <WindowManagerProvider>
+          <PortfolioContent />
+        </WindowManagerProvider>
+      </WallpaperProvider>
     </ThemeModeProvider>
   );
 }

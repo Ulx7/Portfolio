@@ -172,7 +172,7 @@ export const ModernNavbar: React.FC = () => {
                 type="button"
                 onClick={toggleMode}
                 className="nav-windows-btn xp-mode-trigger"
-                aria-label="Viaja al pasado · Windows XP Mode"
+                aria-label="Travel back in time · Windows XP Mode"
               >
                 <svg
                   width={19}
@@ -207,7 +207,7 @@ export const ModernNavbar: React.FC = () => {
 
               {/* Tooltip flotante refinado */}
               <div className="xp-tooltip" role="tooltip">
-                <span className="xp-tooltip-text">Viaja al pasado &middot; Windows XP Mode</span>
+                <span className="xp-tooltip-text">Travel back in time &middot; Windows XP Mode</span>
               </div>
             </div>
           )}

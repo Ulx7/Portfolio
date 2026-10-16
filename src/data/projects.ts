@@ -75,7 +75,7 @@ export const projects: Project[] = [
     shortDescription: "Mobile and web application currently in active product design and core architecture development.",
     fullDescription: "Mobile and web application currently in active product design and core architecture development.",
     image: "/projects/vivi.png",
-    images: ["/projects/vivi.png"],
+    images: ["/projects/vivi.png", "/projects/Vivi-logo.png"],
     isComingSoon: true,
     color: "#f97316",
     year: "2025"
@@ -114,7 +114,12 @@ export const projects: Project[] = [
     shortDescription: "Built with a focus on Visual Storytelling and Atomic Design, this platform provides a seamless, high-end experience for discovering botanical species.",
     fullDescription: "Built with a focus on Visual Storytelling and Atomic Design, this platform provides a seamless, high-end experience for discovering botanical species. The project prioritizes clean aesthetics and technical efficiency through a decoupled headless architecture.",
     image: "/projects/vivero.png",
-    images: ["/projects/vivero.png", "/projects/vivero.jpeg"],
+    images: [
+      "/projects/vivero.png",
+      "/projects/Vivero2.jpeg",
+      "/projects/Vivero3.jpeg",
+      "/projects/Vivero4.jpeg"
+    ],
     liveUrl: "https://ulysse-dev.vercel.app/#projects",
     githubUrl: "https://github.com/Ulx7",
     color: "#10b981",
@@ -143,7 +148,12 @@ export const projects: Project[] = [
     shortDescription: "A comprehensive technical case study analyzing over 1.7M professional football records using PySpark and Pandas ETL pipelines.",
     fullDescription: "A comprehensive technical case study analyzing over 1.7M professional football records. This research involved developing a full ETL pipeline to process massive datasets, validating 8 critical business inquiries through a comparative performance study between Pandas and PySpark.",
     image: "/projects/bigdata.png",
-    images: ["/projects/bigdata.png", "/projects/bigdata.jpeg"],
+    images: [
+      "/projects/bigdata.png",
+      "/projects/BigData2.jpeg",
+      "/projects/BigData3.jpeg",
+      "/projects/BigData4.jpeg"
+    ],
     documentUrl: "https://github.com/Ulx7",
     githubUrl: "https://github.com/Ulx7",
     color: "#6366f1",
@@ -171,7 +181,10 @@ export const projects: Project[] = [
     shortDescription: "Full digitalization of a real estate firm featuring a Spring Boot backend, React public catalog, and AWS deployment.",
     fullDescription: "This Capstone Project involved the full digitalization of a traditional firm. I developed a robust internal management system for contracts and clients using Spring Boot, and a public-facing property catalog using React and Tailwind CSS, all deployed on AWS infrastructure.",
     image: "/projects/realstate.png",
-    images: ["/projects/realstate.png", "/projects/realestate.png"],
+    images: [
+      "/projects/realstate.png",
+      "/projects/RealEstate3.jpeg"
+    ],
     documentUrl: "https://github.com/Ulx7",
     githubUrl: "https://github.com/Ulx7",
     color: "#3b82f6",
@@ -210,7 +223,12 @@ export const projects: Project[] = [
     shortDescription: "A complete casino logic implementation focusing on Object-Oriented Programming (OOP) excellence and clean architecture.",
     fullDescription: "A complete casino logic implementation focusing on Object-Oriented Programming (OOP) excellence and clean architecture. The system simulates a real-world roulette environment with multiple players and automated dealer logic.",
     image: "/projects/ruleta.png",
-    images: ["/projects/ruleta.png", "/projects/ruleta.jpeg"],
+    images: [
+      "/projects/ruleta.png",
+      "/projects/Ruleta2.jpeg",
+      "/projects/Ruleta3.jpeg",
+      "/projects/Ruleta4.jpeg"
+    ],
     githubUrl: "https://github.com/Ulx7",
     color: "#f59e0b",
     year: "2023"
@@ -249,7 +267,12 @@ export const projects: Project[] = [
     shortDescription: "Cabin reservation system with C# ASP.NET Web API and MVC web application following clean architecture.",
     fullDescription: "This project implements a cabin reservation system for a hotel management suite. It was developed in two main parts: a robust Web API acting as the business logic engine and a Model-View-Controller (MVC) web application for user interaction.",
     image: "/projects/hotel.png",
-    images: ["/projects/hotel.png", "/projects/hotel.jpeg"],
+    images: [
+      "/projects/hotel.png",
+      "/projects/Cabana2.jpeg",
+      "/projects/Cabana3.jpeg",
+      "/projects/Cabana4.jpeg"
+    ],
     frontendUrl: "https://github.com/Ulx7",
     backendUrl: "https://github.com/Ulx7",
     githubUrl: "https://github.com/Ulx7",

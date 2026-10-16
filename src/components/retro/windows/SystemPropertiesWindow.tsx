@@ -13,7 +13,6 @@ export const SystemPropertiesWindow: React.FC = () => {
   const [showDeviceManager, setShowDeviceManager] = useState(false);
   const [showEnvVarsModal, setShowEnvVarsModal] = useState(false);
 
-  // Device manager tree expanded states
   const [expandedDevices, setExpandedDevices] = useState<Record<string, boolean>>({
     display: true,
     processors: true,
@@ -32,7 +31,6 @@ export const SystemPropertiesWindow: React.FC = () => {
 
   return (
     <div className="system-props-layout">
-      {/* Tabs Header */}
       <div className="tabs-header">
         <button
           className={`tab-btn ${activeTab === "general" ? "active" : ""}`}
@@ -78,14 +76,10 @@ export const SystemPropertiesWindow: React.FC = () => {
         </button>
       </div>
 
-      {/* Tab Body */}
       <div className="tab-body">
-        {/* GENERAL TAB */}
         {activeTab === "general" && (
           <div className="general-tab-content flex flex-col gap-3 text-xs text-gray-900">
-            {/* System Info Banner */}
             <div className="flex items-start gap-4 pb-2 border-b border-[#d4d0c8]">
-              {/* Windows XP 4-color Flag Graphic */}
               <div className="w-16 h-16 flex-shrink-0 flex items-center justify-center bg-gradient-to-br from-[#1e40af] to-[#3b82f6] rounded border border-[#1d4ed8] shadow-sm relative overflow-hidden p-1.5">
                 <div className="grid grid-cols-2 gap-1 w-full h-full">
                   <div className="bg-[#ef4444] rounded-tl shadow-inner" />
@@ -106,7 +100,6 @@ export const SystemPropertiesWindow: React.FC = () => {
               </div>
             </div>
 
-            {/* Registered To */}
             <div className="pb-2 border-b border-[#d4d0c8]">
               <div className="text-gray-600 font-semibold mb-0.5">Registered to:</div>
               <div className="pl-4 font-semibold text-gray-900">Ulysse Castello</div>
@@ -114,9 +107,7 @@ export const SystemPropertiesWindow: React.FC = () => {
               <div className="pl-4 font-mono text-[11px] text-gray-500">55274-OEM-0145294-22314</div>
             </div>
 
-            {/* Computer & OEM Info */}
             <div className="flex gap-4 items-start pt-1">
-              {/* Authentic Vintage OEM Badge */}
               <div className="w-36 flex-shrink-0 flex flex-col items-center p-2 bg-[#f0eee0] border border-[#716f64] rounded text-center shadow-inner">
                 <div className="w-12 h-10 border border-[#0055ea] bg-gradient-to-b from-[#0055ea] to-[#1e3a8a] text-white flex flex-col items-center justify-center rounded p-0.5 shadow mb-1">
                   <span className="font-bold text-[9px] tracking-tight">intel</span>
@@ -137,7 +128,6 @@ export const SystemPropertiesWindow: React.FC = () => {
                 </button>
               </div>
 
-              {/* Genuine Vintage XP Hardware Specs */}
               <div className="flex-1 space-y-0.5 pt-0.5">
                 <div className="text-gray-600 font-semibold mb-0.5">Computer:</div>
                 <div className="font-semibold text-gray-900">Intel(R)</div>
@@ -149,7 +139,6 @@ export const SystemPropertiesWindow: React.FC = () => {
           </div>
         )}
 
-        {/* COMPUTER NAME TAB */}
         {activeTab === "computer-name" && (
           <div className="computer-name-tab-content text-xs text-gray-900 space-y-3">
             <div className="flex items-center gap-3 pb-2 border-b border-[#d4d0c8]">
@@ -197,10 +186,8 @@ export const SystemPropertiesWindow: React.FC = () => {
           </div>
         )}
 
-        {/* HARDWARE TAB */}
         {activeTab === "hardware" && (
           <div className="hardware-tab-content text-xs text-gray-900 space-y-3">
-            {/* Device Manager Section */}
             <fieldset className="xp-groupbox p-3">
               <legend>Device Manager</legend>
               <p className="text-gray-700 mb-2">
@@ -216,7 +203,6 @@ export const SystemPropertiesWindow: React.FC = () => {
               </div>
             </fieldset>
 
-            {/* Drivers Section */}
             <fieldset className="xp-groupbox p-3">
               <legend>Drivers</legend>
               <p className="text-gray-700 mb-2">
@@ -238,7 +224,6 @@ export const SystemPropertiesWindow: React.FC = () => {
               </div>
             </fieldset>
 
-            {/* Hardware Profiles */}
             <fieldset className="xp-groupbox p-3">
               <legend>Hardware Profiles</legend>
               <p className="text-gray-700 mb-2">
@@ -256,7 +241,6 @@ export const SystemPropertiesWindow: React.FC = () => {
           </div>
         )}
 
-        {/* ADVANCED TAB */}
         {activeTab === "advanced" && (
           <div className="advanced-tab-content text-xs text-gray-900 space-y-3">
             <p className="text-gray-600 text-[11px] mb-1">
@@ -304,7 +288,6 @@ export const SystemPropertiesWindow: React.FC = () => {
           </div>
         )}
 
-        {/* SYSTEM RESTORE TAB */}
         {activeTab === "restore" && (
           <div className="restore-tab-content text-xs text-gray-900 space-y-3">
             <p className="text-gray-700 leading-snug">
@@ -336,7 +319,6 @@ export const SystemPropertiesWindow: React.FC = () => {
           </div>
         )}
 
-        {/* AUTOMATIC UPDATES TAB */}
         {activeTab === "updates" && (
           <div className="updates-tab-content text-xs text-gray-900 space-y-3">
             <div className="flex items-start gap-3 pb-2 border-b border-[#d4d0c8]">
@@ -377,7 +359,6 @@ export const SystemPropertiesWindow: React.FC = () => {
           </div>
         )}
 
-        {/* REMOTE TAB */}
         {activeTab === "remote" && (
           <div className="remote-tab-content text-xs text-gray-900 space-y-4">
             <fieldset className="xp-groupbox p-3">
@@ -407,7 +388,6 @@ export const SystemPropertiesWindow: React.FC = () => {
         )}
       </div>
 
-      {/* Footer Dialog Action Buttons */}
       <div className="dialog-footer-buttons">
         <button className="xp-dialog-btn" onClick={() => closeWindow("system")}>
           OK
@@ -420,7 +400,6 @@ export const SystemPropertiesWindow: React.FC = () => {
         </button>
       </div>
 
-      {/* AUTHENTIC OEM TECHNICAL SUPPORT INFORMATION MODAL */}
       {showSupportModal && (
         <div className="fixed inset-0 z-[9999] bg-black/40 flex items-center justify-center p-4">
           <div className="w-[380px] bg-[#ece9d8] border-2 border-[#0055ea] rounded shadow-2xl p-3 text-xs text-gray-900 font-sans">
@@ -478,7 +457,6 @@ export const SystemPropertiesWindow: React.FC = () => {
         </div>
       )}
 
-      {/* ERA-ACCURATE WINDOWS XP DEVICE MANAGER MODAL */}
       {showDeviceManager && (
         <div className="fixed inset-0 z-[9999] bg-black/40 flex items-center justify-center p-4">
           <div className="w-[440px] bg-[#ece9d8] border-2 border-[#0055ea] rounded shadow-2xl p-3 text-xs text-gray-900 font-sans">
@@ -495,14 +473,12 @@ export const SystemPropertiesWindow: React.FC = () => {
               </button>
             </div>
 
-            {/* Tree View Container with authentic vintage PC hardware */}
             <div className="bg-white border border-[#716f64] p-2.5 h-72 overflow-y-auto space-y-1 font-mono text-[11px]">
               <div className="font-bold flex items-center gap-1 pb-1 text-gray-900">
                 <Monitor size={14} className="text-[#0055ea]" />
                 <span>ULYSSE-PC</span>
               </div>
 
-              {/* Display Adapters */}
               <div className="pl-3">
                 <div
                   className="flex items-center gap-1 cursor-pointer font-sans font-semibold text-gray-800 hover:text-blue-700"
@@ -518,7 +494,6 @@ export const SystemPropertiesWindow: React.FC = () => {
                 )}
               </div>
 
-              {/* Processors */}
               <div className="pl-3">
                 <div
                   className="flex items-center gap-1 cursor-pointer font-sans font-semibold text-gray-800 hover:text-blue-700"
@@ -537,7 +512,6 @@ export const SystemPropertiesWindow: React.FC = () => {
                 )}
               </div>
 
-              {/* Sound Controllers */}
               <div className="pl-3">
                 <div
                   className="flex items-center gap-1 cursor-pointer font-sans font-semibold text-gray-800 hover:text-blue-700"
@@ -556,7 +530,6 @@ export const SystemPropertiesWindow: React.FC = () => {
                 )}
               </div>
 
-              {/* Disk Drives */}
               <div className="pl-3">
                 <div
                   className="flex items-center gap-1 cursor-pointer font-sans font-semibold text-gray-800 hover:text-blue-700"
@@ -572,7 +545,6 @@ export const SystemPropertiesWindow: React.FC = () => {
                 )}
               </div>
 
-              {/* DVD/CD-ROM drives */}
               <div className="pl-3">
                 <div
                   className="flex items-center gap-1 cursor-pointer font-sans font-semibold text-gray-800 hover:text-blue-700"
@@ -593,7 +565,6 @@ export const SystemPropertiesWindow: React.FC = () => {
                 )}
               </div>
 
-              {/* Floppy disk controllers */}
               <div className="pl-3">
                 <div
                   className="flex items-center gap-1 cursor-pointer font-sans font-semibold text-gray-800 hover:text-blue-700"
@@ -609,7 +580,6 @@ export const SystemPropertiesWindow: React.FC = () => {
                 )}
               </div>
 
-              {/* Network Adapters */}
               <div className="pl-3">
                 <div
                   className="flex items-center gap-1 cursor-pointer font-sans font-semibold text-gray-800 hover:text-blue-700"
@@ -625,7 +595,6 @@ export const SystemPropertiesWindow: React.FC = () => {
                 )}
               </div>
 
-              {/* Ports (COM & LPT) */}
               <div className="pl-3">
                 <div
                   className="flex items-center gap-1 cursor-pointer font-sans font-semibold text-gray-800 hover:text-blue-700"
@@ -642,7 +611,6 @@ export const SystemPropertiesWindow: React.FC = () => {
                 )}
               </div>
 
-              {/* Keyboards & Mice */}
               <div className="pl-3">
                 <div
                   className="flex items-center gap-1 cursor-pointer font-sans font-semibold text-gray-800 hover:text-blue-700"
@@ -672,7 +640,6 @@ export const SystemPropertiesWindow: React.FC = () => {
         </div>
       )}
 
-      {/* VINTAGE XP ENVIRONMENT VARIABLES MODAL */}
       {showEnvVarsModal && (
         <div className="fixed inset-0 z-[9999] bg-black/40 flex items-center justify-center p-4">
           <div className="w-[410px] bg-[#ece9d8] border-2 border-[#0055ea] rounded shadow-2xl p-3 text-xs text-gray-900 font-sans">

@@ -20,10 +20,8 @@ export const GithubActivity: React.FC = () => {
     const now = new Date();
     const currentYear = now.getFullYear();
 
-    // Start filter strictly from April 1st of the current year (Month 3 = April in JS)
     const aprilStartDate = new Date(currentYear, 3, 1);
 
-    // Determine relevant month labels from April to current month
     const allMonths = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     const currentMonthIdx = now.getMonth();
     const filteredMonthLabels = allMonths.slice(3, currentMonthIdx + 1);
@@ -31,7 +29,6 @@ export const GithubActivity: React.FC = () => {
 
     const fetchRealData = async () => {
       try {
-        // Live GitHub API connection with cache-busting timestamp and no-store to avoid stale data
         const res = await fetch(`https://github-contributions-api.jogruber.de/v4/Ulx7?y=last&_nocache=${Date.now()}`, {
           cache: "no-store",
           headers: {
@@ -42,7 +39,6 @@ export const GithubActivity: React.FC = () => {
         const data = await res.json();
 
         if (isMounted && data.contributions && Array.isArray(data.contributions)) {
-          // Strict date filter: >= April 1st of current year up to today
           const filteredDays: DayData[] = data.contributions
             .filter((c: { date: string }) => {
               const d = new Date(c.date);
@@ -55,7 +51,6 @@ export const GithubActivity: React.FC = () => {
             }));
 
           if (filteredDays.length > 0) {
-            // Group filtered days into columns of 7 (Sunday to Saturday)
             const builtWeeks: DayData[][] = [];
             for (let i = 0; i < filteredDays.length; i += 7) {
               builtWeeks.push(filteredDays.slice(i, i + 7));
@@ -67,11 +62,10 @@ export const GithubActivity: React.FC = () => {
           }
         }
       } catch {
-        // Fallback: generate calendar slots strictly from April 1st to now
+        // Fallback if API fails
       }
 
       if (isMounted) {
-        // Generate daily slots from April 1st to today
         const generatedDays: DayData[] = [];
         const iterDate = new Date(aprilStartDate);
         let commitSum = 0;
@@ -132,14 +126,12 @@ export const GithubActivity: React.FC = () => {
       </div>
 
       <div className="gh-heatmap-wrapper">
-        {/* Dynamic Compact Month Header from April onwards */}
         <div className="gh-months-row">
           {monthLabels.map((m, idx) => (
             <span key={idx} className="gh-month-label">{m}</span>
           ))}
         </div>
 
-        {/* Scrollable / Compact Grid of Weeks */}
         <div className="gh-grid-scroll">
           <div className="gh-grid-container">
             {weeks.map((week, wIdx) => (
@@ -158,14 +150,12 @@ export const GithubActivity: React.FC = () => {
           </div>
         </div>
 
-        {/* Dynamic Tooltip on Hover */}
         {hoveredDay && (
           <div className="gh-hover-tooltip">
             <strong>{hoveredDay.count} contribution{hoveredDay.count === 1 ? "" : "s"}</strong> on {hoveredDay.date}
           </div>
         )}
 
-        {/* Heatmap Footer Legend and Total */}
         <div className="gh-footer-meta">
           <span className="gh-total-label">
             <strong>{totalContributions}</strong> contributions since April

@@ -8,7 +8,6 @@ interface DiplomaItem {
   id: DiplomaTabId;
   label: string;
   imageSrc: string;
-  fallbackSrc: string;
 }
 
 const diplomaList: DiplomaItem[] = [
@@ -16,19 +15,16 @@ const diplomaList: DiplomaItem[] = [
     id: "it-analyst",
     label: "IT Analyst",
     imageSrc: "/diplomas/it-analyst.png",
-    fallbackSrc: "/diplomas/it-analyst.jpeg",
   },
   {
     id: "systems-analyst",
     label: "Systems Analyst",
     imageSrc: "/diplomas/systems-analyst.png",
-    fallbackSrc: "/diplomas/systems-analyst.png",
   },
   {
     id: "web-dev",
     label: "Web Developer",
     imageSrc: "/diplomas/web-developer.png",
-    fallbackSrc: "/diplomas/web-developer.jpg",
   },
 ];
 
@@ -39,7 +35,6 @@ interface DiplomasModalProps {
 
 export const DiplomasModal: React.FC<DiplomasModalProps> = ({ onClose, initialTab }) => {
   const [activeTab, setActiveTab] = useState<DiplomaTabId>(initialTab || "it-analyst");
-  const [imgErrorMap, setImgErrorMap] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -58,7 +53,7 @@ export const DiplomasModal: React.FC<DiplomasModalProps> = ({ onClose, initialTa
   }, [onClose]);
 
   const activeDiploma = diplomaList.find((d) => d.id === activeTab) || diplomaList[0];
-  const displaySrc = imgErrorMap[activeDiploma.id] ? activeDiploma.fallbackSrc : activeDiploma.imageSrc;
+  const displaySrc = activeDiploma.imageSrc;
 
   return createPortal(
     <div
@@ -69,7 +64,6 @@ export const DiplomasModal: React.FC<DiplomasModalProps> = ({ onClose, initialTa
       aria-label="Official University Diplomas Viewer"
     >
       <div className="diploma-lightbox-dialog" onClick={(e) => e.stopPropagation()}>
-        {/* Top Header: 3 Clean University Tabs & Minimalist Transparent Close Button */}
         <div className="diploma-lightbox-header">
           <div className="diploma-text-tabs" role="tablist">
             {diplomaList.map((item) => (
@@ -97,14 +91,12 @@ export const DiplomasModal: React.FC<DiplomasModalProps> = ({ onClose, initialTa
           </button>
         </div>
 
-        {/* Central Document Display: High-definition Scanned Image */}
         <div className="diploma-lightbox-content">
           <div className="diploma-image-container">
             <img
               src={displaySrc}
               alt={`${activeDiploma.label} - Official University Diploma`}
               className="diploma-fullscreen-image"
-              onError={() => setImgErrorMap((prev) => ({ ...prev, [activeDiploma.id]: true }))}
             />
           </div>
         </div>

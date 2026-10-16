@@ -54,7 +54,6 @@ export const SpiderSolitaireWindow: React.FC = () => {
         if (helpOpen) setHelpOpen(false);
       }}
     >
-      {/* Authentic Windows XP Menubar */}
       <div className="ie-menubar relative z-30" style={{ userSelect: "none" }}>
         <div className="relative inline-block">
           <span
@@ -145,7 +144,6 @@ export const SpiderSolitaireWindow: React.FC = () => {
         </div>
       </div>
 
-      {/* Main Game Viewport */}
       <div className="spider-viewport-container">
         <div className="spider-iframe-wrapper">
           <iframe
@@ -159,7 +157,6 @@ export const SpiderSolitaireWindow: React.FC = () => {
         </div>
       </div>
 
-      {/* Windows XP Status Bar */}
       <div className="status-bar" style={{ margin: 0 }}>
         <div className="status-bar-field" style={{ flex: 1 }}>
           Spider Solitaire • 104 Cards • Windows XP Edition

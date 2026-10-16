@@ -97,7 +97,6 @@ export const DisplayPropertiesWindow: React.FC = () => {
 
   return (
     <div className="display-props-layout">
-      {/* Tab Navigation */}
       <div className="tabs-header">
         <button
           className={`tab-btn ${activeTab === "themes" ? "active" : ""}`}
@@ -131,12 +130,9 @@ export const DisplayPropertiesWindow: React.FC = () => {
         </button>
       </div>
 
-      {/* Tab Content Box */}
       <div className="tab-body">
-        {/* DESKTOP TAB */}
         {activeTab === "desktop" && (
           <div className="desktop-tab-content">
-            {/* Realistic CRT Monitor Frame with Live Wallpaper Preview */}
             <div className="crt-monitor-container">
               <div className="crt-monitor-bezel">
                 <div
@@ -154,7 +150,6 @@ export const DisplayPropertiesWindow: React.FC = () => {
                     backgroundRepeat: previewSettings.position === "tile" ? "repeat" : "no-repeat",
                   }}
                 >
-                  {/* Subtle CRT Scanline overlay effect */}
                   <div className="crt-scanlines" />
                 </div>
                 <div className="crt-brand-badge">
@@ -168,7 +163,6 @@ export const DisplayPropertiesWindow: React.FC = () => {
             <div className="text-xs text-[#000] mb-1 font-semibold">Background:</div>
 
             <div className="desktop-controls-grid">
-              {/* Wallpaper List Box */}
               <div className="wallpaper-listbox-container">
                 <div className="wallpaper-listbox">
                   {WALLPAPER_LIST.map((wp) => {
@@ -192,7 +186,6 @@ export const DisplayPropertiesWindow: React.FC = () => {
                 </div>
               </div>
 
-              {/* Action Column: Browse, Position, Color */}
               <div className="desktop-actions-col">
                 <button
                   className="xp-dialog-btn w-full mb-3"
@@ -246,7 +239,6 @@ export const DisplayPropertiesWindow: React.FC = () => {
           </div>
         )}
 
-        {/* SCREEN SAVER TAB */}
         {activeTab === "screensaver" && (
           <div className="screensaver-tab-content">
             <div className="crt-monitor-container">
@@ -326,7 +318,6 @@ export const DisplayPropertiesWindow: React.FC = () => {
           </div>
         )}
 
-        {/* THEMES TAB */}
         {activeTab === "themes" && (
           <div className="themes-tab-content text-xs text-gray-800">
             <p className="mb-3">
@@ -349,7 +340,6 @@ export const DisplayPropertiesWindow: React.FC = () => {
           </div>
         )}
 
-        {/* APPEARANCE TAB */}
         {activeTab === "appearance" && (
           <div className="appearance-tab-content text-xs text-gray-800">
             <fieldset className="xp-groupbox p-3 mb-3 bg-white">
@@ -383,7 +373,6 @@ export const DisplayPropertiesWindow: React.FC = () => {
           </div>
         )}
 
-        {/* SETTINGS TAB */}
         {activeTab === "settings" && (
           <div className="settings-tab-content text-xs text-gray-800">
             <p className="mb-2 font-semibold">Display:</p>
@@ -413,7 +402,6 @@ export const DisplayPropertiesWindow: React.FC = () => {
         )}
       </div>
 
-      {/* Bottom Dialog Action Buttons */}
       <div className="dialog-footer-buttons">
         <button className="xp-dialog-btn" onClick={handleOk}>
           OK
@@ -426,7 +414,6 @@ export const DisplayPropertiesWindow: React.FC = () => {
         </button>
       </div>
 
-      {/* Fullscreen Screensaver Overlay Preview */}
       {fullscreenScreensaver && (
         <div className="fixed inset-0 z-[99999] bg-black flex items-center justify-center cursor-none">
           {screensaverType === "starfield" && (

@@ -20,11 +20,10 @@ export const DotGridCanvas: React.FC = () => {
 
     let dots: CosmicDot[] = [];
 
-    // Warm terracotta, warm vibrant orange, and amber oxide palette
     const colors = [
-      "224, 86, 56",  // #e05638 terracota
-      "255, 107, 74", // #ff6b4a naranja cálido
-      "217, 119, 6",  // #d97706 óxido
+      "224, 86, 56",
+      "255, 107, 74",
+      "217, 119, 6",
     ];
 
     const setupAndDraw = () => {
@@ -40,19 +39,15 @@ export const DotGridCanvas: React.FC = () => {
       ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.scale(dpr, dpr);
 
-      // Deep matte carbon base background so micro-stars pop distinctly
       ctx.fillStyle = "#0c0c0c";
       ctx.fillRect(0, 0, width, height);
 
       dots = [];
-      // Generous density matching Cleo Balaranjith (~700-1000 micro-stars across screen)
       const count = Math.floor((width * height) / 2400);
 
       for (let i = 0; i < count; i++) {
         const rgb = colors[Math.floor(Math.random() * colors.length)];
-        // Visible opacity strictly between 0.45 and 0.70 as requested
         const alpha = 0.45 + Math.random() * 0.25;
-        // Fine micro-points diameter strictly 1px to 1.5px (radius 0.55 to 0.75)
         const radius = 0.55 + Math.random() * 0.22;
 
         dots.push({
@@ -64,7 +59,6 @@ export const DotGridCanvas: React.FC = () => {
         });
       }
 
-      // Draw all micro-points
       for (let i = 0; i < dots.length; i++) {
         const d = dots[i];
         ctx.fillStyle = `rgba(${d.rgb}, ${d.alpha.toFixed(2)})`;

@@ -21,7 +21,6 @@ export const ContactMsnWindow: React.FC = () => {
     setErrorMessage("");
 
     try {
-      // FormSubmit hash token tied to castelloulises1420@gmail.com
       const FORMSUBMIT_HASH = "7067797cdac976fdc6ba6a8695bd2528";
       const response = await fetch(`https://formsubmit.co/ajax/${FORMSUBMIT_HASH}`, {
         method: "POST",
@@ -72,7 +71,6 @@ export const ContactMsnWindow: React.FC = () => {
 
   return (
     <div className="outlook-window-layout">
-      {/* Menu Bar */}
       <div className="ie-menubar">
         <span>File</span>
         <span>Edit</span>
@@ -84,7 +82,6 @@ export const ContactMsnWindow: React.FC = () => {
         <span>Help</span>
       </div>
 
-      {/* Toolbar */}
       <div className="outlook-toolbar">
         <button
           type="button"
@@ -105,7 +102,6 @@ export const ContactMsnWindow: React.FC = () => {
         </button>
       </div>
 
-      {/* Composer Form */}
       <form onSubmit={handleSend} className="outlook-form">
         <div className="outlook-row">
           <span className="outlook-label">To:</span>

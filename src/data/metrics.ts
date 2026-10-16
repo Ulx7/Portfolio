@@ -12,11 +12,6 @@ export interface EditorialCredential {
   actionType?: "diplomas" | "certificates";
   actionLabel?: string;
   hasDiplomaAction?: boolean;
-  title?: string;
-  subtitle?: string;
-  badge?: string;
-  period?: string;
-  description?: string;
 }
 
 export const credentials: EditorialCredential[] = [
@@ -49,9 +44,3 @@ export const credentials: EditorialCredential[] = [
     actionLabel: "View certificates",
   },
 ];
-
-// Compatibility exports
-export type CredentialRow = EditorialCredential;
-export type Metric = EditorialCredential;
-export const credentialRows = credentials;
-export const metrics = credentials;

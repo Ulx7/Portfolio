@@ -11,7 +11,6 @@ export const AboutSection: React.FC = () => {
     <section id="about" className="section credentials-section">
       <h2 className="section-title">Credentials &amp; Education</h2>
 
-      {/* Asymmetric 2-column editorial layout */}
       <div className="credentials-editorial-layout">
         {credentials.map((item) => (
           <div key={item.id} className="credential-editorial-entry">
@@ -64,12 +63,10 @@ export const AboutSection: React.FC = () => {
         ))}
       </div>
 
-      {/* Independent University Diplomas Modal */}
       {showDiplomasModal && (
         <DiplomasModal onClose={() => setShowDiplomasModal(false)} />
       )}
 
-      {/* Independent Language Certifications Modal */}
       {showCertificatesModal && (
         <CertificatesModal onClose={() => setShowCertificatesModal(false)} />
       )}

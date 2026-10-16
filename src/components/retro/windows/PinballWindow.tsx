@@ -5,7 +5,6 @@ export const PinballWindow: React.FC = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
-  // Local, borderless, hardware-accelerated Space Cadet Pinball with native arrow keys support
   const pinballUrl = "/pinball/index.html";
 
   const handleLaunch = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -25,7 +24,6 @@ export const PinballWindow: React.FC = () => {
 
   return (
     <div className="doom-window-layout">
-      {/* Main Viewport */}
       <div className="doom-viewport-container" style={{ background: "#000000" }}>
         {!isPlaying ? (
           <div className="doom-splash-screen">
@@ -84,7 +82,6 @@ export const PinballWindow: React.FC = () => {
         )}
       </div>
 
-      {/* Bottom Status Bar */}
       <div className="status-bar">
         <div className="status-bar-field" style={{ flex: 1 }}>
           {isPlaying

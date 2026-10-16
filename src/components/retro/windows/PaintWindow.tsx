@@ -486,7 +486,6 @@ export const PaintWindow: React.FC = () => {
 
   return (
     <div className="paint-window-container" onContextMenu={(e) => e.preventDefault()}>
-      {/* Classic Menubar */}
       <div className="ie-menubar">
         <div className="paint-menubar-left">
           <span onClick={handleClear} title="New image (Clear)">File (New)</span>
@@ -506,9 +505,7 @@ export const PaintWindow: React.FC = () => {
         </div>
       </div>
 
-      {/* Main Workspace: Left Tool Box + Canvas Area */}
       <div className="paint-workspace">
-        {/* Left Toolbar */}
         <div className="paint-toolbox">
           <div className="paint-tool-buttons">
             <div
@@ -613,7 +610,6 @@ export const PaintWindow: React.FC = () => {
             </div>
           </div>
 
-          {/* Tool Options Box below tools */}
           <div className="paint-tool-options-box">
             {(activeTool === "pencil" ||
               activeTool === "brush" ||
@@ -669,7 +665,6 @@ export const PaintWindow: React.FC = () => {
           </div>
         </div>
 
-        {/* Scrollable Canvas Workspace Area */}
         <div className="paint-canvas-scroll-area">
           <div
             className="paint-canvas-wrapper"
@@ -695,9 +690,7 @@ export const PaintWindow: React.FC = () => {
         </div>
       </div>
 
-      {/* Classic Color Palette on Bottom */}
       <div className="paint-palette-bar">
-        {/* Active Primary & Secondary Color Box */}
         <div className="paint-active-colors">
           <div
             className="paint-secondary-color"
@@ -711,7 +704,6 @@ export const PaintWindow: React.FC = () => {
           />
         </div>
 
-        {/* 28 Classic XP Color Swatches */}
         <div className="paint-swatches-grid">
           {PALETTE_COLORS.map((color, index) => (
             <div
@@ -729,7 +721,6 @@ export const PaintWindow: React.FC = () => {
         </div>
       </div>
 
-      {/* Status Bar */}
       <div className="status-bar">
         <div className="status-bar-field" style={{ flex: 1 }}>
           For Help, click Help Topics on the Help Menu.

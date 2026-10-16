@@ -30,7 +30,6 @@ export const Taskbar: React.FC = () => {
 
   return (
     <footer className="xp-taskbar" onClick={(e) => e.stopPropagation()}>
-      {/* Start Button */}
       <button
         className={`xp-start-btn ${startMenuOpen ? "active" : ""}`}
         onClick={toggleStartMenu}
@@ -45,7 +44,6 @@ export const Taskbar: React.FC = () => {
         <span className="xp-start-label">start</span>
       </button>
 
-      {/* Quick Launch Icons */}
       <div className="xp-quick-launch">
         <div className="quick-launch-divider"></div>
         <button
@@ -72,7 +70,6 @@ export const Taskbar: React.FC = () => {
         <div className="quick-launch-divider"></div>
       </div>
 
-      {/* Running Tasks / Windows */}
       <div className="xp-running-tasks">
         {openWindows.map((win) => {
           const isSelected = activeWindowId === win.id && !win.isMinimized;
@@ -90,7 +87,6 @@ export const Taskbar: React.FC = () => {
         })}
       </div>
 
-      {/* System Tray (Notification Area) */}
       <div className="xp-system-tray">
         <div className="tray-icons">
           <span className="tray-icon" title="Volume: 100%">

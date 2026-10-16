@@ -5,7 +5,6 @@ export const DoomWindow: React.FC = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
-  // Classic authentic DOOM (Aleksei Ross build)
   const doomUrl = "https://ross.aleksei.digital/98/DoomJS/index-jsdos.html";
 
   const handleLaunch = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -16,7 +15,6 @@ export const DoomWindow: React.FC = () => {
 
   useEffect(() => {
     if (isPlaying) {
-      // Direct focus to the game iframe so keystrokes (Space, Arrows, Ctrl) go directly into DOOM
       const timer = setTimeout(() => {
         iframeRef.current?.focus();
       }, 100);
@@ -26,7 +24,6 @@ export const DoomWindow: React.FC = () => {
 
   return (
     <div className="doom-window-layout">
-      {/* Menubar */}
       <div className="ie-menubar">
         <span>Game</span>
         <span>Sound</span>
@@ -35,7 +32,6 @@ export const DoomWindow: React.FC = () => {
         <span>Help</span>
       </div>
 
-      {/* Main Viewport */}
       <div className="doom-viewport-container">
         {!isPlaying ? (
           <div className="doom-splash-screen">
@@ -75,7 +71,6 @@ export const DoomWindow: React.FC = () => {
         )}
       </div>
 
-      {/* Bottom Status Bar */}
       <div className="status-bar">
         <div className="status-bar-field" style={{ flex: 1 }}>
           {isPlaying ? "Running DOOM.EXE in DOSBox emulator • Click game to play" : "Ready to launch"}

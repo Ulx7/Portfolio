@@ -57,7 +57,6 @@ export const ProjectCaseStudyModal: React.FC<ProjectCaseStudyModalProps> = ({
     setActiveImageIdx((prev) => (prev < projectImages.length - 1 ? prev + 1 : 0));
   };
 
-  // Kicker superior en monospace tenue: Categoría del proyecto
   const categoryKicker =
     project.categoryKicker ||
     project.category ||
@@ -67,19 +66,16 @@ export const ProjectCaseStudyModal: React.FC<ProjectCaseStudyModalProps> = ({
       ? "COMMERCIAL CLIENT WORK"
       : "PERSONAL · IN DEVELOPMENT");
 
-  // Context & Objective
   const contextObjective =
     project.contextObjective ||
     project.fullDescription ||
     project.shortDescription;
 
-  // Key Features
   const keyFeatures: (string | FeatureItem)[] =
     project.keyFeatures && project.keyFeatures.length > 0
       ? project.keyFeatures
       : [];
 
-  // Project links: Resolve from project.links or fallback to legacy properties
   const projectLinks: ProjectLink[] =
     project.links && project.links.length > 0
       ? project.links
@@ -115,7 +111,6 @@ export const ProjectCaseStudyModal: React.FC<ProjectCaseStudyModalProps> = ({
         className="sop-modal-container sop-modal-single-col"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Minimalist Thin-line Close Button Top Right */}
         <button
           type="button"
           onClick={onClose}
@@ -126,19 +121,14 @@ export const ProjectCaseStudyModal: React.FC<ProjectCaseStudyModalProps> = ({
           <X size={20} strokeWidth={1.5} />
         </button>
 
-        {/* Internal Smooth Scroll Area */}
         <div className="sop-modal-scroll">
-          {/* Cabecera */}
           <div className="sop-header-section">
-            {/* Kicker superior en monospace tenue */}
             <span className="sop-kicker">{categoryKicker}</span>
 
-            {/* Título del proyecto en tipografía destacada */}
             <h2 id="sop-modal-title" className="sop-title">
               {project.title}
             </h2>
 
-            {/* Barra limpia de enlaces directos en texto plano con flecha diagonal / flecha según corresponda */}
             {projectLinks.length > 0 && (
               <div className="sop-quick-links-bar">
                 {projectLinks.map((link, idx) => (
@@ -165,7 +155,6 @@ export const ProjectCaseStudyModal: React.FC<ProjectCaseStudyModalProps> = ({
             )}
           </div>
 
-          {/* Visual Showcase Gallery (Mantén la galería/showcase visual tal cual está) */}
           {currentImage && (
             <div className="sop-carousel-frame">
               <div className="sop-carousel-screen">
@@ -174,26 +163,10 @@ export const ProjectCaseStudyModal: React.FC<ProjectCaseStudyModalProps> = ({
                   alt={`${project.title} visual preview`}
                   className="sop-carousel-img"
                   loading="lazy"
-                  onError={(e) => {
-                    const target = e.currentTarget;
-                    if (project.id === "real-estate-system") {
-                      if (!target.src.includes("realstate.png")) {
-                        target.src = "/projects/realstate.png";
-                      } else if (!target.src.includes("realestate.png")) {
-                        target.src = "/projects/realestate.png";
-                      }
-                    } else if (project.id === "vivero-belgrano") {
-                      if (!target.src.includes("vivero.png")) {
-                        target.src = "/projects/vivero.png";
-                      }
-                    }
-                  }}
                 />
               </div>
 
-              {/* Carousel Bottom Control Bar */}
               <div className="sop-carousel-bar">
-                {/* Left: Previous Arrow + Pagination Dots */}
                 <div className="sop-bar-left">
                   <button
                     type="button"
@@ -217,7 +190,6 @@ export const ProjectCaseStudyModal: React.FC<ProjectCaseStudyModalProps> = ({
                   </div>
                 </div>
 
-                {/* Right: Monospace Counter + Next Arrow */}
                 <div className="sop-bar-right">
                   <span className="sop-counter font-mono">
                     {activeImageIdx + 1} / {projectImages.length}
@@ -236,9 +208,7 @@ export const ProjectCaseStudyModal: React.FC<ProjectCaseStudyModalProps> = ({
             </div>
           )}
 
-          {/* Single Wide Column Content Flow */}
           <div className="sop-content-flow">
-            {/* Sección 1: Context & Objective */}
             <div className="sop-flow-section">
               <div className="sop-section-header">
                 <span className="sop-section-kicker">CONTEXT &amp; OBJECTIVE</span>
@@ -246,7 +216,6 @@ export const ProjectCaseStudyModal: React.FC<ProjectCaseStudyModalProps> = ({
               <p className="sop-editorial-text">{contextObjective}</p>
             </div>
 
-            {/* Sección 2: Key Features */}
             {keyFeatures.length > 0 && (
               <div className="sop-flow-section">
                 <div className="sop-section-header">
@@ -286,7 +255,6 @@ export const ProjectCaseStudyModal: React.FC<ProjectCaseStudyModalProps> = ({
               </div>
             )}
 
-            {/* Sección 3: Tech Stack */}
             {project.technologies && project.technologies.length > 0 && (
               <div className="sop-tech-footer border-t border-neutral-800/60 pt-4 mt-6">
                 <span className="sop-tech-footer-label">TECH STACK</span>

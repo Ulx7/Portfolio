@@ -18,7 +18,6 @@ export const StartMenu: React.FC = () => {
 
   return (
     <div className="xp-start-menu" onClick={(e) => e.stopPropagation()}>
-      {/* Top Banner with Avatar */}
       <div className="start-menu-header">
         <div className="user-avatar-frame">
           <div className="user-avatar-inner">UC</div>
@@ -26,9 +25,7 @@ export const StartMenu: React.FC = () => {
         <span className="user-display-name">{profile.name}</span>
       </div>
 
-      {/* Two columns body */}
       <div className="start-menu-body">
-        {/* Left Column (Pinned Programs) */}
         <div className="start-menu-left">
           <div className="start-item" onClick={() => handleLaunch("ie")}>
             <XpIcon name="ie" size={32} />
@@ -117,7 +114,6 @@ export const StartMenu: React.FC = () => {
           </div>
         </div>
 
-        {/* Right Column (System folders & places) */}
         <div className="start-menu-right">
           <div className="right-item" onClick={() => handleLaunch("about")}>
             <FileText size={20} className="text-blue-700" />
@@ -158,7 +154,6 @@ export const StartMenu: React.FC = () => {
         </div>
       </div>
 
-      {/* Bottom Footer Actions */}
       <div className="start-menu-footer">
         <button
           className="start-footer-btn"

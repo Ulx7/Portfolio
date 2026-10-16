@@ -9,7 +9,6 @@ export const ProjectsGrid: React.FC = () => {
     <section id="projects" className="section">
       <h2 className="section-title">Projects</h2>
 
-      {/* Complete Project Catalog in 2 columns */}
       <div className="project-grid">
         {projects.map((project) => {
           if (project.isComingSoon) {
@@ -55,20 +54,6 @@ export const ProjectsGrid: React.FC = () => {
                   alt={project.title}
                   loading="lazy"
                   className="proj-image"
-                  onError={(e) => {
-                    const target = e.currentTarget;
-                    if (project.id === "real-estate-system") {
-                      if (!target.src.includes("realstate.png")) {
-                        target.src = "/projects/realstate.png";
-                      } else if (!target.src.includes("realestate.png")) {
-                        target.src = "/projects/realestate.png";
-                      }
-                    } else if (project.id === "vivero-belgrano") {
-                      if (!target.src.includes("vivero.png")) {
-                        target.src = "/projects/vivero.png";
-                      }
-                    }
-                  }}
                 />
               </div>
 
@@ -87,7 +72,6 @@ export const ProjectsGrid: React.FC = () => {
         })}
       </div>
 
-      {/* Case Study Slide-over Drawer / Modal */}
       {selectedCaseStudy && (
         <ProjectCaseStudyModal
           project={selectedCaseStudy}

@@ -17,7 +17,6 @@ export const ContactSection: React.FC = () => {
         hour12: false,
       }).format(now);
 
-      // Determine timezone abbreviation (CEST or CET)
       const timeZoneName = new Intl.DateTimeFormat("en-GB", {
         timeZone: "Europe/Berlin",
         timeZoneName: "short",
@@ -46,17 +45,14 @@ export const ContactSection: React.FC = () => {
     <section id="contact" className="section contact-editorial-section">
       <h2 className="section-title">Get in Touch</h2>
 
-      {/* Llamado a la acción editorial destacado */}
       <h3 className="contact-editorial-cta">
         Have an idea in mind? Let&apos;s connect.
       </h3>
 
-      {/* Párrafo de apoyo */}
       <p className="contact-editorial-desc">
         I enjoy turning ideas into working software and solving practical problems. If you have an opportunity or a project you&apos;d like to discuss, feel free to drop a line.
       </p>
 
-      {/* Tarjeta interactiva de correo: Franja sutil y elegante */}
       <div className="contact-email-bar">
         <a
           href={`mailto:${profile.email}`}
@@ -88,7 +84,6 @@ export const ContactSection: React.FC = () => {
         </button>
       </div>
 
-      {/* Pie de página: Footer integrado con línea horizontal */}
       <div className="contact-editorial-footer-row">
         <div className="contact-meta-location">
           <span className="contact-status-dot" aria-hidden="true" />

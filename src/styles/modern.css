@@ -295,7 +295,7 @@ textarea:focus {
   transform: translateY(0);
 }
 
-/* Compact central column matching Cleo's website (max-width: 700px) */
+/* Main content wrapper */
 .site-wrapper {
   position: relative;
   z-index: 1;
@@ -479,7 +479,7 @@ textarea:focus {
   margin-bottom: 0.85rem;
 }
 
-/* --- PROJECTS 2-COLUMN GRID (CLEO STYLE) --- */
+/* --- PROJECTS GRID --- */
 .project-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -1842,7 +1842,7 @@ textarea:focus {
   text-decoration: underline;
 }
 
-/* --- CONTACT SECTION: MINIMALIST EDITORIAL (CLEO BALARANJITH STYLE) --- */
+/* --- CONTACT SECTION --- */
 .contact-editorial-section {
   margin-top: 4rem;
   margin-bottom: 3rem;

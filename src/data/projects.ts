@@ -40,7 +40,6 @@ export interface Project {
   backendUrl?: string;
   color?: string;
   year?: string;
-  // Compatibility properties
   badge?: string;
   kicker?: string;
   subtitle?: string;
@@ -180,9 +179,9 @@ export const projects: Project[] = [
     ],
     shortDescription: "Full digitalization of a real estate firm featuring a Spring Boot backend, React public catalog, and AWS deployment.",
     fullDescription: "This Capstone Project involved the full digitalization of a traditional firm. I developed a robust internal management system for contracts and clients using Spring Boot, and a public-facing property catalog using React and Tailwind CSS, all deployed on AWS infrastructure.",
-    image: "/projects/realstate.png",
+    image: "/projects/realestate.png",
     images: [
-      "/projects/realstate.png",
+      "/projects/realestate.png",
       "/projects/RealEstate3.jpeg"
     ],
     documentUrl: "https://github.com/Ulx7",

@@ -8,7 +8,6 @@ interface CertificateItem {
   id: LanguageTabId;
   label: string;
   imageSrc?: string;
-  fallbackSrc?: string;
   isPending?: boolean;
   statusNote?: string;
 }
@@ -18,7 +17,6 @@ const certificateList: CertificateItem[] = [
     id: "english",
     label: "English",
     imageSrc: "/diplomas/english.png",
-    fallbackSrc: "/diplomas/english.jpg",
   },
   {
     id: "german",
@@ -35,7 +33,6 @@ interface CertificatesModalProps {
 
 export const CertificatesModal: React.FC<CertificatesModalProps> = ({ onClose, initialTab }) => {
   const [activeTab, setActiveTab] = useState<LanguageTabId>(initialTab || "english");
-  const [imgError, setImgError] = useState<boolean>(false);
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -54,7 +51,7 @@ export const CertificatesModal: React.FC<CertificatesModalProps> = ({ onClose, i
   }, [onClose]);
 
   const activeCert = certificateList.find((c) => c.id === activeTab) || certificateList[0];
-  const displaySrc = imgError ? activeCert.fallbackSrc : activeCert.imageSrc;
+  const displaySrc = activeCert.imageSrc;
 
   return createPortal(
     <div
@@ -65,7 +62,6 @@ export const CertificatesModal: React.FC<CertificatesModalProps> = ({ onClose, i
       aria-label="Language Certifications Viewer"
     >
       <div className="diploma-lightbox-dialog" onClick={(e) => e.stopPropagation()}>
-        {/* Top Header: Language Tabs & Minimalist Transparent Close Button */}
         <div className="diploma-lightbox-header">
           <div className="diploma-text-tabs" role="tablist">
             {certificateList.map((item) => (
@@ -74,10 +70,7 @@ export const CertificatesModal: React.FC<CertificatesModalProps> = ({ onClose, i
                 type="button"
                 role="tab"
                 aria-selected={activeTab === item.id}
-                onClick={() => {
-                  setActiveTab(item.id);
-                  setImgError(false);
-                }}
+                onClick={() => setActiveTab(item.id)}
                 className={`diploma-text-tab ${activeTab === item.id ? "active" : ""}`}
               >
                 {item.label}
@@ -96,7 +89,6 @@ export const CertificatesModal: React.FC<CertificatesModalProps> = ({ onClose, i
           </button>
         </div>
 
-        {/* Central Document Display */}
         <div className="diploma-lightbox-content">
           {activeCert.isPending ? (
             <div className="cert-pending-state">
@@ -114,7 +106,6 @@ export const CertificatesModal: React.FC<CertificatesModalProps> = ({ onClose, i
                 src={displaySrc}
                 alt={`${activeCert.label} Certificate`}
                 className="diploma-fullscreen-image"
-                onError={() => setImgError(true)}
               />
             </div>
           )}

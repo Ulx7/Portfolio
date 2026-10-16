@@ -28,7 +28,6 @@ interface ShortcutItem {
 }
 
 const DESKTOP_SHORTCUTS: ShortcutItem[] = [
-  // Column 1: Portfolio Apps & System
   { id: "system", title: "My Computer", iconName: "my-computer" },
   { id: "ie", title: "Internet Explorer", iconName: "ie" },
   { id: "projects", title: "My Projects", iconName: "folder" },
@@ -38,7 +37,6 @@ const DESKTOP_SHORTCUTS: ShortcutItem[] = [
   { id: "contact", title: "Outlook Express", iconName: "mail" },
   { id: "recycle-bin", title: "Recycle Bin", iconName: "recycle-bin" },
 
-  // Column 2: Music & Retro Games
   { id: "winamp", title: "Winamp", iconName: "winamp" },
   { id: "spider", title: "Spider Solitaire", iconName: "spider" },
   { id: "minesweeper", title: "Minesweeper", iconName: "bomb" },
@@ -55,7 +53,6 @@ const getDefaultPositions = (): Record<string, Position> => {
   const startX = 14;
   const startY = 14;
 
-  // Column 1 items (Apps & Recycle Bin)
   const col1 = ["system", "ie", "projects", "about", "cmd", "paint", "contact", "recycle-bin"];
   col1.forEach((id, row) => {
     positions[id] = {
@@ -64,7 +61,6 @@ const getDefaultPositions = (): Record<string, Position> => {
     };
   });
 
-  // Column 2 items (Winamp & Games)
   const col2 = ["winamp", "spider", "minesweeper", "doom", "pinball"];
   col2.forEach((id, row) => {
     positions[id] = {
@@ -193,7 +189,6 @@ export const Desktop: React.FC = () => {
       onClick={handleDesktopClick}
       onContextMenu={handleDesktopContextMenu}
     >
-      {/* Desktop Shortcuts Layer */}
       <div className="desktop-shortcuts-area">
         {DESKTOP_SHORTCUTS.map((item) => (
           <DesktopIcon
@@ -216,7 +211,6 @@ export const Desktop: React.FC = () => {
         ))}
       </div>
 
-      {/* Windows Layer */}
       <div className="desktop-windows-layer">
         <WindowFrame id="ie">
           <InternetExplorerWindow />
@@ -266,11 +260,9 @@ export const Desktop: React.FC = () => {
           <SystemPropertiesWindow />
         </WindowFrame>
 
-        {/* Winamp Modular Player */}
         <WinampPlayer />
       </div>
 
-      {/* Right Click Desktop Context Menu */}
       {contextMenu && (
         <div
           className="xp-context-menu"
@@ -337,10 +329,8 @@ export const Desktop: React.FC = () => {
         </div>
       )}
 
-      {/* Start Menu */}
       <StartMenu />
 
-      {/* Taskbar */}
       <Taskbar />
     </div>
   );

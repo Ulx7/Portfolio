@@ -8,7 +8,6 @@ export const ProjectsExplorerWindow: React.FC = () => {
 
   return (
     <div className="explorer-layout">
-      {/* Menu Bar */}
       <div className="ie-menubar">
         <span>File</span>
         <span>Edit</span>
@@ -18,7 +17,6 @@ export const ProjectsExplorerWindow: React.FC = () => {
         <span>Help</span>
       </div>
 
-      {/* Explorer Toolbar */}
       <div className="explorer-toolbar">
         <button className="ie-tool-btn" title="Back">
           <ArrowLeft size={14} />
@@ -41,7 +39,6 @@ export const ProjectsExplorerWindow: React.FC = () => {
         </button>
       </div>
 
-      {/* Address Bar */}
       <div className="explorer-address-bar">
         <span className="address-label">Address</span>
         <div className="address-input-wrapper">
@@ -50,9 +47,7 @@ export const ProjectsExplorerWindow: React.FC = () => {
         </div>
       </div>
 
-      {/* Two Column Explorer Content */}
       <div className="explorer-body">
-        {/* Left Sidebar: XP Common Tasks */}
         <div className="explorer-sidebar">
           <div className="sidebar-box">
             <div className="sidebar-box-header">
@@ -106,7 +101,6 @@ export const ProjectsExplorerWindow: React.FC = () => {
           </div>
         </div>
 
-        {/* Right Main Grid */}
         <div className="explorer-main">
           <div className="projects-file-grid">
             {projects.map((proj) => (
@@ -129,7 +123,6 @@ export const ProjectsExplorerWindow: React.FC = () => {
         </div>
       </div>
 
-      {/* Status Bar */}
       <div className="status-bar">
         <div className="status-bar-field">{projects.length} objects</div>
         <div className="status-bar-field" style={{ width: 140 }}>

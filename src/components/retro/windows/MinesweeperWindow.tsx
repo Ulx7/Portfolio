@@ -182,14 +182,12 @@ export const MinesweeperWindow: React.FC = () => {
 
   return (
     <div className="minesweeper-layout">
-      {/* Menu Bar */}
       <div className="ie-menubar">
         <span>Game</span>
         <span>Help</span>
       </div>
 
       <div className="minesweeper-box">
-        {/* Header Board */}
         <div className="minesweeper-header">
           <div className="minesweeper-lcd">
             {formatDigits(MINES - flagCount)}
@@ -206,7 +204,6 @@ export const MinesweeperWindow: React.FC = () => {
           <div className="minesweeper-lcd">{formatDigits(seconds)}</div>
         </div>
 
-        {/* Board Grid */}
         <div
           className="minesweeper-grid"
           onMouseDown={() => {

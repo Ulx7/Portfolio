@@ -18,7 +18,6 @@ export const InternetExplorerWindow: React.FC = () => {
 
   return (
     <div className="ie-window-layout">
-      {/* Menu bar */}
       <div className="ie-menubar">
         <span>File</span>
         <span>Edit</span>
@@ -28,7 +27,6 @@ export const InternetExplorerWindow: React.FC = () => {
         <span>Help</span>
       </div>
 
-      {/* Toolbar */}
       <div className="ie-toolbar">
         <button className="ie-tool-btn" title="Back" onClick={() => window.history.back()}>
           <ArrowLeft size={14} />
@@ -61,7 +59,6 @@ export const InternetExplorerWindow: React.FC = () => {
         </div>
       </div>
 
-      {/* Address Bar */}
       <div className="ie-address-bar">
         <span className="address-label">Address</span>
         <div className="address-input-wrapper">
@@ -79,7 +76,6 @@ export const InternetExplorerWindow: React.FC = () => {
         </button>
       </div>
 
-      {/* Embedded Web View */}
       <div className="ie-viewport">
         <iframe
           ref={iframeRef}
@@ -90,7 +86,6 @@ export const InternetExplorerWindow: React.FC = () => {
         />
       </div>
 
-      {/* Status bar */}
       <div className="status-bar ie-statusbar">
         <div className="status-bar-field">Done</div>
         <div className="status-bar-field" style={{ width: 140 }}>

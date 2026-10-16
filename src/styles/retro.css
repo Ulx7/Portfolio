@@ -132,6 +132,7 @@ body.is-window-dragging iframe {
   overflow: hidden;
   background: #ece9d8;
   height: calc(100% - 25px);
+  color: #000000;
 }
 
 /* Taskbar */
@@ -554,6 +555,7 @@ body.is-window-dragging iframe {
   padding: 3px 6px;
   background: #ece9d8;
   border-bottom: 1px solid #d4d0c8;
+  color: #000000;
 }
 
 .ie-tool-btn,
@@ -563,6 +565,8 @@ body.is-window-dragging iframe {
   gap: 4px;
   padding: 2px 6px;
   font-size: 11px;
+  font-family: var(--font-xp);
+  color: #000000 !important;
   background: #ece9d8;
   border: 1px solid transparent;
   border-radius: 2px;
@@ -570,12 +574,42 @@ body.is-window-dragging iframe {
   box-shadow: none;
   min-width: unset;
   min-height: unset;
+  user-select: none;
+}
+
+.ie-tool-btn span,
+.outlook-tool-btn span {
+  color: #000000 !important;
+}
+
+.ie-tool-btn svg,
+.outlook-tool-btn svg {
+  color: #1e293b !important;
+  stroke: #1e293b !important;
 }
 
 .ie-tool-btn:hover,
 .outlook-tool-btn:hover {
   border-color: #7b9ebd;
   background: #e0e9f6;
+  color: #000000 !important;
+}
+
+.ie-tool-btn:hover span,
+.outlook-tool-btn:hover span {
+  color: #000000 !important;
+}
+
+.ie-tool-btn:hover svg,
+.outlook-tool-btn:hover svg {
+  color: #000000 !important;
+  stroke: #000000 !important;
+}
+
+.ie-tool-btn:active,
+.outlook-tool-btn:active {
+  border-color: #5b7e9d;
+  background: #c5d8f3;
 }
 
 .ie-tool-sep {
@@ -586,9 +620,10 @@ body.is-window-dragging iframe {
 }
 
 .stop-x {
-  color: #ef4444;
+  color: #ef4444 !important;
   font-weight: 900;
   font-size: 14px;
+  line-height: 1;
 }
 
 .ie-throbber {
@@ -613,6 +648,7 @@ body.is-window-dragging iframe {
   background: #ece9d8;
   border-bottom: 1px solid #b5b2aa;
   font-size: 11px;
+  color: #000000;
 }
 
 .address-label {
@@ -652,6 +688,7 @@ body.is-window-dragging iframe {
   font-size: 11px;
   cursor: pointer;
   min-width: unset;
+  color: #000000 !important;
 }
 
 .ie-window-layout {
@@ -1061,14 +1098,21 @@ body.is-window-dragging iframe {
   margin-top: 4px;
 }
 
-.terminal-input {
+.terminal-cmd-layout input.terminal-input,
+input.terminal-input {
   flex-grow: 1;
-  background: transparent;
-  border: none;
-  color: #ffffff;
-  font-family: inherit;
-  font-size: 12px;
-  outline: none;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: #ffffff !important;
+  font-family: "Consolas", "Courier New", monospace !important;
+  font-size: 12px !important;
+  outline: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  height: auto !important;
+  line-height: normal !important;
+  caret-color: #ffffff !important;
 }
 
 /* Outlook Express */
@@ -1104,15 +1148,23 @@ body.is-window-dragging iframe {
   flex-grow: 1;
 }
 
-.outlook-input {
+.outlook-input,
+input.outlook-input {
   width: 100%;
   padding: 3px 6px;
   border: 1px solid #7f9db9;
   font-size: 11px;
+  color: #000000 !important;
+  background-color: #ffffff !important;
+  font-family: var(--font-xp);
 }
 
-.outlook-input.readonly {
-  background: #f1f5f9;
+.outlook-input.readonly,
+input.outlook-input.readonly {
+  background-color: #f4f3ec !important;
+  color: #000000 !important;
+  font-weight: 600;
+  cursor: default;
 }
 
 .outlook-body-area {
@@ -1120,16 +1172,24 @@ body.is-window-dragging iframe {
   margin-top: 6px;
 }
 
-.outlook-textarea {
+.outlook-textarea,
+textarea.outlook-textarea {
   width: 100%;
   height: 100%;
   min-height: 160px;
   border: 1px solid #7f9db9;
   padding: 8px;
-  font-family: inherit;
+  font-family: var(--font-xp);
   font-size: 12px;
   outline: none;
   resize: vertical;
+  color: #000000 !important;
+  background-color: #ffffff !important;
+}
+
+.outlook-input::placeholder,
+.outlook-textarea::placeholder {
+  color: #64748b !important;
 }
 
 .outlook-success-banner {
@@ -1139,6 +1199,50 @@ body.is-window-dragging iframe {
   border-radius: 3px;
   font-size: 11px;
   color: #166534;
+}
+
+.outlook-sending-banner {
+  padding: 6px 10px;
+  background: #e0f2fe;
+  border: 1px solid #7dd3fc;
+  border-radius: 3px;
+  font-size: 11px;
+  color: #0369a1;
+  font-style: italic;
+}
+
+.outlook-error-banner {
+  padding: 6px 10px;
+  background: #fee2e2;
+  border: 1px solid #fca5a5;
+  border-radius: 3px;
+  font-size: 11px;
+  color: #991b1b;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.outlook-fallback-btn {
+  background: #ece9d8;
+  border: 1px solid #003c74;
+  border-radius: 2px;
+  padding: 2px 8px;
+  font-size: 11px;
+  font-family: var(--font-xp);
+  cursor: pointer;
+  color: #000000;
+  box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #707070;
+}
+
+.outlook-fallback-btn:hover {
+  background: #fbfbf9;
+}
+
+.outlook-fallback-btn:active {
+  box-shadow: inset 1px 1px 0 #707070, inset -1px -1px 0 #fff;
 }
 
 /* Minesweeper */

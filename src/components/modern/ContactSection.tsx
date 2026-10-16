@@ -48,12 +48,12 @@ export const ContactSection: React.FC = () => {
 
       {/* Llamado a la acción editorial destacado */}
       <h3 className="contact-editorial-cta">
-        Let&apos;s build something great together
+        Have an idea in mind? Let&apos;s connect.
       </h3>
 
       {/* Párrafo de apoyo */}
       <p className="contact-editorial-desc">
-        I am actively seeking full-time software engineering opportunities and freelance projects. Whether you are looking for a full-stack developer, support across your stack, or someone to build reliable backend systems, I&apos;m ready to jump in, adapt quickly, and contribute from day one. Let&apos;s connect.
+        I enjoy turning ideas into working software and solving practical problems. If you have an opportunity or a project you&apos;d like to discuss, feel free to drop a line.
       </p>
 
       {/* Tarjeta interactiva de correo: Franja sutil y elegante */}

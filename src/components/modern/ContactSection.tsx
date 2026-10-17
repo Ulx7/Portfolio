@@ -1,10 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { profile } from "../../data/profile";
 import { ArrowUpRight, Copy, Check } from "lucide-react";
+import { useThemeMode } from "../../context/ThemeModeContext";
+import { RetroMobileWarningModal } from "./RetroMobileWarningModal";
 
 export const ContactSection: React.FC = () => {
+  const { toggleMode, isEmbedded } = useThemeMode();
   const [copied, setCopied] = useState<boolean>(false);
   const [berlinTime, setBerlinTime] = useState<string>("");
+  const [showRetroWarning, setShowRetroWarning] = useState<boolean>(false);
+
+  const handleRetroClick = () => {
+    if (typeof window !== "undefined" && window.innerWidth < 768) {
+      setShowRetroWarning(true);
+    } else {
+      toggleMode();
+    }
+  };
 
   useEffect(() => {
     const updateTime = () => {
@@ -88,11 +100,30 @@ export const ContactSection: React.FC = () => {
         <div className="contact-meta-location">
           <span className="contact-status-dot" aria-hidden="true" />
           <span className="location-clock-text">
-            Available for full-time roles &amp; projects &middot; Berlin, Germany &middot;{" "}
+            Available for roles &amp; projects &middot; Berlin &middot;{" "}
             <span className="live-clock-digits">{berlinTime || "CEST"}</span>
           </span>
         </div>
+
+        {!isEmbedded && (
+          <button
+            type="button"
+            onClick={handleRetroClick}
+            className="footer-retro-link"
+            aria-label="Experience Windows XP Mode"
+          >
+            <span className="footer-retro-hint">Feeling nostalgic?</span>
+            <span className="footer-colophon-sep">&middot;</span>
+            <span className="footer-retro-text">Windows XP Mode</span>
+            <ArrowUpRight size={13} className="footer-retro-arrow" aria-hidden="true" />
+          </button>
+        )}
       </div>
+
+      <RetroMobileWarningModal
+        isOpen={showRetroWarning}
+        onClose={() => setShowRetroWarning(false)}
+      />
     </section>
   );
 };

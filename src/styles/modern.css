@@ -2236,7 +2236,7 @@ textarea:focus {
   gap: 14px;
   padding-top: 1.5rem;
   border-top: 1px solid rgba(255, 255, 255, 0.06);
-  font-size: 12.5px;
+  font-size: 12px;
   color: #71717a;
 }
 
@@ -2349,6 +2349,7 @@ textarea:focus {
     opacity: 0;
     transform: scale(0.92);
   }
+
   100% {
     opacity: 1;
     transform: scale(1);
@@ -2410,4 +2411,62 @@ textarea:focus {
   font-weight: 700;
   border-color: #0055ea;
   padding: 4px 16px;
+}
+
+.footer-retro-link {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: inherit;
+  font-size: 12px;
+  color: #71717a;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  box-shadow: none !important;
+}
+
+.footer-retro-hint {
+  color: #52525b;
+  transition: color 0.2s ease;
+}
+
+.footer-retro-sep {
+  color: #3f3f46;
+  user-select: none;
+}
+
+.footer-retro-text {
+  color: #a1a1aa;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(161, 161, 170, 0.35);
+  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+}
+
+.footer-retro-arrow {
+  color: #71717a;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.footer-retro-link:hover .footer-retro-hint {
+  color: #888888;
+}
+
+.footer-retro-link:hover .footer-retro-text {
+  color: #e07a5f;
+  text-decoration-color: #e07a5f;
+}
+
+.footer-retro-link:hover .footer-retro-arrow {
+  color: #e07a5f;
+  transform: translate(2px, -2px);
+}
+
+@media (max-width: 768px) {
+  .footer-retro-link {
+    display: none !important;
+  }
 }

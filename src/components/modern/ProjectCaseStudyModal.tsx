@@ -91,7 +91,16 @@ export const ProjectCaseStudyModal: React.FC<ProjectCaseStudyModalProps> = ({
           links.push({ label: "Back-end Code", url: project.backendUrl, type: "external" });
         }
         if (project.documentUrl) {
-          links.push({ label: "Download Document", url: project.documentUrl, type: "download" });
+          links.push({
+            label: "Download Document",
+            url: project.documentUrl,
+            type: "download",
+            downloadFilename: project.id === "football-bigdata"
+              ? "Ulysse_Castello_BigData_Football_Analytics.pdf"
+              : project.id === "real-estate-system"
+                ? "Ulysse_Castello_RealEstate_Management_System.pdf"
+                : undefined
+          });
         }
         if (project.githubUrl && !project.frontendUrl) {
           links.push({ label: "Source Code", url: project.githubUrl, type: "external" });
@@ -137,6 +146,7 @@ export const ProjectCaseStudyModal: React.FC<ProjectCaseStudyModalProps> = ({
                     href={link.url}
                     target="_blank"
                     rel="noreferrer"
+                    download={link.type === "download" ? (link.downloadFilename || true) : undefined}
                     className={`sop-quick-link ${link.type === "download"
                         ? "sop-link-doc"
                         : link.label === "Live Demo"

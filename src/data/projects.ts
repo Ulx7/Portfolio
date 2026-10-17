@@ -12,6 +12,7 @@ export interface ProjectLink {
   label: string;
   url: string;
   type?: "external" | "download";
+  downloadFilename?: string;
 }
 
 export interface ArchitectureDecision {
@@ -139,7 +140,12 @@ export const projects: Project[] = [
     ],
     technologies: ["Python (Pandas)", "PySpark", "Apache Hive", "ETL Pipelines", "Tableau", "Data Modeling"],
     links: [
-      { label: "Download Document", url: "https://github.com/Ulx7", type: "download" }
+      {
+        label: "Download Document",
+        url: "/BD.pdf",
+        type: "download",
+        downloadFilename: "Ulysse_Castello_BigData_Football_Analytics.pdf"
+      }
     ],
     shortDescription: "A comprehensive technical case study analyzing over 1.7M professional football records using PySpark and Pandas ETL pipelines.",
     fullDescription: "A comprehensive technical case study analyzing over 1.7M professional football records. This research involved developing a full ETL pipeline to process massive datasets, validating 8 critical business inquiries through a comparative performance study between Pandas and PySpark.",
@@ -150,7 +156,7 @@ export const projects: Project[] = [
       "/projects/BigData3.jpeg",
       "/projects/BigData4.jpeg"
     ],
-    documentUrl: "https://github.com/Ulx7",
+    documentUrl: "/BD.pdf",
     color: "#6366f1",
     year: "2024"
   },
@@ -170,7 +176,12 @@ export const projects: Project[] = [
     ],
     technologies: ["Java", "Spring Boot", "React", "AWS Cloud", "SQL Server", "Tailwind CSS"],
     links: [
-      { label: "Download Document", url: "https://github.com/Ulx7", type: "download" }
+      {
+        label: "Download Document",
+        url: "/RealEstate.pdf",
+        type: "download",
+        downloadFilename: "Ulysse_Castello_RealEstate_Management_System.pdf"
+      }
     ],
     shortDescription: "Full digitalization of a real estate firm featuring a Spring Boot backend, React public catalog, and AWS deployment.",
     fullDescription: "This Capstone Project involved the full digitalization of a traditional firm. I developed a robust internal management system for contracts and clients using Spring Boot, and a public-facing property catalog using React and Tailwind CSS, all deployed on AWS infrastructure.",
@@ -179,7 +190,7 @@ export const projects: Project[] = [
       "/projects/realestate.png",
       "/projects/RealEstate3.jpeg"
     ],
-    documentUrl: "https://github.com/Ulx7",
+    documentUrl: "/RealEstate.pdf",
     color: "#3b82f6",
     year: "2024"
   },

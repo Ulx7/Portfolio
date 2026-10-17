@@ -86,6 +86,19 @@ export const ProjectsExplorerWindow: React.FC = () => {
                 </div>
               )}
 
+              {selectedProject.documentUrl && (
+                <a
+                  href={selectedProject.documentUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  download={true}
+                  className="detail-launch-btn"
+                >
+                  <span>Download Document</span>
+                  <ExternalLink size={12} />
+                </a>
+              )}
+
               {selectedProject.githubUrl && (
                 <a
                   href={selectedProject.githubUrl}

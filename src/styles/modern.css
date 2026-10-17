@@ -1425,8 +1425,15 @@ textarea:focus {
   display: flex;
   align-items: center;
   gap: 1.5rem;
-  overflow: visible;
-  flex-wrap: wrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  flex-wrap: nowrap;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.diploma-text-tabs::-webkit-scrollbar {
+  display: none;
 }
 
 .diploma-text-tab {
@@ -1517,6 +1524,33 @@ textarea:focus {
   border-radius: 6px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.85);
   display: block;
+}
+
+@media (max-width: 640px) {
+  .diploma-lightbox-overlay {
+    padding: 0.75rem;
+  }
+
+  .diploma-lightbox-header {
+    padding: 10px 14px;
+    gap: 10px;
+  }
+
+  .diploma-text-tabs {
+    gap: 0.85rem;
+  }
+
+  .diploma-text-tab {
+    font-size: 12px !important;
+  }
+
+  .diploma-lightbox-content {
+    padding: 0.75rem;
+  }
+
+  .diploma-fullscreen-image {
+    max-height: 75vh;
+  }
 }
 
 /* =========================================================

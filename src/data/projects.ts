@@ -107,8 +107,7 @@ export const projects: Project[] = [
     ],
     technologies: ["Astro", "React", "Sanity CMS", "Tailwind CSS", "Vercel"],
     links: [
-      { label: "Live Demo", url: "https://ulysse-dev.vercel.app/#projects", type: "external" },
-      { label: "Source Code", url: "https://github.com/Ulx7", type: "external" }
+      { label: "Live Demo", url: "https://ulysse-dev.vercel.app/#projects", type: "external" }
     ],
     shortDescription: "Built with a focus on Visual Storytelling and Atomic Design, this platform provides a seamless, high-end experience for discovering botanical species.",
     fullDescription: "Built with a focus on Visual Storytelling and Atomic Design, this platform provides a seamless, high-end experience for discovering botanical species. The project prioritizes clean aesthetics and technical efficiency through a decoupled headless architecture.",
@@ -120,7 +119,6 @@ export const projects: Project[] = [
       "/projects/Vivero4.jpeg"
     ],
     liveUrl: "https://ulysse-dev.vercel.app/#projects",
-    githubUrl: "https://github.com/Ulx7",
     color: "#10b981",
     year: "2025"
   },
@@ -141,8 +139,7 @@ export const projects: Project[] = [
     ],
     technologies: ["Python (Pandas)", "PySpark", "Apache Hive", "ETL Pipelines", "Tableau", "Data Modeling"],
     links: [
-      { label: "Download Document", url: "https://github.com/Ulx7", type: "download" },
-      { label: "Source Code", url: "https://github.com/Ulx7", type: "external" }
+      { label: "Download Document", url: "https://github.com/Ulx7", type: "download" }
     ],
     shortDescription: "A comprehensive technical case study analyzing over 1.7M professional football records using PySpark and Pandas ETL pipelines.",
     fullDescription: "A comprehensive technical case study analyzing over 1.7M professional football records. This research involved developing a full ETL pipeline to process massive datasets, validating 8 critical business inquiries through a comparative performance study between Pandas and PySpark.",
@@ -154,7 +151,6 @@ export const projects: Project[] = [
       "/projects/BigData4.jpeg"
     ],
     documentUrl: "https://github.com/Ulx7",
-    githubUrl: "https://github.com/Ulx7",
     color: "#6366f1",
     year: "2024"
   },
@@ -174,8 +170,7 @@ export const projects: Project[] = [
     ],
     technologies: ["Java", "Spring Boot", "React", "AWS Cloud", "SQL Server", "Tailwind CSS"],
     links: [
-      { label: "Download Document", url: "https://github.com/Ulx7", type: "download" },
-      { label: "Source Code", url: "https://github.com/Ulx7", type: "external" }
+      { label: "Download Document", url: "https://github.com/Ulx7", type: "download" }
     ],
     shortDescription: "Full digitalization of a real estate firm featuring a Spring Boot backend, React public catalog, and AWS deployment.",
     fullDescription: "This Capstone Project involved the full digitalization of a traditional firm. I developed a robust internal management system for contracts and clients using Spring Boot, and a public-facing property catalog using React and Tailwind CSS, all deployed on AWS infrastructure.",
@@ -185,7 +180,6 @@ export const projects: Project[] = [
       "/projects/RealEstate3.jpeg"
     ],
     documentUrl: "https://github.com/Ulx7",
-    githubUrl: "https://github.com/Ulx7",
     color: "#3b82f6",
     year: "2024"
   },
@@ -217,7 +211,7 @@ export const projects: Project[] = [
     ],
     technologies: ["Java", "Design Patterns", "MVC Architecture", "UML Modeling"],
     links: [
-      { label: "Source Code", url: "https://github.com/Ulx7", type: "external" }
+      { label: "Source Code", url: "https://github.com/Ulx7/Roulette-System", type: "external" }
     ],
     shortDescription: "A complete casino logic implementation focusing on Object-Oriented Programming (OOP) excellence and clean architecture.",
     fullDescription: "A complete casino logic implementation focusing on Object-Oriented Programming (OOP) excellence and clean architecture. The system simulates a real-world roulette environment with multiple players and automated dealer logic.",
@@ -228,7 +222,7 @@ export const projects: Project[] = [
       "/projects/Ruleta3.jpeg",
       "/projects/Ruleta4.jpeg"
     ],
-    githubUrl: "https://github.com/Ulx7",
+    githubUrl: "https://github.com/Ulx7/Roulette-System",
     color: "#f59e0b",
     year: "2023"
   },
@@ -260,8 +254,8 @@ export const projects: Project[] = [
     ],
     technologies: ["C#", ".NET Core", "ASP.NET Web API", "SQL Server", "Entity Framework"],
     links: [
-      { label: "Front-end Code", url: "https://github.com/Ulx7", type: "external" },
-      { label: "Back-end Code", url: "https://github.com/Ulx7", type: "external" }
+      { label: "Front-end Code", url: "https://github.com/Ulx7/Hotel-Management-System", type: "external" },
+      { label: "Back-end Code", url: "https://github.com/Ulx7/Hotel-Management-System-API", type: "external" }
     ],
     shortDescription: "Cabin reservation system with C# ASP.NET Web API and MVC web application following clean architecture.",
     fullDescription: "This project implements a cabin reservation system for a hotel management suite. It was developed in two main parts: a robust Web API acting as the business logic engine and a Model-View-Controller (MVC) web application for user interaction.",
@@ -272,9 +266,9 @@ export const projects: Project[] = [
       "/projects/Cabana3.jpeg",
       "/projects/Cabana4.jpeg"
     ],
-    frontendUrl: "https://github.com/Ulx7",
-    backendUrl: "https://github.com/Ulx7",
-    githubUrl: "https://github.com/Ulx7",
+    frontendUrl: "https://github.com/Ulx7/Hotel-Management-System",
+    backendUrl: "https://github.com/Ulx7/Hotel-Management-System-API",
+    githubUrl: "https://github.com/Ulx7/Hotel-Management-System",
     color: "#ec4899",
     year: "2023"
   }

@@ -1,4 +1,5 @@
 import React from "react";
+import { Mail } from "lucide-react";
 import { profile } from "../../data/profile";
 
 export const HeroSection: React.FC = () => {
@@ -25,7 +26,9 @@ export const HeroSection: React.FC = () => {
 
         <a href="#contact" className="hero-link">
           <span className="link-label">Get in touch</span>
-          <span className="link-touch">✉</span>
+          <span className="link-touch">
+            <Mail size={15} strokeWidth={2} />
+          </span>
         </a>
       </div>
     </section>

@@ -542,7 +542,11 @@ textarea:focus {
 }
 
 .hero-link .link-touch {
-  font-size: 13px;
+  color: #888888;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
 }
 
 .hero-link .link-label {
@@ -558,7 +562,6 @@ textarea:focus {
   transition: all 0.2s ease;
 }
 
-/* Hover: exactly like Resume was in the screenshot */
 .hero-link:hover .link-label {
   color: #e07a5f;
   text-decoration: underline;
@@ -574,6 +577,11 @@ textarea:focus {
 .hero-link:hover .link-arrow {
   color: #e07a5f;
   transform: translate(2px, -2px);
+}
+
+.hero-link:hover .link-touch {
+  color: #e07a5f;
+  transform: translateY(-1px);
 }
 
 /* --- SECTIONS COMMON --- */

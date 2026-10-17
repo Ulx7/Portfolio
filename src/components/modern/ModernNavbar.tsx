@@ -3,14 +3,24 @@ import { profile } from "../../data/profile";
 import { useThemeMode } from "../../context/ThemeModeContext";
 import { Mail, Menu, X } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "../common/SocialIcons";
+import { RetroMobileWarningModal } from "./RetroMobileWarningModal";
 
 export const ModernNavbar: React.FC = () => {
   const { toggleMode, isEmbedded } = useThemeMode();
   const [activeSection, setActiveSection] = useState("home");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showRetroWarning, setShowRetroWarning] = useState(false);
   const activeSectionRef = useRef("home");
   const isManualScrollRef = useRef(false);
   const manualScrollTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const handleXpClick = () => {
+    if (typeof window !== "undefined" && window.innerWidth < 768) {
+      setShowRetroWarning(true);
+    } else {
+      toggleMode();
+    }
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -199,7 +209,7 @@ export const ModernNavbar: React.FC = () => {
             <div className="nav-xp-btn-wrapper">
               <button
                 type="button"
-                onClick={toggleMode}
+                onClick={handleXpClick}
                 className="nav-windows-btn xp-mode-trigger"
                 aria-label="Travel back in time · Windows XP Mode"
               >
@@ -340,6 +350,11 @@ export const ModernNavbar: React.FC = () => {
           </div>
         </div>
       )}
+
+      <RetroMobileWarningModal
+        isOpen={showRetroWarning}
+        onClose={() => setShowRetroWarning(false)}
+      />
     </header>
   );
 };

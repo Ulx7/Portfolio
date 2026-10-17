@@ -2324,3 +2324,90 @@ textarea:focus {
 .is-embedded .xp-mode-trigger {
   display: none !important;
 }
+
+.retro-warning-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.retro-warning-dialog {
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7);
+  animation: retroWarningPop 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  font-family: var(--font-xp, Tahoma, "Segoe UI", sans-serif);
+}
+
+@keyframes retroWarningPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.retro-warning-dialog .title-bar-left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.retro-warning-dialog .title-bar-text {
+  font-size: 11px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0;
+}
+
+.retro-warning-body {
+  padding: 16px 14px 12px;
+  background: #ece9d8;
+}
+
+.retro-warning-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.retro-warning-icon-wrapper {
+  flex-shrink: 0;
+  padding-top: 2px;
+}
+
+.retro-warning-text-wrapper {
+  flex: 1;
+}
+
+.retro-warning-message {
+  font-size: 11px;
+  line-height: 1.55;
+  color: #000000;
+  margin: 0;
+  font-family: var(--font-xp, Tahoma, Arial, sans-serif);
+}
+
+.retro-warning-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid #d4d0c8;
+}
+
+.retro-warning-btn-primary {
+  min-width: 84px;
+  font-weight: 700;
+  border-color: #0055ea;
+  padding: 4px 16px;
+}

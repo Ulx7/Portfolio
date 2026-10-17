@@ -77,6 +77,8 @@ export const PaintWindow: React.FC = () => {
 
   const isDrawingRef = useRef(false);
   const startPointRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
+  const lastMousePosRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
+  const drawButtonRef = useRef<number>(0);
   const sprayIntervalRef = useRef<number | null>(null);
 
   // Undo / Redo history stack
@@ -299,10 +301,76 @@ export const PaintWindow: React.FC = () => {
     };
   };
 
+  const getCanvasCoordsFromTouch = (e: React.TouchEvent<HTMLCanvasElement>) => {
+    const touch = e.touches[0] || e.changedTouches[0];
+    const rect = e.currentTarget.getBoundingClientRect();
+    const scaleX = canvasSize.width / rect.width;
+    const scaleY = canvasSize.height / rect.height;
+    return {
+      x: Math.floor((touch.clientX - rect.left) * scaleX),
+      y: Math.floor((touch.clientY - rect.top) * scaleY)
+    };
+  };
+
+  const drawShape = (
+    targetCtx: CanvasRenderingContext2D,
+    tool: "line" | "rectangle" | "ellipse",
+    startX: number,
+    startY: number,
+    endX: number,
+    endY: number,
+    strokeColor: string,
+    fillColor: string,
+    lineWidth: number,
+    style: "outline" | "fill" | "both"
+  ) => {
+    targetCtx.strokeStyle = strokeColor;
+    targetCtx.lineWidth = lineWidth;
+    targetCtx.lineCap = "round";
+
+    if (tool === "line") {
+      targetCtx.beginPath();
+      targetCtx.moveTo(startX, startY);
+      targetCtx.lineTo(endX, endY);
+      targetCtx.stroke();
+      return;
+    }
+
+    const x = Math.min(startX, endX);
+    const y = Math.min(startY, endY);
+    const w = Math.abs(endX - startX);
+    const h = Math.abs(endY - startY);
+
+    const actualFillColor = style === "fill" ? strokeColor : fillColor;
+    targetCtx.fillStyle = actualFillColor;
+
+    if (tool === "rectangle") {
+      if (style === "fill" || style === "both") {
+        targetCtx.fillRect(x, y, w, h);
+      }
+      if (style === "outline" || style === "both") {
+        targetCtx.strokeRect(x, y, w, h);
+      }
+    } else if (tool === "ellipse") {
+      const rx = Math.max(0.1, w / 2);
+      const ry = Math.max(0.1, h / 2);
+      targetCtx.beginPath();
+      targetCtx.ellipse(x + rx, y + ry, rx, ry, 0, 0, Math.PI * 2);
+      if (style === "fill" || style === "both") {
+        targetCtx.fill();
+      }
+      if (style === "outline" || style === "both") {
+        targetCtx.stroke();
+      }
+    }
+  };
+
   const handleMouseDown = (e: React.MouseEvent<HTMLCanvasElement>) => {
     const coords = getCanvasCoords(e);
     isDrawingRef.current = true;
     startPointRef.current = coords;
+    lastMousePosRef.current = coords;
+    drawButtonRef.current = e.button;
 
     const useColor = e.button === 2 ? secondaryColor : primaryColor;
 
@@ -329,7 +397,7 @@ export const PaintWindow: React.FC = () => {
     if (activeTool === "airbrush") {
       spray(coords.x, coords.y, useColor, brushSize * 2.5);
       sprayIntervalRef.current = window.setInterval(() => {
-        spray(startPointRef.current.x, startPointRef.current.y, useColor, brushSize * 2.5);
+        spray(lastMousePosRef.current.x, lastMousePosRef.current.y, useColor, brushSize * 2.5);
       }, 35);
       return;
     }
@@ -354,10 +422,11 @@ export const PaintWindow: React.FC = () => {
   const handleMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
     const coords = getCanvasCoords(e);
     setCursorPos(coords);
-    startPointRef.current = coords;
 
     if (!isDrawingRef.current) return;
-    const useColor = e.buttons === 2 ? secondaryColor : primaryColor;
+    const isRight = drawButtonRef.current === 2 || e.buttons === 2;
+    const useColor = isRight ? secondaryColor : primaryColor;
+    const fillColor = isRight ? primaryColor : secondaryColor;
 
     if (activeTool === "pencil" || activeTool === "brush" || activeTool === "eraser") {
       const canvas = canvasRef.current;
@@ -365,21 +434,24 @@ export const PaintWindow: React.FC = () => {
       const ctx = canvas.getContext("2d");
       if (!ctx) return;
 
+      ctx.beginPath();
+      ctx.moveTo(lastMousePosRef.current.x, lastMousePosRef.current.y);
+      ctx.lineTo(coords.x, coords.y);
       ctx.strokeStyle = activeTool === "eraser" ? secondaryColor : useColor;
       ctx.lineWidth = activeTool === "pencil" ? 1 : brushSize;
       ctx.lineCap = activeTool === "pencil" ? "square" : "round";
       ctx.lineJoin = activeTool === "pencil" ? "miter" : "round";
-      ctx.lineTo(coords.x, coords.y);
       ctx.stroke();
+      lastMousePosRef.current = coords;
       return;
     }
 
     if (activeTool === "airbrush") {
       spray(coords.x, coords.y, useColor, brushSize * 2.5);
+      lastMousePosRef.current = coords;
       return;
     }
 
-    // Live preview for geometric shapes & lines
     if (activeTool === "line" || activeTool === "rectangle" || activeTool === "ellipse") {
       const preview = previewCanvasRef.current;
       if (!preview) return;
@@ -387,41 +459,19 @@ export const PaintWindow: React.FC = () => {
       if (!pCtx) return;
 
       pCtx.clearRect(0, 0, preview.width, preview.height);
-      pCtx.strokeStyle = useColor;
-      pCtx.fillStyle = secondaryColor;
-      pCtx.lineWidth = brushSize;
-      pCtx.lineCap = "round";
-
-      const start = startPointRef.current;
-      const w = coords.x - start.x;
-      const h = coords.y - start.y;
-
-      if (activeTool === "line") {
-        pCtx.beginPath();
-        pCtx.moveTo(start.x, start.y);
-        pCtx.lineTo(coords.x, coords.y);
-        pCtx.stroke();
-      } else if (activeTool === "rectangle") {
-        if (fillStyle === "fill" || fillStyle === "both") {
-          pCtx.fillRect(start.x, start.y, w, h);
-        }
-        if (fillStyle === "outline" || fillStyle === "both") {
-          pCtx.strokeRect(start.x, start.y, w, h);
-        }
-      } else if (activeTool === "ellipse") {
-        pCtx.beginPath();
-        pCtx.ellipse(
-          start.x + w / 2,
-          start.y + h / 2,
-          Math.abs(w / 2),
-          Math.abs(h / 2),
-          0,
-          0,
-          Math.PI * 2
-        );
-        if (fillStyle === "fill" || fillStyle === "both") pCtx.fill();
-        if (fillStyle === "outline" || fillStyle === "both") pCtx.stroke();
-      }
+      drawShape(
+        pCtx,
+        activeTool,
+        startPointRef.current.x,
+        startPointRef.current.y,
+        coords.x,
+        coords.y,
+        useColor,
+        fillColor,
+        brushSize,
+        fillStyle
+      );
+      lastMousePosRef.current = coords;
     }
   };
 
@@ -435,50 +485,170 @@ export const PaintWindow: React.FC = () => {
     }
 
     const coords = getCanvasCoords(e);
-    const useColor = e.button === 2 ? secondaryColor : primaryColor;
+    const isRight = drawButtonRef.current === 2 || e.button === 2;
+    const useColor = isRight ? secondaryColor : primaryColor;
+    const fillColor = isRight ? primaryColor : secondaryColor;
 
-    // Commit preview canvas into real canvas
     if (activeTool === "line" || activeTool === "rectangle" || activeTool === "ellipse") {
       const canvas = canvasRef.current;
       const preview = previewCanvasRef.current;
-      if (!canvas || !preview) return;
-      const ctx = canvas.getContext("2d");
-      const pCtx = preview.getContext("2d");
-      if (!ctx || !pCtx) return;
-
-      ctx.strokeStyle = useColor;
-      ctx.fillStyle = secondaryColor;
-      ctx.lineWidth = brushSize;
-      ctx.lineCap = "round";
-
-      const start = startPointRef.current;
-      const w = coords.x - start.x;
-      const h = coords.y - start.y;
-
-      if (activeTool === "line") {
-        ctx.beginPath();
-        ctx.moveTo(start.x, start.y);
-        ctx.lineTo(coords.x, coords.y);
-        ctx.stroke();
-      } else if (activeTool === "rectangle") {
-        if (fillStyle === "fill" || fillStyle === "both") ctx.fillRect(start.x, start.y, w, h);
-        if (fillStyle === "outline" || fillStyle === "both") ctx.strokeRect(start.x, start.y, w, h);
-      } else if (activeTool === "ellipse") {
-        ctx.beginPath();
-        ctx.ellipse(
-          start.x + w / 2,
-          start.y + h / 2,
-          Math.abs(w / 2),
-          Math.abs(h / 2),
-          0,
-          0,
-          Math.PI * 2
-        );
-        if (fillStyle === "fill" || fillStyle === "both") ctx.fill();
-        if (fillStyle === "outline" || fillStyle === "both") ctx.stroke();
+      if (canvas && preview) {
+        const ctx = canvas.getContext("2d");
+        const pCtx = preview.getContext("2d");
+        if (ctx && pCtx) {
+          drawShape(
+            ctx,
+            activeTool,
+            startPointRef.current.x,
+            startPointRef.current.y,
+            coords.x,
+            coords.y,
+            useColor,
+            fillColor,
+            brushSize,
+            fillStyle
+          );
+          pCtx.clearRect(0, 0, preview.width, preview.height);
+        }
       }
+    }
+
+    saveState();
+  };
+
+  const handleTouchStart = (e: React.TouchEvent<HTMLCanvasElement>) => {
+    const coords = getCanvasCoordsFromTouch(e);
+    isDrawingRef.current = true;
+    startPointRef.current = coords;
+    lastMousePosRef.current = coords;
+    drawButtonRef.current = 0;
+
+    if (activeTool === "bucket") {
+      floodFill(coords.x, coords.y, primaryColor);
+      return;
+    }
+
+    if (activeTool === "eyedropper") {
+      const canvas = canvasRef.current;
+      if (!canvas) return;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return;
+      const pixel = ctx.getImageData(coords.x, coords.y, 1, 1).data;
+      const hex = `#${((1 << 24) + (pixel[0] << 16) + (pixel[1] << 8) + pixel[2]).toString(16).slice(1)}`;
+      setPrimaryColor(hex);
+      return;
+    }
+
+    if (activeTool === "airbrush") {
+      spray(coords.x, coords.y, primaryColor, brushSize * 2.5);
+      sprayIntervalRef.current = window.setInterval(() => {
+        spray(lastMousePosRef.current.x, lastMousePosRef.current.y, primaryColor, brushSize * 2.5);
+      }, 35);
+      return;
+    }
+
+    if (activeTool === "pencil" || activeTool === "brush" || activeTool === "eraser") {
+      const canvas = canvasRef.current;
+      if (!canvas) return;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return;
+
+      ctx.beginPath();
+      ctx.moveTo(coords.x, coords.y);
+      ctx.strokeStyle = activeTool === "eraser" ? secondaryColor : primaryColor;
+      ctx.lineWidth = activeTool === "pencil" ? 1 : brushSize;
+      ctx.lineCap = activeTool === "pencil" ? "square" : "round";
+      ctx.lineJoin = activeTool === "pencil" ? "miter" : "round";
+      ctx.lineTo(coords.x, coords.y);
+      ctx.stroke();
+    }
+  };
+
+  const handleTouchMove = (e: React.TouchEvent<HTMLCanvasElement>) => {
+    if (!isDrawingRef.current) return;
+    const coords = getCanvasCoordsFromTouch(e);
+    setCursorPos(coords);
+
+    if (activeTool === "pencil" || activeTool === "brush" || activeTool === "eraser") {
+      const canvas = canvasRef.current;
+      if (!canvas) return;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return;
+
+      ctx.beginPath();
+      ctx.moveTo(lastMousePosRef.current.x, lastMousePosRef.current.y);
+      ctx.lineTo(coords.x, coords.y);
+      ctx.strokeStyle = activeTool === "eraser" ? secondaryColor : primaryColor;
+      ctx.lineWidth = activeTool === "pencil" ? 1 : brushSize;
+      ctx.lineCap = activeTool === "pencil" ? "square" : "round";
+      ctx.lineJoin = activeTool === "pencil" ? "miter" : "round";
+      ctx.stroke();
+      lastMousePosRef.current = coords;
+      return;
+    }
+
+    if (activeTool === "airbrush") {
+      spray(coords.x, coords.y, primaryColor, brushSize * 2.5);
+      lastMousePosRef.current = coords;
+      return;
+    }
+
+    if (activeTool === "line" || activeTool === "rectangle" || activeTool === "ellipse") {
+      const preview = previewCanvasRef.current;
+      if (!preview) return;
+      const pCtx = preview.getContext("2d");
+      if (!pCtx) return;
 
       pCtx.clearRect(0, 0, preview.width, preview.height);
+      drawShape(
+        pCtx,
+        activeTool,
+        startPointRef.current.x,
+        startPointRef.current.y,
+        coords.x,
+        coords.y,
+        primaryColor,
+        secondaryColor,
+        brushSize,
+        fillStyle
+      );
+      lastMousePosRef.current = coords;
+    }
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent<HTMLCanvasElement>) => {
+    if (!isDrawingRef.current) return;
+    isDrawingRef.current = false;
+
+    if (sprayIntervalRef.current) {
+      clearInterval(sprayIntervalRef.current);
+      sprayIntervalRef.current = null;
+    }
+
+    const coords = getCanvasCoordsFromTouch(e);
+
+    if (activeTool === "line" || activeTool === "rectangle" || activeTool === "ellipse") {
+      const canvas = canvasRef.current;
+      const preview = previewCanvasRef.current;
+      if (canvas && preview) {
+        const ctx = canvas.getContext("2d");
+        const pCtx = preview.getContext("2d");
+        if (ctx && pCtx) {
+          drawShape(
+            ctx,
+            activeTool,
+            startPointRef.current.x,
+            startPointRef.current.y,
+            coords.x,
+            coords.y,
+            primaryColor,
+            secondaryColor,
+            brushSize,
+            fillStyle
+          );
+          pCtx.clearRect(0, 0, preview.width, preview.height);
+        }
+      }
     }
 
     saveState();
@@ -676,8 +846,14 @@ export const PaintWindow: React.FC = () => {
               onMouseDown={handleMouseDown}
               onMouseMove={handleMouseMove}
               onMouseUp={handleMouseUp}
-              onMouseLeave={() => {
-                isDrawingRef.current = false;
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
+              onTouchCancel={handleTouchEnd}
+              onMouseLeave={(e) => {
+                if (isDrawingRef.current) {
+                  handleMouseUp(e);
+                }
                 setCursorPos(null);
                 if (sprayIntervalRef.current) {
                   clearInterval(sprayIntervalRef.current);

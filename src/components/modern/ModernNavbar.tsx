@@ -1,15 +1,36 @@
 import React, { useState, useEffect, useRef } from "react";
 import { profile } from "../../data/profile";
 import { useThemeMode } from "../../context/ThemeModeContext";
-import { Mail } from "lucide-react";
+import { Mail, Menu, X } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "../common/SocialIcons";
 
 export const ModernNavbar: React.FC = () => {
   const { toggleMode, isEmbedded } = useThemeMode();
   const [activeSection, setActiveSection] = useState("home");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const activeSectionRef = useRef("home");
   const isManualScrollRef = useRef(false);
   const manualScrollTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setMobileMenuOpen(false);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setMobileMenuOpen(false);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   useEffect(() => {
     const sectionList = [
@@ -93,6 +114,17 @@ export const ModernNavbar: React.FC = () => {
   return (
     <header className="site-nav-fixed" role="banner">
       <div className="nav-container">
+        <a
+          href="#hero"
+          className="nav-mobile-brand"
+          onClick={() => {
+            handleNavClick("home");
+            setMobileMenuOpen(false);
+          }}
+        >
+          {profile.name}
+        </a>
+
         <nav className="nav-links-left" aria-label="Primary navigation">
           <a
             className={`nav-item ${activeSection === "home" ? "active" : ""}`}
@@ -131,35 +163,37 @@ export const ModernNavbar: React.FC = () => {
           </a>
         </nav>
 
-        <div className="nav-icons-right">
-          <a
-            href={profile.github}
-            target="_blank"
-            rel="noreferrer"
-            aria-label="GitHub Profile"
-            title="GitHub"
-            className="nav-icon-link"
-          >
-            <GithubIcon size={18} />
-          </a>
-          <a
-            href={profile.linkedin}
-            target="_blank"
-            rel="noreferrer"
-            aria-label="LinkedIn Profile"
-            title="LinkedIn"
-            className="nav-icon-link"
-          >
-            <LinkedinIcon size={18} />
-          </a>
-          <a
-            href={`mailto:${profile.email}`}
-            aria-label={`Send email to ${profile.email}`}
-            title="Email"
-            className="nav-icon-link"
-          >
-            <Mail size={18} strokeWidth={1.5} />
-          </a>
+        <div className="nav-right-cluster">
+          <div className="nav-icons-right">
+            <a
+              href={profile.github}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="GitHub Profile"
+              title="GitHub"
+              className="nav-icon-link"
+            >
+              <GithubIcon size={18} />
+            </a>
+            <a
+              href={profile.linkedin}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="LinkedIn Profile"
+              title="LinkedIn"
+              className="nav-icon-link"
+            >
+              <LinkedinIcon size={18} />
+            </a>
+            <a
+              href={`mailto:${profile.email}`}
+              aria-label={`Send email to ${profile.email}`}
+              title="Email"
+              className="nav-icon-link"
+            >
+              <Mail size={18} strokeWidth={1.5} />
+            </a>
+          </div>
 
           {!isEmbedded && (
             <div className="nav-xp-btn-wrapper">
@@ -201,8 +235,111 @@ export const ModernNavbar: React.FC = () => {
               </div>
             </div>
           )}
+
+          <button
+            type="button"
+            className="nav-mobile-toggle-btn"
+            onClick={() => setMobileMenuOpen((prev) => !prev)}
+            aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={mobileMenuOpen}
+          >
+            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
         </div>
       </div>
+
+      {mobileMenuOpen && (
+        <div className="nav-mobile-dropdown">
+          <nav className="nav-mobile-links" aria-label="Mobile navigation links">
+            <a
+              className={`nav-mobile-item ${activeSection === "home" ? "active" : ""}`}
+              href="#hero"
+              onClick={() => {
+                handleNavClick("home");
+                setMobileMenuOpen(false);
+              }}
+            >
+              <span>home</span>
+              {activeSection === "home" && <span className="nav-mobile-active-dot" />}
+            </a>
+            <a
+              className={`nav-mobile-item ${activeSection === "about" ? "active" : ""}`}
+              href="#about"
+              onClick={() => {
+                handleNavClick("about");
+                setMobileMenuOpen(false);
+              }}
+            >
+              <span>about</span>
+              {activeSection === "about" && <span className="nav-mobile-active-dot" />}
+            </a>
+            <a
+              className={`nav-mobile-item ${activeSection === "projects" ? "active" : ""}`}
+              href="#projects"
+              onClick={() => {
+                handleNavClick("projects");
+                setMobileMenuOpen(false);
+              }}
+            >
+              <span>projects</span>
+              {activeSection === "projects" && <span className="nav-mobile-active-dot" />}
+            </a>
+            <a
+              className={`nav-mobile-item ${activeSection === "skills" ? "active" : ""}`}
+              href="#skills"
+              onClick={() => {
+                handleNavClick("skills");
+                setMobileMenuOpen(false);
+              }}
+            >
+              <span>skills</span>
+              {activeSection === "skills" && <span className="nav-mobile-active-dot" />}
+            </a>
+            <a
+              className={`nav-mobile-item ${activeSection === "contact" ? "active" : ""}`}
+              href="#contact"
+              onClick={() => {
+                handleNavClick("contact");
+                setMobileMenuOpen(false);
+              }}
+            >
+              <span>contact</span>
+              {activeSection === "contact" && <span className="nav-mobile-active-dot" />}
+            </a>
+          </nav>
+
+          <div className="nav-mobile-socials">
+            <a
+              href={profile.github}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="GitHub Profile"
+              className="nav-mobile-social-link"
+            >
+              <GithubIcon size={18} />
+              <span>GitHub</span>
+            </a>
+            <a
+              href={profile.linkedin}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="LinkedIn Profile"
+              className="nav-mobile-social-link"
+            >
+              <LinkedinIcon size={18} />
+              <span>LinkedIn</span>
+            </a>
+            <a
+              href={`mailto:${profile.email}`}
+              aria-label={`Send email to ${profile.email}`}
+              className="nav-mobile-social-link"
+            >
+              <Mail size={18} strokeWidth={1.5} />
+              <span>Email</span>
+            </a>
+          </div>
+        </div>
+      )}
     </header>
   );
 };

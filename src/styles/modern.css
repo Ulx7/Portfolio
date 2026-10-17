@@ -1133,7 +1133,7 @@ textarea:focus {
 
 .sop-carousel-tech-center {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: center;
   justify-content: center;
   gap: 0.45rem;
@@ -1142,6 +1142,17 @@ textarea:focus {
   color: #a1a1aa;
   letter-spacing: 0.02em;
   text-align: center;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  white-space: nowrap;
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 0 0.25rem;
+}
+
+.sop-carousel-tech-center::-webkit-scrollbar {
+  display: none;
 }
 
 .sop-carousel-tech-item {
@@ -1150,6 +1161,7 @@ textarea:focus {
   gap: 0.45rem;
   color: #a1a1aa;
   transition: color 150ms ease;
+  flex-shrink: 0;
 }
 
 .sop-carousel-tech-item:hover {
@@ -1170,15 +1182,36 @@ textarea:focus {
 
 @media (max-width: 680px) {
   .sop-carousel-bar {
-    flex-wrap: wrap;
-    gap: 0.65rem;
+    padding: 0.5rem 0.65rem;
+    gap: 0.45rem;
+  }
+
+  .sop-bar-left {
+    gap: 0.35rem;
+  }
+
+  .sop-bar-right {
+    gap: 0.35rem;
+  }
+
+  .sop-arrow-btn {
+    width: 26px;
+    height: 26px;
+    font-size: 13px;
   }
 
   .sop-carousel-tech-center {
-    order: 3;
-    width: 100%;
-    padding-top: 0.45rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 10px;
+    gap: 0.35rem;
+    justify-content: flex-start;
+  }
+
+  .sop-carousel-tech-item {
+    gap: 0.35rem;
+  }
+
+  .sop-counter {
+    font-size: 10.5px;
   }
 }
 

@@ -968,18 +968,65 @@ textarea:focus {
   padding: 0.65rem 1rem;
   background: #101114;
   border-top: 1px solid rgba(255, 255, 255, 0.06);
+  gap: 0.85rem;
 }
 
 .sop-bar-left {
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.sop-carousel-tech-center {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  color: #a1a1aa;
+  letter-spacing: 0.02em;
+  text-align: center;
+}
+
+.sop-carousel-tech-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: #a1a1aa;
+  transition: color 150ms ease;
+}
+
+.sop-carousel-tech-item:hover {
+  color: #ffffff;
+}
+
+.sop-carousel-tech-sep {
+  color: #52525b;
+  user-select: none;
 }
 
 .sop-bar-right {
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+@media (max-width: 680px) {
+  .sop-carousel-bar {
+    flex-wrap: wrap;
+    gap: 0.65rem;
+  }
+
+  .sop-carousel-tech-center {
+    order: 3;
+    width: 100%;
+    padding-top: 0.45rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+  }
 }
 
 .sop-arrow-btn {

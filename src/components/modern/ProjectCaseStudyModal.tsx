@@ -45,8 +45,8 @@ export const ProjectCaseStudyModal: React.FC<ProjectCaseStudyModalProps> = ({
     project.images && project.images.length > 0
       ? project.images
       : project.image
-      ? [project.image]
-      : [];
+        ? [project.image]
+        : [];
   const currentImage = projectImages[activeImageIdx] || project.image;
 
   const handlePrev = () => {
@@ -63,8 +63,8 @@ export const ProjectCaseStudyModal: React.FC<ProjectCaseStudyModalProps> = ({
     (project.tag === "Academic"
       ? "ACADEMIC · UNIVERSIDAD ORT URUGUAY"
       : project.tag === "Client"
-      ? "COMMERCIAL CLIENT WORK"
-      : "PERSONAL · IN DEVELOPMENT");
+        ? "COMMERCIAL CLIENT WORK"
+        : "PERSONAL · IN DEVELOPMENT");
 
   const contextObjective =
     project.contextObjective ||
@@ -80,24 +80,24 @@ export const ProjectCaseStudyModal: React.FC<ProjectCaseStudyModalProps> = ({
     project.links && project.links.length > 0
       ? project.links
       : (() => {
-          const links: ProjectLink[] = [];
-          if (project.liveUrl) {
-            links.push({ label: "Live Demo", url: project.liveUrl, type: "external" });
-          }
-          if (project.frontendUrl) {
-            links.push({ label: "Front-end Code", url: project.frontendUrl, type: "external" });
-          }
-          if (project.backendUrl) {
-            links.push({ label: "Back-end Code", url: project.backendUrl, type: "external" });
-          }
-          if (project.documentUrl) {
-            links.push({ label: "Download Document", url: project.documentUrl, type: "download" });
-          }
-          if (project.githubUrl && !project.frontendUrl) {
-            links.push({ label: "Source Code", url: project.githubUrl, type: "external" });
-          }
-          return links;
-        })();
+        const links: ProjectLink[] = [];
+        if (project.liveUrl) {
+          links.push({ label: "Live Demo", url: project.liveUrl, type: "external" });
+        }
+        if (project.frontendUrl) {
+          links.push({ label: "Front-end Code", url: project.frontendUrl, type: "external" });
+        }
+        if (project.backendUrl) {
+          links.push({ label: "Back-end Code", url: project.backendUrl, type: "external" });
+        }
+        if (project.documentUrl) {
+          links.push({ label: "Download Document", url: project.documentUrl, type: "download" });
+        }
+        if (project.githubUrl && !project.frontendUrl) {
+          links.push({ label: "Source Code", url: project.githubUrl, type: "external" });
+        }
+        return links;
+      })();
 
   return createPortal(
     <div
@@ -137,13 +137,12 @@ export const ProjectCaseStudyModal: React.FC<ProjectCaseStudyModalProps> = ({
                     href={link.url}
                     target="_blank"
                     rel="noreferrer"
-                    className={`sop-quick-link ${
-                      link.type === "download"
+                    className={`sop-quick-link ${link.type === "download"
                         ? "sop-link-doc"
                         : link.label === "Live Demo"
-                        ? "sop-link-accent"
-                        : ""
-                    }`}
+                          ? "sop-link-accent"
+                          : ""
+                      }`}
                   >
                     <span>{link.label}</span>
                     <span className="sop-quick-arrow" aria-hidden="true">
@@ -190,6 +189,21 @@ export const ProjectCaseStudyModal: React.FC<ProjectCaseStudyModalProps> = ({
                   </div>
                 </div>
 
+                {project.technologies && project.technologies.length > 0 && (
+                  <div className="sop-carousel-tech-center font-mono">
+                    {project.technologies.map((tech, idx) => (
+                      <span key={tech} className="sop-carousel-tech-item">
+                        {idx > 0 && (
+                          <span className="sop-carousel-tech-sep" aria-hidden="true">
+                            /
+                          </span>
+                        )}
+                        <span>{tech}</span>
+                      </span>
+                    ))}
+                  </div>
+                )}
+
                 <div className="sop-bar-right">
                   <span className="sop-counter font-mono">
                     {activeImageIdx + 1} / {projectImages.length}
@@ -228,13 +242,13 @@ export const ProjectCaseStudyModal: React.FC<ProjectCaseStudyModalProps> = ({
                     const title = isObject
                       ? feat.title
                       : hasColon
-                      ? feat.split(": ")[0]
-                      : feat;
+                        ? feat.split(": ")[0]
+                        : feat;
                     const desc = isObject
                       ? feat.description
                       : hasColon
-                      ? feat.split(": ").slice(1).join(": ")
-                      : undefined;
+                        ? feat.split(": ").slice(1).join(": ")
+                        : undefined;
 
                     return (
                       <div
@@ -251,19 +265,6 @@ export const ProjectCaseStudyModal: React.FC<ProjectCaseStudyModalProps> = ({
                       </div>
                     );
                   })}
-                </div>
-              </div>
-            )}
-
-            {project.technologies && project.technologies.length > 0 && (
-              <div className="sop-tech-footer border-t border-neutral-800/60 pt-4 mt-6">
-                <span className="sop-tech-footer-label">TECH STACK</span>
-                <div className="sop-tech-footer-pills">
-                  {project.technologies.map((tech) => (
-                    <span key={tech} className="sop-tech-footer-pill font-mono">
-                      {tech}
-                    </span>
-                  ))}
                 </div>
               </div>
             )}

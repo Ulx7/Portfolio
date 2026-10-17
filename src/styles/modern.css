@@ -1914,20 +1914,6 @@ textarea:focus {
   position: relative;
 }
 
-.gh-months-row {
-  display: flex;
-  justify-content: space-between;
-  font-size: 10px;
-  color: #888888;
-  margin-bottom: 7px;
-  padding: 0 4px;
-  user-select: none;
-}
-
-.gh-month-label {
-  letter-spacing: -0.01em;
-}
-
 .gh-grid-scroll {
   overflow-x: auto;
   padding-bottom: 4px;
@@ -1942,10 +1928,31 @@ textarea:focus {
   height: 0 !important;
 }
 
+.gh-grid-inner {
+  display: inline-flex;
+  flex-direction: column;
+  min-width: 100%;
+}
+
+.gh-months-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: #71717a;
+  margin-bottom: 7px;
+  padding: 0 2px;
+  user-select: none;
+  width: 100%;
+}
+
+.gh-month-label {
+  letter-spacing: -0.01em;
+}
+
 .gh-grid-container {
   display: inline-flex;
   gap: 3.5px;
-  min-width: 100%;
+  width: 100%;
   justify-content: space-between;
 }
 
@@ -1969,25 +1976,25 @@ textarea:focus {
   filter: brightness(1.2);
 }
 
-/* Radiant orange contribution scale */
 .gh-level-0 {
-  background-color: #202024;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.03);
 }
 
 .gh-level-1 {
-  background-color: #702d1d;
+  background-color: #632617;
 }
 
 .gh-level-2 {
-  background-color: #b8482b;
+  background-color: #a33e24;
 }
 
 .gh-level-3 {
-  background-color: #e6633b;
+  background-color: #d95831;
 }
 
 .gh-level-4 {
-  background-color: #ff7a45;
+  background-color: #f97316;
 }
 
 .gh-footer-meta {
@@ -1997,6 +2004,8 @@ textarea:focus {
   margin-top: 12px;
   font-size: 11px;
   color: #888888;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 .gh-total-label strong {

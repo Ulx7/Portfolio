@@ -62,7 +62,6 @@ export const GithubActivity: React.FC = () => {
           }
         }
       } catch {
-        // Fallback if API fails
       }
 
       if (isMounted) {
@@ -126,27 +125,29 @@ export const GithubActivity: React.FC = () => {
       </div>
 
       <div className="gh-heatmap-wrapper">
-        <div className="gh-months-row">
-          {monthLabels.map((m, idx) => (
-            <span key={idx} className="gh-month-label">{m}</span>
-          ))}
-        </div>
-
         <div className="gh-grid-scroll">
-          <div className="gh-grid-container">
-            {weeks.map((week, wIdx) => (
-              <div key={wIdx} className="gh-week-column">
-                {week.map((day, dIdx) => (
-                  <div
-                    key={dIdx}
-                    onMouseEnter={() => setHoveredDay(day)}
-                    onMouseLeave={() => setHoveredDay(null)}
-                    className={`gh-day-cell gh-level-${day.level}`}
-                    aria-label={`${day.count} contributions on ${day.date}`}
-                  />
-                ))}
-              </div>
-            ))}
+          <div className="gh-grid-inner">
+            <div className="gh-months-row">
+              {monthLabels.map((m, idx) => (
+                <span key={idx} className="gh-month-label">{m}</span>
+              ))}
+            </div>
+
+            <div className="gh-grid-container">
+              {weeks.map((week, wIdx) => (
+                <div key={wIdx} className="gh-week-column">
+                  {week.map((day, dIdx) => (
+                    <div
+                      key={dIdx}
+                      onMouseEnter={() => setHoveredDay(day)}
+                      onMouseLeave={() => setHoveredDay(null)}
+                      className={`gh-day-cell gh-level-${day.level}`}
+                      aria-label={`${day.count} contributions on ${day.date}`}
+                    />
+                  ))}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -172,7 +173,6 @@ export const GithubActivity: React.FC = () => {
         </div>
       </div>
 
-      {/* GitHub Repository Quick Access */}
       <div className="gh-stats-row-clean">
         <div className="gh-clean-stat">
           <FolderGit2 size={13} className="text-terracotta" />

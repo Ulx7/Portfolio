@@ -14,10 +14,10 @@ export const HeroSection: React.FC = () => {
 
       <div className="hero-actions">
         <a
-          href="/resume.pdf"
+          href="/Ulysse_Castello_CV_EN.pdf"
           target="_blank"
           rel="noreferrer"
-          download="Ulysse_Castello_Resume.pdf"
+          download="Ulysse_Castello_CV.pdf"
           className="hero-link"
         >
           <span className="link-label">Resume</span>

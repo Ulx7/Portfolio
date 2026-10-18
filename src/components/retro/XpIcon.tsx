@@ -23,6 +23,8 @@ const XP_ICON_MAP: Record<string, string> = {
   "my-computer": "/icons/xp/my-computer.png",
   system: "/icons/xp/my-computer.png",
   "recycle-bin": "/icons/xp/recycle-bin.png",
+  "recycle-bin-empty": "/icons/xp/recycle-bin.png",
+  "recycle-bin-full": "/icons/xp/recycle-bin-full.png",
   display: "/icons/xp/display.ico",
 };
 
@@ -313,6 +315,17 @@ export const XpIcon: React.FC<XpIconProps> = ({ name, size = 32, className = "" 
           <rect x="21" y="11" width="8" height="17" rx="1" fill="#d4d0c8" stroke="#555555" strokeWidth="1" />
           <rect x="23" y="13" width="4" height="2" fill="#475569" />
           <circle cx="25" cy="24" r="1" fill="#22c55e" />
+        </svg>
+      );
+
+    case "picture":
+    case "image":
+      return (
+        <svg width={size} height={size} viewBox="0 0 48 48" fill="none" className={className}>
+          <rect x="6" y="8" width="36" height="32" rx="3" fill="#FFFFFF" stroke="#64748B" strokeWidth="2" />
+          <rect x="9" y="11" width="30" height="26" fill="#38BDF8" />
+          <circle cx="16" cy="18" r="3.5" fill="#FDE047" />
+          <path d="M9 31L18 21L27 30L33 24L39 31V37H9V31Z" fill="#16A34A" />
         </svg>
       );
 

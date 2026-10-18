@@ -7,29 +7,6 @@ export interface WinampTrack {
   duration?: number;
 }
 
-/**
- * =====================================================================
- * LISTA DE CANCIONES DE WINAMP (WINAMP PLAYLIST)
- * =====================================================================
- * ¡Aquí puedes agregar toda la música que te guste!
- * 
- * INSTRUCCIONES:
- * 1. Copia tus archivos de música en formato .mp3 en la carpeta:
- *    public/music/ (por ejemplo: public/music/mi-cancion.mp3)
- * 2. Agrega una nueva entrada a la lista WINAMP_PLAYLIST abajo:
- *    {
- *      metaData: {
- *        artist: "Nombre del Artista",
- *        title: "Nombre de la Canción"
- *      },
- *      url: "/music/mi-cancion.mp3"
- *    }
- * 3. ¡Guarda el archivo y listo! Al abrir Winamp en tu portfolio
- *    aparecerán todas tus canciones cargadas en la lista de reproducción.
- * 
- * NOTA: También puedes arrastrar y soltar (drag & drop) cualquier archivo
- * MP3 directamente sobre la ventana de Winamp mientras esté abierto.
- */
 export const WINAMP_PLAYLIST: WinampTrack[] = [
   {
     metaData: {
@@ -38,5 +15,40 @@ export const WINAMP_PLAYLIST: WinampTrack[] = [
     },
     url: "/music/winamp-intro.mp3",
     duration: 5
+  },
+  {
+    metaData: {
+      artist: "Avicii",
+      title: "The Nights"
+    },
+    url: "/music/Avicii - The Nights - AviciiOfficialVEVO.mp3"
+  },
+  {
+    metaData: {
+      artist: "Glass Animals",
+      title: "Heat Waves"
+    },
+    url: "/music/Glass Animals - Heat Waves (Official Video) - GlassAnimalsVEVO.mp3"
+  },
+  {
+    metaData: {
+      artist: "Green Day",
+      title: "Boulevard of Broken Dreams"
+    },
+    url: "/music/Green Day - Boulevard Of Broken Dreams [Official Music Video] [4K Upgrade] - Green Day.mp3"
+  },
+  {
+    metaData: {
+      artist: "Labi Siffre",
+      title: "Cannock Chase"
+    },
+    url: "/music/Labi Siffre - Cannock Chase (Official Lyric Video) - Labi Siffre.mp3"
+  },
+  {
+    metaData: {
+      artist: "WOS",
+      title: "CONTANDO OVEJAS"
+    },
+    url: "/music/WOS - CONTANDO OVEJAS (Concept Video) - WOS DS3.mp3"
   }
 ];

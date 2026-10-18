@@ -1,6 +1,6 @@
-import React, { createContext, useContext, useState, useCallback, useRef } from "react";
+import React, { createContext, useContext, useState, useCallback, useRef, useEffect } from "react";
 
-export type WindowId = "ie" | "projects" | "about" | "cmd" | "contact" | "minesweeper" | "doom" | "pinball" | "paint" | "winamp" | "spider" | "display" | "system";
+export type WindowId = "ie" | "projects" | "about" | "cmd" | "contact" | "minesweeper" | "doom" | "pinball" | "paint" | "winamp" | "spider" | "display" | "system" | "recycle-bin";
 
 export interface WindowState {
   id: WindowId;
@@ -14,10 +14,27 @@ export interface WindowState {
   size: { width: number; height: number };
 }
 
+export interface RecycleBinItem {
+  id: string;
+  name: string;
+  originalLocation: string;
+  dateDeleted: string;
+  size: string;
+  type: string;
+  icon: string;
+}
+
 interface WindowManagerContextType {
   windows: Record<WindowId, WindowState>;
   activeWindowId: WindowId | null;
   startMenuOpen: boolean;
+  recycleBinItems: RecycleBinItem[];
+  restoredDesktopItems: RecycleBinItem[];
+  emptyRecycleBin: () => void;
+  restoreRecycleBinItem: (id: string) => void;
+  restoreAllRecycleBinItems: () => void;
+  deleteDesktopFile: (id: string) => void;
+  createDesktopFile: (name?: string) => void;
   openWindow: (id: WindowId) => void;
   closeWindow: (id: WindowId) => void;
   minimizeWindow: (id: WindowId) => void;
@@ -172,8 +189,31 @@ const DEFAULT_WINDOWS: Record<WindowId, WindowState> = {
     zIndex: 10,
     position: { x: 180, y: 50 },
     size: { width: 440, height: 495 }
+  },
+  "recycle-bin": {
+    id: "recycle-bin",
+    title: "Recycle Bin",
+    iconName: "recycle-bin-full",
+    isOpen: false,
+    isMinimized: false,
+    isMaximized: false,
+    zIndex: 8,
+    position: { x: 190, y: 70 },
+    size: { width: 720, height: 460 }
   }
 };
+
+export const INITIAL_RECYCLE_BIN_ITEMS: RecycleBinItem[] = [
+  {
+    id: "spike",
+    name: "spike.jpg",
+    originalLocation: "C:\\Desktop",
+    dateDeleted: "10/18/2026 04:20 AM",
+    size: "59 KB",
+    type: "JPEG Image",
+    icon: "picture"
+  }
+];
 
 const WindowManagerContext = createContext<WindowManagerContextType | undefined>(undefined);
 
@@ -182,6 +222,71 @@ export const WindowManagerProvider: React.FC<{ children: React.ReactNode }> = ({
   const [activeWindowId, setActiveWindowId] = useState<WindowId | null>("ie");
   const highestZIndexRef = useRef(15);
   const [startMenuOpen, setStartMenuOpen] = useState(false);
+  const [recycleBinItems, setRecycleBinItems] = useState<RecycleBinItem[]>(INITIAL_RECYCLE_BIN_ITEMS);
+  const [restoredDesktopItems, setRestoredDesktopItems] = useState<RecycleBinItem[]>([]);
+
+  useEffect(() => {
+    const isBinFull = recycleBinItems.length > 0;
+    const targetIcon = isBinFull ? "recycle-bin-full" : "recycle-bin-empty";
+    setWindows((curr) => {
+      if (curr["recycle-bin"].iconName === targetIcon) return curr;
+      return {
+        ...curr,
+        "recycle-bin": {
+          ...curr["recycle-bin"],
+          iconName: targetIcon
+        }
+      };
+    });
+  }, [recycleBinItems.length]);
+
+  const emptyRecycleBin = useCallback(() => {
+    setRecycleBinItems([]);
+  }, []);
+
+  const restoreRecycleBinItem = useCallback((id: string) => {
+    setRecycleBinItems((curr) => {
+      const itemToRestore = curr.find((i) => i.id === id);
+      if (itemToRestore) {
+        setRestoredDesktopItems((prev) => [...prev.filter((p) => p.id !== id), itemToRestore]);
+      }
+      return curr.filter((i) => i.id !== id);
+    });
+  }, []);
+
+  const restoreAllRecycleBinItems = useCallback(() => {
+    setRestoredDesktopItems((prev) => {
+      const existingIds = new Set(prev.map((p) => p.id));
+      const newItems = recycleBinItems.filter((i) => !existingIds.has(i.id));
+      return [...prev, ...newItems];
+    });
+    setRecycleBinItems([]);
+  }, [recycleBinItems]);
+
+  const deleteDesktopFile = useCallback((id: string) => {
+    setRestoredDesktopItems((prev) => {
+      const itemToDelete = prev.find((i) => i.id === id);
+      if (itemToDelete) {
+        setRecycleBinItems((curr) => [...curr.filter((c) => c.id !== id), itemToDelete]);
+      }
+      return prev.filter((i) => i.id !== id);
+    });
+  }, []);
+
+  const createDesktopFile = useCallback((name?: string) => {
+    const timestamp = Date.now();
+    const fileName = name || "New Text Document.txt";
+    const newFile: RecycleBinItem = {
+      id: `doc_${timestamp}`,
+      name: fileName,
+      originalLocation: "C:\\Desktop",
+      dateDeleted: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+      size: "1 KB",
+      type: "Text Document",
+      icon: "notepad"
+    };
+    setRestoredDesktopItems((prev) => [...prev, newFile]);
+  }, []);
 
   const focusWindow = useCallback((id: WindowId) => {
     setActiveWindowId(id);
@@ -269,6 +374,13 @@ export const WindowManagerProvider: React.FC<{ children: React.ReactNode }> = ({
         windows,
         activeWindowId,
         startMenuOpen,
+        recycleBinItems,
+        restoredDesktopItems,
+        emptyRecycleBin,
+        restoreRecycleBinItem,
+        restoreAllRecycleBinItems,
+        deleteDesktopFile,
+        createDesktopFile,
         openWindow,
         closeWindow,
         minimizeWindow,

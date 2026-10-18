@@ -23,7 +23,7 @@ export const profile: Profile = {
   bio: "Software developer with a strong foundation in backend architecture, data pipelines, and scalable software systems. Experienced in building robust solutions with Java (Spring Boot), C# (.NET), Python, and SQL, with the versatility to work across the full stack. Driven by solving logical problems, automating workflows, and writing clean, reliable code from the ground up.",
   secondaryBio: "What motivates me the most is the opportunity to work on projects that address real-world issues while pushing the boundaries of innovation.",
   location: "Berlin, Germany",
-  email: "castelloulises1420@gmail.com",
+  email: "ulyssecastello@gmail.com",
   github: "https://github.com/Ulx7",
   linkedin: "https://linkedin.com/in/ulysse-castello",
   status: "Available for full-time opportunities and freelance projects",

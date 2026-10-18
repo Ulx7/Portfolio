@@ -15,6 +15,7 @@ interface DesktopIconProps {
   onSelect: () => void;
   onOpen: () => void;
   onPositionChange: (newPos: Position) => void;
+  onContextMenu?: (e: React.MouseEvent) => void;
 }
 
 export const DesktopIcon: React.FC<DesktopIconProps> = ({
@@ -24,7 +25,8 @@ export const DesktopIcon: React.FC<DesktopIconProps> = ({
   position,
   onSelect,
   onOpen,
-  onPositionChange
+  onPositionChange,
+  onContextMenu
 }) => {
   const [currentPos, setCurrentPos] = useState<Position>(position);
   const [isDragging, setIsDragging] = useState(false);
@@ -32,7 +34,6 @@ export const DesktopIcon: React.FC<DesktopIconProps> = ({
   const lastTapTimeRef = useRef(0);
   const isDraggingRef = useRef(false);
 
-  // Sync with prop when not actively dragging
   useEffect(() => {
     if (!isDraggingRef.current) {
       setCurrentPos(position);
@@ -40,7 +41,6 @@ export const DesktopIcon: React.FC<DesktopIconProps> = ({
   }, [position.x, position.y]);
 
   const handleMouseDown = (e: React.MouseEvent) => {
-    // Only primary button
     if (e.button !== 0) return;
     e.stopPropagation();
 
@@ -172,6 +172,12 @@ export const DesktopIcon: React.FC<DesktopIconProps> = ({
       onTouchStart={handleTouchStart}
       onClick={(e) => e.stopPropagation()}
       onDoubleClick={handleDoubleClick}
+      onContextMenu={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        onSelect();
+        onContextMenu?.(e);
+      }}
       tabIndex={0}
       onKeyDown={(e) => {
         if (e.key === "Enter") onOpen();

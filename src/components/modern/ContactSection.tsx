@@ -48,7 +48,7 @@ export const ContactSection: React.FC = () => {
     if (e) {
       e.preventDefault();
     }
-    navigator.clipboard.writeText("castelloulises1420@gmail.com");
+    navigator.clipboard.writeText(profile.email);
     setCopied(true);
     setTimeout(() => setCopied(false), 2400);
   };

@@ -6,6 +6,7 @@ import { WindowFrame } from "./WindowFrame";
 import { Taskbar } from "./Taskbar";
 import { StartMenu } from "./StartMenu";
 import { XpIcon } from "./XpIcon";
+import { ZoomIn, ZoomOut, RotateCw, RotateCcw, Trash2, Printer, Maximize2, X } from "lucide-react";
 
 import { InternetExplorerWindow } from "./windows/InternetExplorerWindow";
 import { ProjectsExplorerWindow } from "./windows/ProjectsExplorerWindow";
@@ -19,10 +20,11 @@ import { PaintWindow } from "./windows/PaintWindow";
 import { SpiderSolitaireWindow } from "./windows/SpiderSolitaireWindow";
 import { DisplayPropertiesWindow } from "./windows/DisplayPropertiesWindow";
 import { SystemPropertiesWindow } from "./windows/SystemPropertiesWindow";
+import { RecycleBinWindow } from "./windows/RecycleBinWindow";
 import { WinampPlayer } from "./WinampPlayer";
 
 interface ShortcutItem {
-  id: WindowId | "recycle-bin";
+  id: WindowId;
   title: string;
   iconName: string;
 }
@@ -94,11 +96,26 @@ const getInitialPositions = (): Record<string, Position> => {
 };
 
 export const Desktop: React.FC = () => {
-  const { openWindow, closeStartMenu } = useWindowManager();
+  const {
+    openWindow,
+    closeStartMenu,
+    recycleBinItems,
+    restoredDesktopItems,
+    deleteDesktopFile,
+    createDesktopFile,
+    emptyRecycleBin
+  } = useWindowManager();
   const { settings } = useWallpaper();
   const [selectedIconId, setSelectedIconId] = useState<string | null>(null);
   const [positions, setPositions] = useState<Record<string, Position>>(getInitialPositions);
   const [contextMenu, setContextMenu] = useState<{ x: number; y: number } | null>(null);
+  const [iconContextMenu, setIconContextMenu] = useState<{
+    x: number;
+    y: number;
+    id: string;
+    title: string;
+    isRestored?: boolean;
+  } | null>(null);
 
   const wallpaperUrl = getWallpaperUrl(settings);
 
@@ -117,7 +134,6 @@ export const Desktop: React.FC = () => {
       desktopStyle.backgroundRepeat = "repeat";
       desktopStyle.backgroundSize = "auto";
     } else {
-      // stretch
       desktopStyle.backgroundPosition = "center center";
       desktopStyle.backgroundRepeat = "no-repeat";
       desktopStyle.backgroundSize = "cover";
@@ -132,13 +148,11 @@ export const Desktop: React.FC = () => {
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
       } catch {
-        // ignore
       }
       return next;
     });
   };
 
-  // Keep icons within visible bounds on viewport resize
   useEffect(() => {
     const handleResize = () => {
       setPositions((prev) => {
@@ -166,9 +180,25 @@ export const Desktop: React.FC = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Delete" && selectedIconId) {
+        const isRestored = restoredDesktopItems.some((r) => r.id === selectedIconId);
+        if (isRestored) {
+          deleteDesktopFile(selectedIconId);
+          setSelectedIconId(null);
+          setIconContextMenu(null);
+        }
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [selectedIconId, restoredDesktopItems, deleteDesktopFile]);
+
   const handleDesktopContextMenu = (e: React.MouseEvent) => {
     e.preventDefault();
     closeStartMenu();
+    setIconContextMenu(null);
     const menuWidth = 160;
     const menuHeight = 170;
     const x = Math.min(e.clientX, window.innerWidth - menuWidth - 6);
@@ -176,11 +206,73 @@ export const Desktop: React.FC = () => {
     setContextMenu({ x, y });
   };
 
+  const handleIconContextMenu = (
+    e: React.MouseEvent,
+    id: string,
+    title: string,
+    isRestored?: boolean
+  ) => {
+    closeStartMenu();
+    setContextMenu(null);
+    setSelectedIconId(id);
+    const menuWidth = 160;
+    const menuHeight = 140;
+    const x = Math.min(e.clientX, window.innerWidth - menuWidth - 6);
+    const y = Math.min(e.clientY, window.innerHeight - menuHeight - 36);
+    setIconContextMenu({ x, y, id, title, isRestored });
+  };
+
   const handleDesktopClick = () => {
     setSelectedIconId(null);
     closeStartMenu();
     setContextMenu(null);
+    setIconContextMenu(null);
   };
+
+  const [photoViewerOpen, setPhotoViewerOpen] = useState(false);
+  const [photoRotation, setPhotoRotation] = useState(0);
+  const [photoZoom, setPhotoZoom] = useState(1);
+
+  const handleOpenRestoredItem = (id: string, name: string) => {
+    if (id === "spike") {
+      setPhotoRotation(0);
+      setPhotoZoom(1);
+      setPhotoViewerOpen(true);
+    } else if (id.startsWith("doc_") || name.endsWith(".txt")) {
+      openWindow("about");
+    } else if (id === "ie6") {
+      alert("Internet Explorer 6 Setup\n\nSetup has detected that you are already using a modern retro browser environment. No upgrade required!");
+    } else if (id === "clippy") {
+      alert("Clippy Assistant\n\n📎 'Hi there! It looks like you restored me from the Recycle Bin! Would you like help writing a letter, fixing code, or exploring this portfolio?'");
+    } else if (id === "first_web") {
+      openWindow("ie");
+    } else if (id === "dialup") {
+      alert("Dial-Up Networking\n\nConnecting to AOL...\nDialing: 555-0199\nHandshake: Beep... boop... krrrrch... pssssshhhhh...\nConnected at 56,000 bps!");
+    } else if (id === "bugs") {
+      alert("portfolio_bugs_fixed.log\n\n[DIAGNOSTIC REPORT]\n- Total critical bugs: 0\n- Nostalgia factor: 100%\n- Retro audio engine: Operational\n- All systems running smoothly.");
+    } else {
+      alert(`${name}\n\nThis file was restored from the Recycle Bin.`);
+    }
+  };
+
+  const isBinFull = recycleBinItems.length > 0;
+  const recycleBinIconName = isBinFull ? "recycle-bin-full" : "recycle-bin-empty";
+
+  const allShortcuts = [
+    ...DESKTOP_SHORTCUTS.map((item) => ({
+      ...item,
+      iconName: item.id === "recycle-bin" ? recycleBinIconName : item.iconName,
+      isRestored: false,
+      fallbackPos: { x: 14, y: 14 }
+    })),
+    ...restoredDesktopItems.map((item, index) => ({
+      id: item.id,
+      title: item.name,
+      iconName: item.icon,
+      isRestored: true,
+      fallbackPos: { x: 194, y: 14 + index * 84 }
+    }))
+  ];
 
   return (
     <div
@@ -190,23 +282,24 @@ export const Desktop: React.FC = () => {
       onContextMenu={handleDesktopContextMenu}
     >
       <div className="desktop-shortcuts-area">
-        {DESKTOP_SHORTCUTS.map((item) => (
+        {allShortcuts.map((item) => (
           <DesktopIcon
             key={item.id}
             id={item.id}
             title={item.title}
             iconName={item.iconName}
             isSelected={selectedIconId === item.id}
-            position={positions[item.id] || { x: 14, y: 14 }}
+            position={positions[item.id] || item.fallbackPos}
             onSelect={() => setSelectedIconId(item.id)}
             onOpen={() => {
-              if (item.id === "recycle-bin") {
-                alert("The Recycle Bin is empty.");
+              if (item.isRestored) {
+                handleOpenRestoredItem(item.id, item.title);
               } else {
                 openWindow(item.id as WindowId);
               }
             }}
             onPositionChange={(newPos) => handlePositionChange(item.id, newPos)}
+            onContextMenu={(e) => handleIconContextMenu(e, item.id, item.title, item.isRestored)}
           />
         ))}
       </div>
@@ -260,6 +353,10 @@ export const Desktop: React.FC = () => {
           <SystemPropertiesWindow />
         </WindowFrame>
 
+        <WindowFrame id="recycle-bin">
+          <RecycleBinWindow />
+        </WindowFrame>
+
         <WinampPlayer />
       </div>
 
@@ -281,11 +378,13 @@ export const Desktop: React.FC = () => {
             onClick={() => {
               setContextMenu(null);
               const defs = getDefaultPositions();
+              restoredDesktopItems.forEach((item, index) => {
+                defs[item.id] = { x: 194, y: 14 + index * 84 };
+              });
               setPositions(defs);
               try {
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(defs));
               } catch {
-                // ignore
               }
             }}
           >
@@ -318,12 +417,302 @@ export const Desktop: React.FC = () => {
             className="xp-context-menu-item"
             onClick={() => {
               setContextMenu(null);
+              createDesktopFile();
+            }}
+          >
+            <div className="flex items-center gap-2">
+              <XpIcon name="notepad" size={16} />
+              <span>New Text Document</span>
+            </div>
+          </div>
+          <div className="xp-context-menu-sep" />
+          <div
+            className="xp-context-menu-item"
+            onClick={() => {
+              setContextMenu(null);
               openWindow("display");
             }}
           >
             <div className="flex items-center gap-2">
               <XpIcon name="display" size={16} />
               <span style={{ fontWeight: 600 }}>Properties</span>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {iconContextMenu && (
+        <div
+          className="xp-context-menu"
+          style={{ left: iconContextMenu.x, top: iconContextMenu.y }}
+          onClick={(e) => e.stopPropagation()}
+        >
+          {iconContextMenu.id === "recycle-bin" ? (
+            <>
+              <div
+                className="xp-context-menu-item"
+                style={{ fontWeight: 700 }}
+                onClick={() => {
+                  setIconContextMenu(null);
+                  openWindow("recycle-bin");
+                }}
+              >
+                <span>Open</span>
+              </div>
+              <div
+                className={`xp-context-menu-item ${!isBinFull ? "disabled" : ""}`}
+                onClick={() => {
+                  if (isBinFull) {
+                    emptyRecycleBin();
+                  }
+                  setIconContextMenu(null);
+                }}
+              >
+                <span>Empty Recycle Bin</span>
+              </div>
+              <div className="xp-context-menu-sep" />
+              <div
+                className="xp-context-menu-item"
+                onClick={() => {
+                  setIconContextMenu(null);
+                  openWindow("recycle-bin");
+                }}
+              >
+                <div className="flex items-center gap-2">
+                  <XpIcon name={recycleBinIconName} size={16} />
+                  <span>Properties</span>
+                </div>
+              </div>
+            </>
+          ) : iconContextMenu.isRestored ? (
+            <>
+              <div
+                className="xp-context-menu-item"
+                style={{ fontWeight: 700 }}
+                onClick={() => {
+                  setIconContextMenu(null);
+                  handleOpenRestoredItem(iconContextMenu.id, iconContextMenu.title);
+                }}
+              >
+                <span>Open</span>
+              </div>
+              <div
+                className="xp-context-menu-item"
+                onClick={() => {
+                  deleteDesktopFile(iconContextMenu.id);
+                  setIconContextMenu(null);
+                  setSelectedIconId(null);
+                }}
+              >
+                <span>Delete</span>
+              </div>
+              <div className="xp-context-menu-sep" />
+              <div
+                className="xp-context-menu-item"
+                onClick={() => {
+                  setIconContextMenu(null);
+                  alert(`${iconContextMenu.title}\n\nLocation: C:\\Desktop\nStatus: Restored from Recycle Bin`);
+                }}
+              >
+                <span>Properties</span>
+              </div>
+            </>
+          ) : (
+            <>
+              <div
+                className="xp-context-menu-item"
+                style={{ fontWeight: 700 }}
+                onClick={() => {
+                  setIconContextMenu(null);
+                  openWindow(iconContextMenu.id as WindowId);
+                }}
+              >
+                <span>Open</span>
+              </div>
+              <div className="xp-context-menu-sep" />
+              <div
+                className="xp-context-menu-item"
+                onClick={() => {
+                  setIconContextMenu(null);
+                  openWindow("display");
+                }}
+              >
+                <span>Properties</span>
+              </div>
+            </>
+          )}
+        </div>
+      )}
+
+      {photoViewerOpen && (
+        <div
+          className="xp-dialog-backdrop"
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 9999,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            background: "rgba(0, 0, 0, 0.45)"
+          }}
+          onClick={() => setPhotoViewerOpen(false)}
+        >
+          <div
+            className="window"
+            style={{
+              width: "min(560px, 94vw)",
+              background: "#ece9d8",
+              boxShadow: "2px 4px 16px rgba(0,0,0,0.4)"
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="title-bar">
+              <div className="title-bar-text">
+                <XpIcon name="picture" size={14} className="inline mr-1" />
+                <span>spike.jpg - Windows Picture and Fax Viewer</span>
+              </div>
+              <div className="title-bar-controls">
+                <button aria-label="Close" onClick={() => setPhotoViewerOpen(false)} />
+              </div>
+            </div>
+
+            <div
+              className="window-body"
+              style={{
+                margin: 4,
+                padding: 0,
+                display: "flex",
+                flexDirection: "column",
+                background: "#ece9d8"
+              }}
+            >
+              <div
+                style={{
+                  background: "#ffffff",
+                  height: "380px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  overflow: "hidden",
+                  border: "2px solid",
+                  borderColor: "#7f9db9 #ffffff #ffffff #7f9db9",
+                  position: "relative"
+                }}
+              >
+                <img
+                  src="/spike.jpg"
+                  alt="spike.jpg"
+                  style={{
+                    maxHeight: "94%",
+                    maxWidth: "94%",
+                    objectFit: "contain",
+                    transform: `rotate(${photoRotation}deg) scale(${photoZoom})`,
+                    transition: "transform 0.15s ease"
+                  }}
+                  draggable={false}
+                />
+              </div>
+
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: 3,
+                  padding: "6px 12px",
+                  background: "#ece9d8",
+                  borderTop: "1px solid #d4d0c8"
+                }}
+              >
+                <button
+                  type="button"
+                  className="ie-tool-btn"
+                  title="Zoom In (+)"
+                  onClick={() => setPhotoZoom((z) => Math.min(3, z + 0.25))}
+                  style={{ padding: "4px 6px" }}
+                >
+                  <ZoomIn size={16} />
+                </button>
+                <button
+                  type="button"
+                  className="ie-tool-btn"
+                  title="Zoom Out (-)"
+                  onClick={() => setPhotoZoom((z) => Math.max(0.4, z - 0.25))}
+                  style={{ padding: "4px 6px" }}
+                >
+                  <ZoomOut size={16} />
+                </button>
+                <button
+                  type="button"
+                  className="ie-tool-btn"
+                  title="Actual Size / Best Fit"
+                  onClick={() => {
+                    setPhotoZoom(1);
+                    setPhotoRotation(0);
+                  }}
+                  style={{ padding: "4px 6px" }}
+                >
+                  <Maximize2 size={16} />
+                </button>
+
+                <div style={{ width: 1, height: 18, background: "#999488", margin: "0 4px" }} />
+
+                <button
+                  type="button"
+                  className="ie-tool-btn"
+                  title="Rotate Clockwise"
+                  onClick={() => setPhotoRotation((r) => r + 90)}
+                  style={{ padding: "4px 6px" }}
+                >
+                  <RotateCw size={16} />
+                </button>
+                <button
+                  type="button"
+                  className="ie-tool-btn"
+                  title="Rotate Counterclockwise"
+                  onClick={() => setPhotoRotation((r) => r - 90)}
+                  style={{ padding: "4px 6px" }}
+                >
+                  <RotateCcw size={16} />
+                </button>
+
+                <div style={{ width: 1, height: 18, background: "#999488", margin: "0 4px" }} />
+
+                <button
+                  type="button"
+                  className="ie-tool-btn"
+                  title="Delete (sends to Recycle Bin)"
+                  onClick={() => {
+                    deleteDesktopFile("spike");
+                    setPhotoViewerOpen(false);
+                  }}
+                  style={{ padding: "4px 6px" }}
+                >
+                  <Trash2 size={16} className="text-red-600" />
+                </button>
+                <button
+                  type="button"
+                  className="ie-tool-btn"
+                  title="Print"
+                  onClick={() => window.print()}
+                  style={{ padding: "4px 6px" }}
+                >
+                  <Printer size={16} />
+                </button>
+
+                <div style={{ width: 1, height: 18, background: "#999488", margin: "0 4px" }} />
+
+                <button
+                  type="button"
+                  className="ie-tool-btn"
+                  title="Close"
+                  onClick={() => setPhotoViewerOpen(false)}
+                  style={{ padding: "4px 6px" }}
+                >
+                  <X size={16} />
+                </button>
+              </div>
             </div>
           </div>
         </div>
